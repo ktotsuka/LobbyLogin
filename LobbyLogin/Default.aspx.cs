@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Ch18CardLibStandard;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
-
+using System.Threading.Tasks;
 namespace LobbyLogin
 {
     public partial class _Default : Page
@@ -25,7 +25,12 @@ namespace LobbyLogin
             bool valid;
 
             valid = VerifyInputs();
+            if (valid)
+            {
+                Response.Redirect("ThankYou.aspx");
 
+                //Server.Transfer("ThankYou.aspx");
+            }
 
 
             //Debug.WriteLine("kenji: in submit click");
