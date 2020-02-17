@@ -40,6 +40,15 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorGuestName;
         
         /// <summary>
+        /// Employees control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Employees;
+        
+        /// <summary>
         /// dealHandButton control.
         /// </summary>
         /// <remarks>

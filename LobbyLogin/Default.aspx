@@ -23,6 +23,16 @@
                 </asp:RequiredFieldValidator>
             </asp:TableCell>
         </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell>
+            <asp:TableCell>
+                <asp:DropDownList ID="Employees" runat="server">
+                    <asp:ListItem Text="Kenji Totsuka"></asp:ListItem>
+                    <asp:ListItem Text="Trung Hoang"></asp:ListItem>
+                </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+
     </asp:Table>
     <br />
     <asp:Button ID="dealHandButton" runat="server" Text="Submit" 
