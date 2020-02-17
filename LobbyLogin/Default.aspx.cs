@@ -13,6 +13,8 @@ namespace LobbyLogin
 {
     public partial class _Default : Page
     {
+        public const int MaxTextLength = 50;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,6 +22,12 @@ namespace LobbyLogin
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
+            bool valid;
+
+            valid = VerifyInputs();
+
+
+
             //Debug.WriteLine("kenji: in submit click");
 
 
@@ -47,6 +55,45 @@ namespace LobbyLogin
 
             //    }
             //}
+        }
+
+        private bool VerifyInputs()
+        {
+            //Style style = new Style();
+
+            if ((firstName.Text == "")
+                ||
+                (lastName.Text == "")
+                ||
+                (companyName.Text == ""))
+            {
+                //style.ForeColor = System.Drawing.Color.Red;
+                //style.BackColor = System.Drawing.Color.Red;
+                //submitErrorMessage.ApplyStyle(style);
+                submitErrorMessage.Text = "All required fields need to be filled";
+                //submitErrorMessage.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+            else if ((firstName.Text.Length > MaxTextLength)
+                     ||
+                     (lastName.Text.Length > MaxTextLength)
+                     ||
+                     (companyName.Text.Length > MaxTextLength))
+            {
+                //style.ForeColor = System.Drawing.Color.Red;
+                //submitErrorMessage.ApplyStyle(style);
+                submitErrorMessage.Text = "Text exceeded max number of characters";
+                //submitErrorMessage.ForeColor = System.Drawing.Color.Red;
+
+                return false;
+            }
+            else
+            {
+                //style.ForeColor = System.Drawing.Color.Black;
+                //submitErrorMessage.ApplyStyle(style);
+                submitErrorMessage.Text = "";
+                return true;
+            }
         }
     }
 }

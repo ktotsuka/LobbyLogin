@@ -22,7 +22,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell>Company name (required)</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Company name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:TextBox ID="companyName" runat="server" />
             </asp:TableCell>
@@ -40,16 +40,21 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell><asp:TableCell>
+            <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell>
+            <asp:TableCell>
                 <asp:DropDownList ID="employees" runat="server">
                     <asp:ListItem Text="Kenji Totsuka"></asp:ListItem>
                     <asp:ListItem Text="Trung Hoang"></asp:ListItem>
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" />
+            </asp:TableCell>
+            <asp:TableHeaderCell ID="submitErrorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+        </asp:TableRow>
     </asp:Table>
     <br />
-    <asp:Button ID="submitButton" runat="server" Text="Submit" 
-        OnClick="SubmitButton_Click" />
-    <br />
+
 </asp:Content>
