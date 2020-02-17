@@ -40,39 +40,21 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorGuestName;
         
         /// <summary>
-        /// Employees control.
+        /// employees control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Employees;
+        protected global::System.Web.UI.WebControls.DropDownList employees;
         
         /// <summary>
-        /// dealHandButton control.
+        /// submitButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button dealHandButton;
-        
-        /// <summary>
-        /// dealtHandLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label dealtHandLabel;
-        
-        /// <summary>
-        /// dealtHandsTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table dealtHandsTable;
+        protected global::System.Web.UI.WebControls.Button submitButton;
     }
 }
