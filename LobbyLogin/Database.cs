@@ -9,7 +9,7 @@ namespace LobbyLogin
 {
     public class Visit
     {
-        public string Visitor { get; set; }
+        public string Guest { get; set; }
         public string Employee { get; set; }
         public DateTime Time { get; set; }
         [Key] public int Code { get; set; }

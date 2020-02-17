@@ -20,41 +20,33 @@ namespace LobbyLogin
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            Debug.Print("kenji: in submit click");
+            Debug.WriteLine("kenji: in submit click");
 
 
-            //using (var db = new VisitContext())
-            //{
-                Visit visit = new Visit();
-                visit.Visitor = guestName.Text;
-                visit.Employee = employees.Text;
-                visit.Time = DateTime.Now;
+            using (var db = new VisitContext())
+            {
+                Visit visit = new Visit
+                {
+                    Guest = guestName.Text,
+                    Employee = employees.Text,
+                    Time = DateTime.Now
+                };
+
+                db.Visits.Add(visit);
+                db.SaveChanges();
+
+                var query = from b in db.Visits
+                            orderby b.Employee
+                            select b;
+                Debug.WriteLine("All visits in the database:");
+                foreach (var b in query)
+                {
+                    Debug.WriteLine(string.Format($"{b.Employee} was visited by {b.Guest} on {b.Time}"));
 
 
 
-                //{
-                //    Title = "Beginning C# 7",
-                //    Author = "Perkins, Reid, and Hammer"
-                //};
-                //db.Books.Add(book1);
-                //Book book2 = new Book
-                //{
-                //    Title = "Beginning XML",
-                //    Author = "Fawcett, Quin, and Ayers"
-                //};
-                //db.Books.Add(book2);
-                //db.SaveChanges();
-                //var query = from b in db.Books
-                //            orderby b.Title
-                //            select b;
-                //WriteLine("All books in the database:");
-                //foreach (var b in query)
-                //{
-                //    WriteLine($"{b.Title} by {b.Author}, code={b.Code}");
-                //}
-                //WriteLine("Press a key to exit...");
-                //ReadKey();
-                // }
+                }
+            }
         }
     }
 }
