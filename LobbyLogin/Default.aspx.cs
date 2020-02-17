@@ -20,33 +20,33 @@ namespace LobbyLogin
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("kenji: in submit click");
+            //Debug.WriteLine("kenji: in submit click");
 
 
-            using (var db = new VisitContext())
-            {
-                Visit visit = new Visit
-                {
-                    Guest = guestName.Text,
-                    Employee = employees.Text,
-                    Time = DateTime.Now
-                };
+            //using (var db = new VisitContext())
+            //{
+            //    Visit visit = new Visit
+            //    {
+            //        Guest = guestName.Text,
+            //        Employee = employees.Text,
+            //        Time = DateTime.Now
+            //    };
 
-                db.Visits.Add(visit);
-                db.SaveChanges();
+            //    db.Visits.Add(visit);
+            //    db.SaveChanges();
 
-                var query = from b in db.Visits
-                            orderby b.Employee
-                            select b;
-                Debug.WriteLine("All visits in the database:");
-                foreach (var b in query)
-                {
-                    Debug.WriteLine(string.Format($"{b.Employee} was visited by {b.Guest} on {b.Time}"));
+            //    var query = from b in db.Visits
+            //                orderby b.Employee
+            //                select b;
+            //    Debug.WriteLine("All visits in the database:");
+            //    foreach (var b in query)
+            //    {
+            //        Debug.WriteLine(string.Format($"{b.Employee} was visited by {b.Guest} on {b.Time}"));
 
 
 
-                }
-            }
+            //    }
+            //}
         }
     }
 }

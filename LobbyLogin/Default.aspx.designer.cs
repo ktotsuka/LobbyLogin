@@ -13,6 +13,15 @@ namespace LobbyLogin {
     public partial class _Default {
         
         /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+        
+        /// <summary>
         /// cardGameTable control.
         /// </summary>
         /// <remarks>
@@ -22,22 +31,49 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.Table cardGameTable;
         
         /// <summary>
-        /// guestName control.
+        /// firstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox guestName;
+        protected global::System.Web.UI.WebControls.TextBox firstName;
         
         /// <summary>
-        /// RequiredFieldValidatorGuestName control.
+        /// lastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorGuestName;
+        protected global::System.Web.UI.WebControls.TextBox lastName;
+        
+        /// <summary>
+        /// companyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox companyName;
+        
+        /// <summary>
+        /// emailAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox emailAddress;
+        
+        /// <summary>
+        /// phoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox phoneNumber;
         
         /// <summary>
         /// employees control.
