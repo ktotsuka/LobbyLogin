@@ -22,40 +22,22 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.Table cardGameTable;
         
         /// <summary>
-        /// player1TextBox control.
+        /// guestName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox player1TextBox;
+        protected global::System.Web.UI.WebControls.TextBox guestName;
         
         /// <summary>
-        /// player2TextBox control.
+        /// RequiredFieldValidatorGuestName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox player2TextBox;
-        
-        /// <summary>
-        /// RequiredFieldValidatorplayer1TextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorplayer1TextBox;
-        
-        /// <summary>
-        /// RequiredFieldValidatorplayer2TextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorplayer2TextBox;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorGuestName;
         
         /// <summary>
         /// dealHandButton control.
