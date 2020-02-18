@@ -44,22 +44,21 @@
             <asp:TableCell>
                 <asp:Button ID="addEmployeeButton" runat="server" Text="Add an employee" OnClick="AddEmployeeButton_Click" />
             </asp:TableCell>
+            <asp:TableHeaderCell ID="addEmployeeErrorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
     <hr />
     <asp:Table ID="RemoveEmployeeTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:DropDownList ID="employees" runat="server">
-                    <asp:ListItem Text="Kenji Totsuka"></asp:ListItem>
-                    <asp:ListItem Text="Trung Hoang"></asp:ListItem>
-                </asp:DropDownList>
+                <asp:DropDownList ID="EmployeesDropDownList" runat="server"></asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
                 <asp:Button ID="removeEmployeeButton" runat="server" Text="Remove an employee" OnClick="RemoveEmployeeButton_Click" />
             </asp:TableCell>
+            <asp:TableHeaderCell ID="removeEmployeeMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
 </asp:Content>

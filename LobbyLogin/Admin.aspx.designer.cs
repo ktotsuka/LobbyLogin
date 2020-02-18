@@ -148,6 +148,15 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.Button addEmployeeButton;
         
         /// <summary>
+        /// addEmployeeErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell addEmployeeErrorMessage;
+        
+        /// <summary>
         /// RemoveEmployeeTable control.
         /// </summary>
         /// <remarks>
@@ -157,13 +166,13 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.Table RemoveEmployeeTable;
         
         /// <summary>
-        /// employees control.
+        /// EmployeesDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList employees;
+        protected global::System.Web.UI.WebControls.DropDownList EmployeesDropDownList;
         
         /// <summary>
         /// removeEmployeeButton control.
@@ -173,5 +182,14 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button removeEmployeeButton;
+        
+        /// <summary>
+        /// removeEmployeeMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell removeEmployeeMessage;
     }
 }
