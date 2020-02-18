@@ -12,32 +12,32 @@
         <asp:TableRow>
             <asp:TableHeaderCell>First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="firstName" runat="server" />
+                <asp:TextBox ID="firstName" runat="server" MaxLength="50"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" />
+                <asp:TextBox ID="lastName" runat="server" MaxLength="50"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Company name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="companyName" runat="server" />
+                <asp:TextBox ID="companyName" runat="server" MaxLength="50"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Email address</asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="emailAddress" runat="server" />
+                <asp:TextBox ID="emailAddress" runat="server" MaxLength="50"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Phone number</asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="phoneNumber" runat="server" />
+                <asp:TextBox ID="phoneNumber" runat="server" MaxLength="50"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell><asp:TableCell>
-                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Width="300">
+                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Width="400">
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>

@@ -47,8 +47,8 @@ namespace LobbyLogin
 
         protected void AddEmployeeButton_Click(object sender, EventArgs e)
         {
-            if (VerifyAddEmployeeInputs())
-            {
+            //if (VerifyAddEmployeeInputs())
+            //{
                 using (var db = new VisitContext())
                 {
                     Employee new_employee = new Employee
@@ -59,21 +59,21 @@ namespace LobbyLogin
                         CellPhoneNumber = cellPhoneNumber.Text.Trim()
                     };
 
-                    var employee_query = db.Employees.Where(b => b.EmailAddress == new_employee.EmailAddress);
-                    if (employee_query.Count() != 0)
-                    {
-                        addEmployeeErrorMessage.Text = "Can't add an employee.  Duplicate email address!";
-                    }
-                    else
-                    {
+                    //var employee_query = db.Employees.Where(b => b.EmailAddress == new_employee.EmailAddress);
+                    //if (employee_query.Count() != 0)
+                    //{
+                    //    addEmployeeErrorMessage.Text = "Can't add an employee.  Duplicate email address!";
+                    //}
+                    //else
+                    //{
                         db.Employees.Add(new_employee);
                         db.SaveChanges();
 
                         UpdateEmployeeList();
                         UpdateDropDownList();
-                    }
+                    //}
                 }
-            };
+            //};
         }
 
         private void UpdateEmployeeList()
@@ -126,7 +126,7 @@ namespace LobbyLogin
             }
         }
 
-        private bool IsValidEmail(string email_address)
+        public static bool IsValidEmail(string email_address)
         {
             try
             {

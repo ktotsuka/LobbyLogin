@@ -50,80 +50,72 @@ namespace LobbyLogin
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            bool valid;
-
-            valid = VerifyInputs();
-            if (valid)
+            if (VerifyInputs())
             {
-                Response.Redirect("ThankYou.aspx");
+                using (var db = new VisitContext())
+                {
+                    Visitor new_visitor = new Visitor
+                    {
+                        FirstName = firstName.Text.Trim(),
+                        LastName = lastName.Text.Trim(),
+                        CompanyName = companyName.Text.Trim(),
+                        EmailAddress = emailAddress.Text.Trim(),
+                        PhoneNumber = phoneNumber.Text.Trim()
+                    };
 
-                //Server.Transfer("ThankYou.aspx");
+                    var duplicate_visitors = db.Visitors.Where
+                        (b => (b.FirstName == new_visitor.FirstName) && (b.LastName == new_visitor.LastName) && (b.CompanyName == new_visitor.CompanyName));
+                    if (duplicate_visitors.Count() != 0)
+                    {
+                        new_visitor = duplicate_visitors.First();
+                    }
+                    else
+                    {
+                        db.Visitors.Add(new_visitor);
+                        db.SaveChanges();
+                    }
+
+                    Visit visit = new Visit
+                    {
+                        Visitor = new_visitor,
+                        Employee = Employees[EmployeesDropDownList.SelectedIndex],
+                        Time = DateTime.Now
+                    };
+
+
+
+                    db.Visits.Add(visit);
+                    db.SaveChanges();
+                }
+
+                Response.Redirect("ThankYou.aspx");
             }
 
 
             //Debug.WriteLine("kenji: in submit click");
 
 
-            //using (var db = new VisitContext())
-            //{
-            //    Visit visit = new Visit
-            //    {
-            //        Guest = guestName.Text,
-            //        Employee = employees.Text,
-            //        Time = DateTime.Now
-            //    };
 
-            //    db.Visits.Add(visit);
-            //    db.SaveChanges();
-
-            //    var query = from b in db.Visits
-            //                orderby b.Employee
-            //                select b;
-            //    Debug.WriteLine("All visits in the database:");
-            //    foreach (var b in query)
-            //    {
-            //        Debug.WriteLine(string.Format($"{b.Employee} was visited by {b.Guest} on {b.Time}"));
-
-
-
-            //    }
-            //}
         }
 
         private bool VerifyInputs()
         {
-            //Style style = new Style();
-
             if ((firstName.Text == "")
                 ||
                 (lastName.Text == "")
                 ||
                 (companyName.Text == ""))
             {
-                //style.ForeColor = System.Drawing.Color.Red;
-                //style.BackColor = System.Drawing.Color.Red;
-                //submitErrorMessage.ApplyStyle(style);
                 submitErrorMessage.Text = "All required fields need to be filled";
-                //submitErrorMessage.ForeColor = System.Drawing.Color.Red;
                 return false;
             }
-            else if ((firstName.Text.Length > MaxTextLength)
-                     ||
-                     (lastName.Text.Length > MaxTextLength)
-                     ||
-                     (companyName.Text.Length > MaxTextLength))
+            if (!LogIn.IsValidEmail(emailAddress.Text))
             {
-                //style.ForeColor = System.Drawing.Color.Red;
-                //submitErrorMessage.ApplyStyle(style);
-                submitErrorMessage.Text = "Text exceeded max number of characters";
-                //submitErrorMessage.ForeColor = System.Drawing.Color.Red;
-
+                submitErrorMessage.Text = "Invalid email address";
                 return false;
             }
             else
             {
-                //style.ForeColor = System.Drawing.Color.Black;
-                //submitErrorMessage.ApplyStyle(style);
                 submitErrorMessage.Text = "";
                 return true;
             }

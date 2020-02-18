@@ -9,8 +9,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "LobbyLogin.VisitContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(LobbyLogin.VisitContext context)
