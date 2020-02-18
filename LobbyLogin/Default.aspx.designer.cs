@@ -76,13 +76,13 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.TextBox phoneNumber;
         
         /// <summary>
-        /// employees control.
+        /// EmployeesDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList employees;
+        protected global::System.Web.UI.WebControls.DropDownList EmployeesDropDownList;
         
         /// <summary>
         /// submitButton control.

@@ -14,10 +14,38 @@ namespace LobbyLogin
     public partial class _Default : Page
     {
         public const int MaxTextLength = 50;
+        public List<Employee> Employees { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Employees = new List<Employee>();
+            UpdateEmployeeList();
+            UpdateDropDownList();
+        }
 
+        private void UpdateEmployeeList()
+        {
+            Employees.Clear();
+            using (var db = new VisitContext())
+            {
+                var query = from b in db.Employees
+                            orderby b.LastName
+                            select b;
+                foreach (var b in query)
+                {
+                    Employees.Add(b);
+                }
+            }
+        }
+
+        private void UpdateDropDownList()
+        {
+            EmployeesDropDownList.Items.Clear();
+            foreach (var emp in Employees)
+            {
+                string employee = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                EmployeesDropDownList.Items.Add(employee);
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)

@@ -19,25 +19,25 @@
         <asp:TableRow>
             <asp:TableHeaderCell ID="firstNameLabel">First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="firstName" runat="server"/>
+                <asp:TextBox ID="firstName" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell ID="lastNameLabel">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" />
+                <asp:TextBox ID="lastName" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell ID="emailAddressLabel">Email address <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="emailAddress" runat="server" />
+                <asp:TextBox ID="emailAddress" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell ID="cellPhoneNumberLabel">Cell phone number <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="cellPhoneNumber" runat="server" />
+                <asp:TextBox ID="cellPhoneNumber" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

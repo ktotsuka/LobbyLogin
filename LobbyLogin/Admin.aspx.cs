@@ -53,10 +53,10 @@ namespace LobbyLogin
                 {
                     Employee new_employee = new Employee
                     {
-                        FirstName = firstName.Text,
-                        LastName = lastName.Text,
-                        EmailAddress = emailAddress.Text,
-                        CellPhoneNumber = cellPhoneNumber.Text
+                        FirstName = firstName.Text.Trim(),
+                        LastName = lastName.Text.Trim(),
+                        EmailAddress = emailAddress.Text.Trim(),
+                        CellPhoneNumber = cellPhoneNumber.Text.Trim()
                     };
 
                     var employee_query = db.Employees.Where(b => b.EmailAddress == new_employee.EmailAddress);
@@ -69,15 +69,7 @@ namespace LobbyLogin
                         db.Employees.Add(new_employee);
                         db.SaveChanges();
 
-                        var query = from b in db.Employees
-                                    orderby b.LastName
-                                    select b;
-                        Debug.WriteLine("All employees in the database:");
-                        foreach (var b in query)
-                        {
-                            Debug.WriteLine(string.Format($"Employee: {b.FirstName} {b.LastName}, email = {b.EmailAddress}, cell phone = {b.CellPhoneNumber}"));
-                            Employees.Add(b);
-                        }
+                        UpdateEmployeeList();
                         UpdateDropDownList();
                     }
                 }
@@ -104,8 +96,8 @@ namespace LobbyLogin
             EmployeesDropDownList.Items.Clear();
             foreach (var emp in Employees)
             {
-                string employee_full_name = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
-                EmployeesDropDownList.Items.Add(employee_full_name);
+                string employee = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                EmployeesDropDownList.Items.Add(employee);
             }
         }
 
@@ -122,21 +114,28 @@ namespace LobbyLogin
                 addEmployeeErrorMessage.Text = "All required fields need to be filled";
                 return false;
             }
-            else if ((firstName.Text.Length > MaxTextLength)
-                     ||
-                     (lastName.Text.Length > MaxTextLength)
-                     ||
-                     (emailAddress.Text.Length > MaxTextLength)
-                     ||
-                     (cellPhoneNumber.Text.Length > MaxTextLength))
+            else if (!IsValidEmail(emailAddress.Text))
             {
-                submitErrorMessage.Text = "Text exceeded max number of characters";
+                addEmployeeErrorMessage.Text = "Invalid email address";
                 return false;
             }
             else
             {
                 submitErrorMessage.Text = "";
                 return true;
+            }
+        }
+
+        private bool IsValidEmail(string email_address)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email_address);
+                return addr.Address == email_address;
+            }
+            catch
+            {
+                return false;
             }
         }
 

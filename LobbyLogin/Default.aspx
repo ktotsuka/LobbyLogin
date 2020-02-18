@@ -37,9 +37,7 @@
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell><asp:TableCell>
-                <asp:DropDownList ID="employees" runat="server">
-                    <asp:ListItem Text="Kenji Totsuka"></asp:ListItem>
-                    <asp:ListItem Text="Trung Hoang"></asp:ListItem>
+                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Width="300">
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>
