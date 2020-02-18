@@ -10,7 +10,7 @@
     <asp:Table ID="cardGameTable" runat="server">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:Button ID="backButton" runat="server" Text="Back to guest signin" OnClick="BackButton_Click" />
+                <asp:Button ID="backButton" runat="server" Text="Back to guest sign-in" OnClick="BackButton_Click" />
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
