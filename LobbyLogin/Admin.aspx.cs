@@ -47,33 +47,34 @@ namespace LobbyLogin
 
         protected void AddEmployeeButton_Click(object sender, EventArgs e)
         {
-            //if (VerifyAddEmployeeInputs())
-            //{
+            if (VerifyAddEmployeeInputs())
+            {
                 using (var db = new VisitContext())
                 {
                     Employee new_employee = new Employee
                     {
                         FirstName = firstName.Text.Trim(),
                         LastName = lastName.Text.Trim(),
-                        EmailAddress = emailAddress.Text.Trim(),
+                        EmailAddress = emailAddress.Text.ToLower().Trim(),
                         CellPhoneNumber = cellPhoneNumber.Text.Trim()
                     };
 
-                    //var employee_query = db.Employees.Where(b => b.EmailAddress == new_employee.EmailAddress);
-                    //if (employee_query.Count() != 0)
-                    //{
-                    //    addEmployeeErrorMessage.Text = "Can't add an employee.  Duplicate email address!";
-                    //}
-                    //else
-                    //{
+                    try
+                    {
                         db.Employees.Add(new_employee);
                         db.SaveChanges();
+                    }
+                    catch
+                    {
+                        addEmployeeErrorMessage.Text = "Can't add an employee.  Duplicate email address!";
+                        return;
+                    }
 
-                        UpdateEmployeeList();
-                        UpdateDropDownList();
-                    //}
+                    addEmployeeErrorMessage.Text = $"Added: {new_employee.FirstName} {new_employee.LastName}, {new_employee.EmailAddress}, {new_employee.CellPhoneNumber}";
+                    UpdateEmployeeList();
+                    UpdateDropDownList();
                 }
-            //};
+            };
         }
 
         private void UpdateEmployeeList()

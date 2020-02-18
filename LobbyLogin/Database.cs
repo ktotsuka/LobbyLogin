@@ -13,7 +13,6 @@ namespace LobbyLogin
         public string LastName { get; set; }
         [Key] public string EmailAddress { get; set; }
         public string CellPhoneNumber { get; set; }
-        //[Key] public int Code { get; set; }
     }
 
     public class Visitor
