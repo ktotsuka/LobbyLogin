@@ -52,50 +52,49 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
-                using (var db = new VisitContext())
+                Visitor new_visitor = new Visitor
                 {
-                    Visitor new_visitor = new Visitor
-                    {
-                        FirstName = firstName.Text.Trim(),
-                        LastName = lastName.Text.Trim(),
-                        CompanyName = companyName.Text.Trim(),
-                        EmailAddress = emailAddress.Text.Trim(),
-                        PhoneNumber = phoneNumber.Text.Trim()
-                    };
+                    FirstName = firstName.Text.Trim(),
+                    LastName = lastName.Text.Trim(),
+                    CompanyName = companyName.Text.Trim(),
+                    EmailAddress = emailAddress.Text.Trim(),
+                    PhoneNumber = phoneNumber.Text.Trim(),
+                    Id = firstName.Text.Trim() + lastName.Text.Trim() + companyName.Text.Trim()
+                };
+                TryAddVisitorToDatabase(new_visitor);
 
-                    var duplicate_visitors = db.Visitors.Where
-                        (b => (b.FirstName == new_visitor.FirstName) && (b.LastName == new_visitor.LastName) && (b.CompanyName == new_visitor.CompanyName));
-                    if (duplicate_visitors.Count() != 0)
-                    {
-                        new_visitor = duplicate_visitors.First();
-                    }
-                    else
-                    {
-                        db.Visitors.Add(new_visitor);
-                        db.SaveChanges();
-                    }
-
-                    Visit visit = new Visit
-                    {
-                        Visitor = new_visitor,
-                        Employee = Employees[EmployeesDropDownList.SelectedIndex],
-                        Time = DateTime.Now
-                    };
-
-
-
-                    db.Visits.Add(visit);
-                    db.SaveChanges();
-                }
+                Visit new_visit = new Visit
+                {
+                    Visitor = new_visitor,
+                    Employee = Employees[EmployeesDropDownList.SelectedIndex],
+                    Time = DateTime.Now
+                };
+                AddVisitToDatabase(new_visit);             
 
                 Response.Redirect("ThankYou.aspx");
             }
+        }
 
+        private void TryAddVisitorToDatabase(Visitor new_visitor)
+        {
+            using (var db = new VisitContext())
+            {
+                var duplicate_visitors = db.Visitors.Where(b => b.Id == new_visitor.Id);
+                if (duplicate_visitors.Count() == 0)
+                {
+                    db.Visitors.Add(new_visitor);
+                    db.SaveChanges();
+                }
+            }
+        }
 
-            //Debug.WriteLine("kenji: in submit click");
-
-
-
+        private void AddVisitToDatabase(Visit new_visit)
+        {
+            using (var db = new VisitContext())
+            {
+                db.Visits.Add(new_visit);
+                db.SaveChanges();
+            }
         }
 
         private bool VerifyInputs()

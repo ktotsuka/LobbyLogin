@@ -172,7 +172,9 @@
     <Content Include="Site.Master" />
     <Content Include="ThankYou.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
@@ -210,9 +212,9 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002182103329_init.cs" />
-    <Compile Include="Migrations\202002182103329_init.designer.cs">
-      <DependentUpon>202002182103329_init.cs</DependentUpon>
+    <Compile Include="Migrations\202002191549301_Initial.cs" />
+    <Compile Include="Migrations\202002191549301_Initial.designer.cs">
+      <DependentUpon>202002191549301_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,8 +263,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002182103329_init.resx">
-      <DependentUpon>202002182103329_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002191549301_Initial.resx">
+      <DependentUpon>202002191549301_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

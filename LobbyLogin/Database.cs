@@ -11,8 +11,10 @@ namespace LobbyLogin
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Key] public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; }
         public string CellPhoneNumber { get; set; }
+        public string Id { get; set; }
+        [Key] public int Code { get; set; }
     }
 
     public class Visitor
@@ -22,13 +24,14 @@ namespace LobbyLogin
         public string CompanyName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
+        public string Id { get; set; }
         [Key] public int Code { get; set; }
     }
 
     public class Visit
     {
-        public virtual Visitor Visitor { get; set; }
-        public virtual Employee Employee { get; set; }
+        public Visitor Visitor { get; set; }
+        public Employee Employee { get; set; }
         public DateTime Time { get; set; }
         [Key] public int Code { get; set; }
     }
