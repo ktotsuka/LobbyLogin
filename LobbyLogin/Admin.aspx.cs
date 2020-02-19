@@ -21,8 +21,6 @@ namespace LobbyLogin
             Visitors = new List<Visitor>();
             UpdateEmployeeList();
             UpdateVisitorList();
-            UpdateEmployeeDropDownList();
-            UpdateVisitorDropDownList();
         }
 
         protected void AdminPasswordSubmitButton_Click(object sender, EventArgs e)
@@ -35,6 +33,9 @@ namespace LobbyLogin
                 AddEmployeeTable.Visible = true;
                 RemoveEmployeeTable.Visible = true;
                 RemoveVisitorTable.Visible = true;
+
+                UpdateEmployeeDropDownList();
+                UpdateVisitorDropDownList();
             }
             else
             {
@@ -178,7 +179,7 @@ namespace LobbyLogin
 
             using (var db = new VisitContext())
             {
-                Employee employee_to_remove = (Employee)db.Employees.Where(b => b.EmailAddress == selected_employee.EmailAddress).First();
+                Employee employee_to_remove = (Employee)db.Employees.Where(b => b.Id == selected_employee.Id).First();
                 db.Employees.Remove(employee_to_remove);
                 db.SaveChanges();
                 removeEmployeeMessage.Text = $"Removed: {employee_to_remove.FirstName} {employee_to_remove.LastName}, {employee_to_remove.EmailAddress}, {employee_to_remove.CellPhoneNumber}";
