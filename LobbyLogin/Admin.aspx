@@ -75,6 +75,19 @@
             <asp:TableHeaderCell ID="removeVisitorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
+        <asp:Table ID="RemoveVisitTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:DropDownList ID="VisitsDropDownList" runat="server"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="removeVisitButton" runat="server" Text="Remove a visit" OnClick="RemoveVisitButton_Click" />
+            </asp:TableCell>
+            <asp:TableHeaderCell ID="removeVisitMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+        </asp:TableRow>
+    </asp:Table>
     <hr />
 
 </asp:Content>

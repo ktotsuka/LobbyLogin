@@ -93,6 +93,8 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 db.Visits.Add(new_visit);
+                db.Entry(new_visit.Employee).State = EntityState.Unchanged;
+                db.Entry(new_visit.Visitor).State = EntityState.Unchanged;
                 db.SaveChanges();
             }
         }

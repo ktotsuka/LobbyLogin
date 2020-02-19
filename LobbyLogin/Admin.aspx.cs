@@ -14,13 +14,16 @@ namespace LobbyLogin
         public const int MaxTextLength = 50;
         public List<Employee> Employees { get; set; }
         public List<Visitor> Visitors { get; set; }
+        public List<Visit> Visits { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Employees = new List<Employee>();
             Visitors = new List<Visitor>();
+            Visits = new List<Visit>();
             UpdateEmployeeList();
             UpdateVisitorList();
+            UpdateVisitList();
         }
 
         protected void AdminPasswordSubmitButton_Click(object sender, EventArgs e)
@@ -33,9 +36,11 @@ namespace LobbyLogin
                 AddEmployeeTable.Visible = true;
                 RemoveEmployeeTable.Visible = true;
                 RemoveVisitorTable.Visible = true;
+                RemoveVisitTable.Visible = true;
 
                 UpdateEmployeeDropDownList();
                 UpdateVisitorDropDownList();
+                UpdateVisitDropDownList();
             }
             else
             {
@@ -105,6 +110,21 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateVisitList()
+        {
+            Visits.Clear();
+            using (var db = new VisitContext())
+            {
+                var query = from b in db.Visits
+                            orderby b.Employee.LastName
+                            select b;
+                foreach (var b in query)
+                {
+                    Visits.Add(b);
+                }
+            }
+        }
+
         private void UpdateEmployeeDropDownList()
         {
             EmployeesDropDownList.Items.Clear();
@@ -122,6 +142,16 @@ namespace LobbyLogin
             {
                 string visitor_info = $"{visitor.FirstName} {visitor.LastName}, {visitor.CompanyName}, {visitor.EmailAddress}, {visitor.PhoneNumber}";
                 VisitorsDropDownList.Items.Add(visitor_info);
+            }
+        }
+
+        private void UpdateVisitDropDownList()
+        {
+            VisitsDropDownList.Items.Clear();
+            foreach (var visit in Visits)
+            {
+                string visit_info = $"{visit.Employee.FirstName} {visit.Employee.LastName} was visited by {visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} on {visit.Time}";
+                VisitsDropDownList.Items.Add(visit_info);
             }
         }
 
@@ -204,13 +234,38 @@ namespace LobbyLogin
 
             using (var db = new VisitContext())
             {
-                Employee employee_to_remove = (Employee)db.Employees.Where(b => b.EmailAddress == selected_visitor.EmailAddress).First();
-                db.Employees.Remove(employee_to_remove);
+                Visitor visitor_to_remove = (Visitor)db.Visitors.Where(b => b.Id == selected_visitor.Id).First();
+                db.Visitors.Remove(visitor_to_remove);
                 db.SaveChanges();
-                removeEmployeeMessage.Text = $"Removed: {employee_to_remove.FirstName} {employee_to_remove.LastName}, {employee_to_remove.EmailAddress}, {employee_to_remove.CellPhoneNumber}";
+                removeVisitorMessage.Text = $"Removed: {visitor_to_remove.FirstName} {visitor_to_remove.LastName}, {visitor_to_remove.CompanyName}";
             }
-            UpdateEmployeeList();
-            UpdateEmployeeDropDownList();
+            UpdateVisitorList();
+            UpdateVisitorDropDownList();
+        }
+
+        protected void RemoveVisitButton_Click(object sender, EventArgs e)
+        {
+            //Visit selected_visit;
+
+            //try
+            //{
+            //    selected_visit = Visits[VisitsDropDownList.SelectedIndex];
+            //}
+            //catch
+            //{
+            //    removeVisitMessage.Text = "No visit selected";
+            //    return;
+            //}
+
+            //using (var db = new VisitContext())
+            //{
+            //    Visit visit_to_remove = (Visit)db.Visits.Where(b => b.Id == selected_visitor.Id).First();
+            //    db.Visits.Remove(visitor_to_remove);
+            //    db.SaveChanges();
+            //    removeVisitorMessage.Text = $"Removed: {visitor_to_remove.FirstName} {visitor_to_remove.LastName}, {visitor_to_remove.CompanyName}";
+            //}
+            //UpdateVisitList();
+            //UpdateVisitDropDownList();
         }
     }
 }
