@@ -14,13 +14,13 @@ namespace LobbyLogin
     public partial class _Default : Page
     {
         public const int MaxTextLength = 50;
-        public List<Employee> Employees { get; set; }
+        public List<EmployeeWrapper> Employees { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Employees = new List<Employee>();
+            Employees = new List<EmployeeWrapper>();
             UpdateEmployeeList();
-            UpdateDropDownList();
+            UpdateEmployeeDropDownList();
         }
 
         private void UpdateEmployeeList()
@@ -29,7 +29,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Employees
-                            orderby b.LastName
+                            orderby b.Employee.LastName
                             select b;
                 foreach (var b in query)
                 {
@@ -38,13 +38,20 @@ namespace LobbyLogin
             }
         }
 
-        private void UpdateDropDownList()
+        private void UpdateEmployeeDropDownList()
         {
+            int selected = EmployeesDropDownList.SelectedIndex;
             EmployeesDropDownList.Items.Clear();
-            foreach (var emp in Employees)
+            foreach (var employee in Employees)
             {
-                string employee = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
-                EmployeesDropDownList.Items.Add(employee);
+                Employee emp = employee.Employee;
+                string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                EmployeesDropDownList.Items.Add(employee_info);
+            }
+            
+            if (selected >= 0)
+            {
+                EmployeesDropDownList.SelectedIndex = selected;
             }
         }
 
@@ -52,39 +59,28 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
-                Visitor new_visitor = new Visitor
+                Visitor visitor = new Visitor
                 {
                     FirstName = firstName.Text.Trim(),
                     LastName = lastName.Text.Trim(),
                     CompanyName = companyName.Text.Trim(),
                     EmailAddress = emailAddress.Text.Trim(),
                     PhoneNumber = phoneNumber.Text.Trim(),
-                    Id = firstName.Text.Trim() + lastName.Text.Trim() + companyName.Text.Trim()
                 };
-                TryAddVisitorToDatabase(new_visitor);
+
+                Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
+                DateTime time = DateTime.Now;
 
                 Visit new_visit = new Visit
                 {
-                    Visitor = new_visitor,
-                    Employee = Employees[EmployeesDropDownList.SelectedIndex],
-                    Time = DateTime.Now
+                    Visitor = visitor,
+                    Employee = employee,
+                    Time = time,
+                    Id = $"{visitor}" + $"{employee}" + $"{time}"
                 };
                 AddVisitToDatabase(new_visit);             
 
                 Response.Redirect("ThankYou.aspx");
-            }
-        }
-
-        private void TryAddVisitorToDatabase(Visitor new_visitor)
-        {
-            using (var db = new VisitContext())
-            {
-                var duplicate_visitors = db.Visitors.Where(b => b.Id == new_visitor.Id);
-                if (duplicate_visitors.Count() == 0)
-                {
-                    db.Visitors.Add(new_visitor);
-                    db.SaveChanges();
-                }
             }
         }
 
@@ -93,8 +89,6 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 db.Visits.Add(new_visit);
-                db.Entry(new_visit.Employee).State = EntityState.Unchanged;
-                db.Entry(new_visit.Visitor).State = EntityState.Unchanged;
                 db.SaveChanges();
             }
         }

@@ -212,9 +212,9 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002191549301_Initial.cs" />
-    <Compile Include="Migrations\202002191549301_Initial.designer.cs">
-      <DependentUpon>202002191549301_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202002191900120_Initial.cs" />
+    <Compile Include="Migrations\202002191900120_Initial.designer.cs">
+      <DependentUpon>202002191900120_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,8 +263,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002191549301_Initial.resx">
-      <DependentUpon>202002191549301_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002191900120_Initial.resx">
+      <DependentUpon>202002191900120_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

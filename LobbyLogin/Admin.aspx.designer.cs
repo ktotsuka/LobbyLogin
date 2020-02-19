@@ -193,42 +193,6 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.TableHeaderCell removeEmployeeMessage;
         
         /// <summary>
-        /// RemoveVisitorTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table RemoveVisitorTable;
-        
-        /// <summary>
-        /// VisitorsDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList VisitorsDropDownList;
-        
-        /// <summary>
-        /// removeVisitorButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button removeVisitorButton;
-        
-        /// <summary>
-        /// removeVisitorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell removeVisitorMessage;
-        
-        /// <summary>
         /// RemoveVisitTable control.
         /// </summary>
         /// <remarks>
