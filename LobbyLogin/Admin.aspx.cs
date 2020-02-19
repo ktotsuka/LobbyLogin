@@ -85,7 +85,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Employees
-                            orderby b.Employee.LastName
+                            orderby b.Employee.LastName, b.Employee.FirstName
                             select b;
                 foreach (var b in query)
                 {
@@ -100,7 +100,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Visits
-                            orderby b.Employee.LastName
+                            orderby b.Employee.LastName, b.Employee.FirstName, b.Visitor.FirstName, b.Visitor.LastName, b.Visitor.CompanyName
                             select b;
                 foreach (var b in query)
                 {
@@ -127,7 +127,7 @@ namespace LobbyLogin
             {
                 Employee emp = visit.Employee;
                 Visitor vis = visit.Visitor;
-                string visit_info = $"{emp.FirstName} {emp.LastName} was visited by {vis.FirstName} {vis.LastName} from {vis.CompanyName} on {visit.Time}";
+                string visit_info = $"{emp.FirstName} {emp.LastName} ({emp.EmailAddress},{emp.CellPhoneNumber}) was visited by {vis.FirstName} {vis.LastName} ({vis.EmailAddress},{vis.PhoneNumber}) from {vis.CompanyName} on {visit.Time}";
                 VisitsDropDownList.Items.Add(visit_info);
             }
         }

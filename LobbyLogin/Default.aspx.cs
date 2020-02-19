@@ -29,7 +29,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Employees
-                            orderby b.Employee.LastName
+                            orderby b.Employee.LastName, b.Employee.FirstName
                             select b;
                 foreach (var b in query)
                 {
