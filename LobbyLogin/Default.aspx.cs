@@ -9,6 +9,8 @@ using Ch18CardLibStandard;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.Net.Mail;
+
 namespace LobbyLogin
 {
     public partial class _Default : Page
@@ -78,9 +80,36 @@ namespace LobbyLogin
                     Time = time,
                     Id = $"{visitor}" + $"{employee}" + $"{time}"
                 };
-                AddVisitToDatabase(new_visit);             
+                AddVisitToDatabase(new_visit);
+
+                string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
+                SendEmail(employee.EmailAddress, message);
 
                 Response.Redirect("ThankYou.aspx");
+            }
+        }
+
+        private void SendEmail(string email_address, string message)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("bav.georgetown@gmail.com");
+                mail.To.Add(email_address);
+                mail.Subject = "Visitor alert";
+                mail.Body = message;
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("bav.georgetown", "Georgetown@4321!");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+            }
+            catch
+            {
+
             }
         }
 
