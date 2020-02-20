@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Admin.aspx.cs" Inherits="LobbyLogin.LogIn" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <hr>
     <asp:Table ID="AdminPasswordTable" runat="server" CellSpacing="10">
@@ -38,7 +40,15 @@
             <asp:TableHeaderCell ID="cellPhoneNumberLabel">Cell phone number <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:TextBox ID="cellPhoneNumber" runat="server" MaxLength="50" />
-            </asp:TableCell>
+                <ajaxToolkit:MaskedEditExtender ID="PhoneNumberMaskedEditExtender" runat="server"
+                TargetControlID="cellPhoneNumber"
+                ClearMaskOnLostFocus="false"
+                MaskType="None"
+                Mask="(999)999-9999"
+                MessageValidatorTip="true"
+                InputDirection="LeftToRight"
+                ErrorTooltipEnabled="True" />
+            </asp:TableCell>            
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
