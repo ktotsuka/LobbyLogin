@@ -9,6 +9,7 @@ using Ch18CardLibStandard;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace LobbyLogin
 {
@@ -60,37 +61,39 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
-                Visitor visitor = new Visitor
-                {
-                    FirstName = firstName.Text.Trim(),
-                    LastName = lastName.Text.Trim(),
-                    CompanyName = companyName.Text.Trim(),
-                    EmailAddress = emailAddress.Text.Trim(),
-                    PhoneNumber = phoneNumber.Text.Trim(),
-                };
+                Thread.Sleep(5000);
 
-                Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
-                DateTime time = DateTime.Now;
+                //Visitor visitor = new Visitor
+                //{
+                //    FirstName = firstName.Text.Trim(),
+                //    LastName = lastName.Text.Trim(),
+                //    CompanyName = companyName.Text.Trim(),
+                //    EmailAddress = emailAddress.Text.Trim(),
+                //    PhoneNumber = phoneNumber.Text.Trim(),
+                //};
 
-                Visit new_visit = new Visit
-                {
-                    Visitor = visitor,
-                    Employee = employee,
-                    Time = time,
-                    Id = $"{visitor}" + $"{employee}" + $"{time}"
-                };
-                AddVisitToDatabase(new_visit);
+                //Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
+                //DateTime time = DateTime.Now;
 
-                string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
-                string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-                List<string> addresses = new List<string>
-                {
-                    employee.EmailAddress
-                };
-                Mail.SendEmail(addresses, message);
-                Mail.SendText(numeric_phone_number, message);
+                //Visit new_visit = new Visit
+                //{
+                //    Visitor = visitor,
+                //    Employee = employee,
+                //    Time = time,
+                //    Id = $"{visitor}" + $"{employee}" + $"{time}"
+                //};
+                //AddVisitToDatabase(new_visit);
 
-                Response.Redirect("ThankYou.aspx");
+                //string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                //string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
+                //List<string> addresses = new List<string>
+                //{
+                //    employee.EmailAddress
+                //};
+                //Mail.SendEmail(addresses, message);
+                //Mail.SendText(numeric_phone_number, message);
+
+                //Response.Redirect("ThankYou.aspx");
             }
         }
 
