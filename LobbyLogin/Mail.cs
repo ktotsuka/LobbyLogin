@@ -9,8 +9,6 @@ namespace LobbyLogin
 {
     public class Mail
     {
-        //public string[] carriers = new string[4] { "vtext.com", "txt.att.net", "messaging.sprintpcs.com", "tmomail.net"};
-
         private static readonly ReadOnlyCollection<string> carriers = new ReadOnlyCollection<string>(new[]
         {
             "vtext.com",

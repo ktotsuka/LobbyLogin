@@ -5,12 +5,12 @@
         function ShowWaitMessage() { setTimeout('document.getElementById("WaitMessage").style.display ="inline";', 500); }
     </script>
     <p></p>
-    <asp:Image ID="Image1" Height="200" Width="400" runat="server" ImageUrl="Images/Bastian-Solutions-TAL.png" />
+    <asp:Image Height="200" Width="400" runat="server" ImageUrl="Images/Bastian-Solutions-TAL.png" />
     <div>
         <h1>BAV Guest Sign-in</h1>
     </div>
     <hr>
-    <asp:Table ID="cardGameTable" runat="server">
+    <asp:Table runat="server">
         <asp:TableRow>
             <asp:TableHeaderCell>First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>

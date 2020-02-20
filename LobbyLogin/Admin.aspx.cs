@@ -10,7 +10,7 @@ namespace LobbyLogin
 {
     public partial class LogIn : System.Web.UI.Page
     {
-        public const string correctPassword = "aa";
+        public const string correctPassword = "Georgetown@4321!";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
         public List<Visit> Visits { get; set; }
@@ -25,7 +25,6 @@ namespace LobbyLogin
 
         protected void AdminPasswordSubmitButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(string.Format($"password was {adminPassword.Text}"));
             if (adminPassword.Text == correctPassword)
             {
                 submitErrorMessage.Text = "";

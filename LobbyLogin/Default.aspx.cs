@@ -15,7 +15,6 @@ namespace LobbyLogin
 {
     public partial class _Default : Page
     {
-        public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -47,7 +46,7 @@ namespace LobbyLogin
             foreach (var employee in Employees)
             {
                 Employee emp = employee.Employee;
-                string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                string employee_info = $"{emp.FirstName} {emp.LastName}";
                 EmployeesDropDownList.Items.Add(employee_info);
             }
             
