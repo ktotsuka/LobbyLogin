@@ -81,9 +81,14 @@ namespace LobbyLogin
                 };
                 AddVisitToDatabase(new_visit);
 
+                string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                 string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-                Mail.SendEmail(employee.EmailAddress, message);
-                Mail.SendText();
+                List<string> addresses = new List<string>
+                {
+                    employee.EmailAddress
+                };
+                Mail.SendEmail(addresses, message);
+                Mail.SendText(numeric_phone_number, message);
 
                 Response.Redirect("ThankYou.aspx");
             }
@@ -106,17 +111,14 @@ namespace LobbyLogin
                 ||
                 (companyName.Text == ""))
             {
-                submitErrorMessage.Text = "All required fields need to be filled";
-                return false;
-            }
-            if (!LogIn.IsValidEmail(emailAddress.Text))
-            {
-                submitErrorMessage.Text = "Invalid email address";
+                submitMessage.ForeColor = System.Drawing.Color.Red;
+                submitMessage.Text = "All required fields need to be filled";
                 return false;
             }
             else
             {
-                submitErrorMessage.Text = "";
+                submitMessage.ForeColor = System.Drawing.Color.Green;
+                submitMessage.Text = "Processing, please wait...";
                 return true;
             }
         }

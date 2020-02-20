@@ -94,12 +94,12 @@ namespace LobbyLogin {
         protected global::System.Web.UI.WebControls.Button submitButton;
         
         /// <summary>
-        /// submitErrorMessage control.
+        /// submitMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell submitErrorMessage;
+        protected global::System.Web.UI.WebControls.TableHeaderCell submitMessage;
     }
 }

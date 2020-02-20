@@ -45,7 +45,7 @@
             <asp:TableCell>
                 <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" />
             </asp:TableCell>
-            <asp:TableHeaderCell ID="submitErrorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+            <asp:TableHeaderCell ID="submitMessage" runat="server" HorizontalAlign="Left"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
     <br />
