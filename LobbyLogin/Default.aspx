@@ -39,7 +39,7 @@
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Person you are visiting</asp:TableHeaderCell><asp:TableCell>
-                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Width="400">
+                <asp:DropDownList ID="EmployeesDropDownList" runat="server">
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>

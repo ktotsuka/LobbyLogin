@@ -10,7 +10,7 @@
 namespace LobbyLogin {
     
     
-    public partial class LogIn {
+    public partial class AdminTool {
         
         /// <summary>
         /// AdminPasswordTable control.

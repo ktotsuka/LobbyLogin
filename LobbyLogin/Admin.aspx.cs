@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace LobbyLogin
 {
-    public partial class LogIn : System.Web.UI.Page
+    public partial class AdminTool : System.Web.UI.Page
     {
         public const string correctPassword = "Georgetown@4321!";
         public const int MaxTextLength = 50;
