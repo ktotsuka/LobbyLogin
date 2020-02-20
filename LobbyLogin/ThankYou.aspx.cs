@@ -13,12 +13,5 @@ namespace LobbyLogin
         {
 
         }
-
-        protected void BackButton_Click(object sender, EventArgs e)
-        {
-            //Server.Transfer("Default.aspx");
-            Response.Redirect("Default.aspx");
-        }
-
     }
 }
