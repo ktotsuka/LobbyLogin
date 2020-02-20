@@ -8,7 +8,7 @@
         <asp:TableRow>
             <asp:TableHeaderCell ID="adminPasswordLabel">Password</asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="adminPassword" runat="server" />
+                <asp:TextBox ID="adminPassword" runat="server" AutoCompleteType="Disabled" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

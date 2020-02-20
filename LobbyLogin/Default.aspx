@@ -14,27 +14,27 @@
         <asp:TableRow>
             <asp:TableHeaderCell>First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:TextBox ID="firstName" runat="server" MaxLength="50" />
+                <asp:TextBox ID="firstName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" MaxLength="50" />
+                <asp:TextBox ID="lastName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Company name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="companyName" runat="server" MaxLength="50" />
+                <asp:TextBox ID="companyName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Email address</asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="emailAddress" runat="server" MaxLength="50" />
+                <asp:TextBox ID="emailAddress" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell>Phone number</asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="phoneNumber" runat="server" MaxLength="50" />
+                <asp:TextBox ID="phoneNumber" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

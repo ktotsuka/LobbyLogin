@@ -14,7 +14,11 @@ namespace LobbyLogin
             "vtext.com",
             "txt.att.net",
             "messaging.sprintpcs.com",
-            "tmomail.net"
+            "tmomail.net",
+            "vmobl.com",
+            "messaging.nextel.com",
+            "myboostmobile.com",
+            "message.alltel.com"
         });
 
         public static ReadOnlyCollection<string> Carriers
