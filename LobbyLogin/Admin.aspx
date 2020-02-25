@@ -19,13 +19,13 @@
     </asp:Table>
     <asp:Table ID="AddEmployeeTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
-            <asp:TableHeaderCell ID="firstNameLabel">First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="firstName" runat="server" MaxLength="50" />
+            <asp:TableHeaderCell ID="lastNameLabel">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
+                <asp:TextBox ID="lastName" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell ID="lastNameLabel">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" MaxLength="50" />
+            <asp:TableHeaderCell ID="firstNameLabel">First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
+                <asp:TextBox ID="firstName" runat="server" MaxLength="50" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
@@ -62,7 +62,22 @@
         <asp:TableRow>
             <asp:TableCell>
                 <asp:Button ID="removeEmployeeButton" runat="server" Text="Remove an employee" OnClick="RemoveEmployeeButton_Click" />
-            </asp:TableCell><asp:TableHeaderCell ID="removeEmployeeMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+            </asp:TableCell>
+            <asp:TableHeaderCell ID="removeEmployeeMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+        </asp:TableRow>
+    </asp:Table>
+    <hr />
+        <asp:Table ID="RemoveVisitorTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:DropDownList ID="VisitorsDropDownList" runat="server"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="removeVisitorButton" runat="server" Text="Remove a visitor" OnClick="RemoveVisitorButton_Click" />
+            </asp:TableCell>
+            <asp:TableHeaderCell ID="removeVisitorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
     <hr />

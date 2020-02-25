@@ -13,13 +13,16 @@ namespace LobbyLogin
         public const string correctPassword = "Georgetown@4321!";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
+        public List<VisitorWrapper> Visitors { get; set; }
         public List<Visit> Visits { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Employees = new List<EmployeeWrapper>();
+            Visitors = new List<VisitorWrapper>();
             Visits = new List<Visit>();
             UpdateEmployeeList();
+            UpdateVisitorList();
             UpdateVisitList();
         }
 
@@ -31,9 +34,11 @@ namespace LobbyLogin
                 AdminPasswordTable.Visible = false;
                 AddEmployeeTable.Visible = true;
                 RemoveEmployeeTable.Visible = true;
+                RemoveVisitorTable.Visible = true;
                 RemoveVisitTable.Visible = true;
 
                 UpdateEmployeeDropDownList();
+                UpdateVisitorDropDownList();
                 UpdateVisitDropDownList();
             }
             else
@@ -93,6 +98,21 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateVisitorList()
+        {
+            Visitors.Clear();
+            using (var db = new VisitContext())
+            {
+                var query = from b in db.Visitors
+                            orderby b.Visitor.LastName, b.Visitor.FirstName, b.Visitor.CompanyName
+                            select b;
+                foreach (var b in query)
+                {
+                    Visitors.Add(b);
+                }
+            }
+        }
+
         private void UpdateVisitList()
         {
             Visits.Clear();
@@ -116,6 +136,17 @@ namespace LobbyLogin
                 Employee emp = employee.Employee;
                 string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
                 EmployeesDropDownList.Items.Add(employee_info);
+            }
+        }
+
+        private void UpdateVisitorDropDownList()
+        {
+            VisitorsDropDownList.Items.Clear();
+            foreach (var visitor in Visitors)
+            {
+                Visitor vis = visitor.Visitor;
+                string visitor_info = $"{vis.FirstName} {vis.LastName} from {vis.CompanyName} ({vis.EmailAddress}, {vis.PhoneNumber})";
+                VisitorsDropDownList.Items.Add(visitor_info);
             }
         }
 
@@ -193,6 +224,32 @@ namespace LobbyLogin
             }
             UpdateEmployeeList();
             UpdateEmployeeDropDownList();
+        }
+
+        protected void RemoveVisitorButton_Click(object sender, EventArgs e)
+        {
+            VisitorWrapper selected_visitor;
+
+            try
+            {
+                selected_visitor = Visitors[VisitorsDropDownList.SelectedIndex];
+            }
+            catch
+            {
+                removeVisitorMessage.Text = "No visitor selected";
+                return;
+            }
+
+            using (var db = new VisitContext())
+            {
+                VisitorWrapper visitor_to_remove = (VisitorWrapper)db.Visitors.Where(b => b.Id == selected_visitor.Id).First();
+                db.Visitors.Remove(visitor_to_remove);
+                db.SaveChanges();
+                Visitor vis = visitor_to_remove.Visitor;
+                removeVisitorMessage.Text = $"Removed: {vis.FirstName} {vis.LastName} from {vis.CompanyName}";
+            }
+            UpdateVisitorList();
+            UpdateVisitorDropDownList();
         }
 
         protected void RemoveVisitButton_Click(object sender, EventArgs e)

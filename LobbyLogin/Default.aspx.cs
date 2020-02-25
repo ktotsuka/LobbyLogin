@@ -15,12 +15,16 @@ namespace LobbyLogin
     public partial class _Default : Page
     {
         public List<EmployeeWrapper> Employees { get; set; }
+        public List<VisitorWrapper> Visitors { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Employees = new List<EmployeeWrapper>();
+            Visitors = new List<VisitorWrapper>();
             UpdateEmployeeList();
+            UpdateVisitorList();
             UpdateEmployeeDropDownList();
+            UpdateVisitorDropDownList();
         }
 
         private void UpdateEmployeeList()
@@ -34,6 +38,22 @@ namespace LobbyLogin
                 foreach (var b in query)
                 {
                     Employees.Add(b);
+                }
+            }
+        }
+
+        private void UpdateVisitorList()
+        {
+            Visitors.Clear();
+            using (var db = new VisitContext())
+            {
+                var query = from b in db.Visitors
+                            where b.Visitor.LastName.StartsWith(lastName.Text.Trim()) 
+                            orderby b.Visitor.FirstName, b.Visitor.CompanyName
+                            select b;
+                foreach (var b in query)
+                {
+                    Visitors.Add(b);
                 }
             }
         }
@@ -55,10 +75,43 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateVisitorDropDownList()
+        {
+            int selected = VisitorsDropDownList.SelectedIndex;
+
+            VisitorsDropDownList.Items.Clear();
+            foreach (var visitor in Visitors)
+            {
+                Visitor vis = visitor.Visitor;
+                string visitor_info = $"{vis.FirstName} {vis.LastName} from {vis.CompanyName}";
+                VisitorsDropDownList.Items.Add(visitor_info);
+            }
+
+            if (Visitors.Count == 0)
+            {
+                if (lastName.Text == "")
+                {
+                    VisitorsDropDownList.Items.Add("Please fill out the last name");
+                }
+                else
+                {
+                    VisitorsDropDownList.Items.Add("No record found");
+                }
+            }
+
+            if (selected >= 0 && (VisitorsDropDownList.Items.Count > selected))
+            {
+                VisitorsDropDownList.SelectedIndex = selected;
+            }
+        }
+
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             if (VerifyInputs())
             {
+                Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
+                DateTime time = DateTime.Now;
+
                 Visitor visitor = new Visitor
                 {
                     FirstName = firstName.Text.Trim(),
@@ -66,10 +119,10 @@ namespace LobbyLogin
                     CompanyName = companyName.Text.Trim(),
                     EmailAddress = emailAddress.Text.ToLower().Trim(),
                     PhoneNumber = phoneNumber.Text.Trim(),
+                    HostId = employee.FirstName + employee.LastName + employee.EmailAddress
                 };
 
-                Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
-                DateTime time = DateTime.Now;
+                AddVisitorToDatabase(visitor);
 
                 Visit new_visit = new Visit
                 {
@@ -80,16 +133,75 @@ namespace LobbyLogin
                 };
                 AddVisitToDatabase(new_visit);
 
-                string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
-                string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-                List<string> addresses = new List<string>
-                {
-                    employee.EmailAddress
-                };
-                Mail.SendEmail(addresses, message);
-                Mail.SendText(numeric_phone_number, message);
+                //string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                //string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
+                //List<string> addresses = new List<string>
+                //{
+                //    employee.EmailAddress
+                //};
+                //Mail.SendEmail(addresses, message);
+                //Mail.SendText(numeric_phone_number, message);
 
                 Response.Redirect("ThankYou.aspx");
+            }
+        }
+
+        protected void LastNameOnTextChanged(object sender, EventArgs e)
+        {
+        }
+
+        protected void AutoFill()
+        {
+            Visitor visitor;
+
+            try
+            {
+                visitor = Visitors[VisitorsDropDownList.SelectedIndex].Visitor;
+            }
+            catch
+            {
+                return;
+            }
+
+            lastName.Text = visitor.LastName;
+            firstName.Text = visitor.FirstName;
+            companyName.Text = visitor.CompanyName;
+            emailAddress.Text = visitor.EmailAddress;
+            phoneNumber.Text = visitor.PhoneNumber;
+
+            UpdateVisitorList();
+            UpdateVisitorDropDownList();
+
+            int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
+            EmployeesDropDownList.SelectedIndex = index_employee;
+
+            int index_visitor = Visitors.FindIndex(b => b.Id == (visitor.FirstName + visitor.LastName + visitor.CompanyName));
+            VisitorsDropDownList.SelectedIndex = index_visitor;
+        }
+
+        protected void VisitorsOnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            AutoFill();
+        }
+
+        private void AddVisitorToDatabase(Visitor visitor)
+        {
+            VisitorWrapper visitor_w = new VisitorWrapper
+            {
+                Visitor = visitor,
+                Id = visitor.FirstName + visitor.LastName + visitor.CompanyName
+            };
+
+            using (var db = new VisitContext())
+            {
+                var visitors_to_remove = db.Visitors.Where(b => b.Id == visitor_w.Id);
+                foreach (VisitorWrapper vis in visitors_to_remove)
+                {
+                    db.Visitors.Remove(vis);
+                }
+
+                db.Visitors.Add(visitor_w);
+                db.SaveChanges();
             }
         }
 

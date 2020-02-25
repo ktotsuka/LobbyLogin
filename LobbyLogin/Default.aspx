@@ -12,14 +12,20 @@
     <hr>
     <asp:Table runat="server">
         <asp:TableRow>
-            <asp:TableHeaderCell>First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
-            <asp:TableCell>
-                <asp:TextBox ID="firstName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
+            <asp:TableHeaderCell>Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
+                <asp:TextBox ID="lastName" runat="server" MaxLength="50" AutoCompleteType="Disabled" OnTextChanged="LastNameOnTextChanged" AutoPostBack="True" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell>Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
+            <asp:TableHeaderCell>Returning visitor?</asp:TableHeaderCell><asp:TableCell>
+                <asp:DropDownList ID="VisitorsDropDownList" runat="server" OnSelectedIndexChanged="VisitorsOnSelectedIndexChanged" AutoPostBack="True">
+                </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableHeaderCell>First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableCell>
+                <asp:TextBox ID="firstName" runat="server" MaxLength="50" AutoCompleteType="Disabled"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

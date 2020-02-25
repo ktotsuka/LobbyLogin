@@ -117,10 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="App_Data\LobbyLogin.VisitContext.mdf" />
-    <Content Include="App_Data\LobbyLogin.VisitContext_log.ldf">
-      <DependentUpon>LobbyLogin.VisitContext.mdf</DependentUpon>
-    </Content>
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -218,9 +214,9 @@
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mail.cs" />
-    <Compile Include="Migrations\202002191900120_Initial.cs" />
-    <Compile Include="Migrations\202002191900120_Initial.designer.cs">
-      <DependentUpon>202002191900120_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202002251356582_Initial.cs" />
+    <Compile Include="Migrations\202002251356582_Initial.designer.cs">
+      <DependentUpon>202002251356582_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,7 +250,9 @@
     </Compile>
     <Compile Include="Database.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -267,8 +265,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002191900120_Initial.resx">
-      <DependentUpon>202002191900120_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002251356582_Initial.resx">
+      <DependentUpon>202002251356582_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
