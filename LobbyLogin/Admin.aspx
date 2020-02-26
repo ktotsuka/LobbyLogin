@@ -94,4 +94,42 @@
         </asp:TableRow>
     </asp:Table>
     <hr />
+    <asp:Table ID="ExportTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="ExportEmployeeButton" runat="server" Text="Export employees" OnClick="ExportEmployeesButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="ExportVisitorButton" runat="server" Text="Export visitors" OnClick="ExportVisitorsButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="ExportVisitButton" runat="server" Text="Export visits" OnClick="ExportVisitsButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+    </asp:Table>
+    <hr />
+    <asp:Table ID="ImportTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:FileUpload id="ImportEmployeesFileUploadControl" runat="server" />
+                <asp:Button ID="ImportEmployeesButton" runat="server" Text="Import employees" OnClick="ImportEmployeesButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:FileUpload id="ImportVisitorsFileUploadControl" runat="server" />
+                <asp:Button ID="ImportVisitorsButton" runat="server" Text="Import visitors" OnClick="ImportVisitorsButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:FileUpload id="ImportVisitsFileUploadControl" runat="server" />
+                <asp:Button ID="ImportVisitsButton" runat="server" Text="Import visits" OnClick="ImportVisitsButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+    </asp:Table>
 </asp:Content>

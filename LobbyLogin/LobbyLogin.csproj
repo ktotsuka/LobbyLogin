@@ -214,9 +214,9 @@
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mail.cs" />
-    <Compile Include="Migrations\202002251356582_Initial.cs" />
-    <Compile Include="Migrations\202002251356582_Initial.designer.cs">
-      <DependentUpon>202002251356582_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202002261435092_Initial.cs" />
+    <Compile Include="Migrations\202002261435092_Initial.designer.cs">
+      <DependentUpon>202002261435092_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploaded\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -265,8 +266,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002251356582_Initial.resx">
-      <DependentUpon>202002251356582_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002261435092_Initial.resx">
+      <DependentUpon>202002261435092_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

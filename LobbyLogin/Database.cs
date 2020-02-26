@@ -41,7 +41,7 @@ namespace LobbyLogin
     {
         public Visitor Visitor { get; set; }
         public Employee Employee { get; set; }
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
         [Key] public string Id { get; set; }
     }
 

@@ -5,11 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
+using System.Text;
+using System.IO;
 
 namespace LobbyLogin
 {
     public partial class AdminTool : System.Web.UI.Page
     {
+        public const int EmployeeNumOfFields = 5;
+        public const int VisitorNumOfFields = 7;
+        public const int VisitNumOfFields = 12;
         public const string correctPassword = "Georgetown@4321!";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
@@ -36,6 +41,8 @@ namespace LobbyLogin
                 RemoveEmployeeTable.Visible = true;
                 RemoveVisitorTable.Visible = true;
                 RemoveVisitTable.Visible = true;
+                ExportTable.Visible = true;
+                ImportTable.Visible = true;
 
                 UpdateEmployeeDropDownList();
                 UpdateVisitorDropDownList();
@@ -81,6 +88,296 @@ namespace LobbyLogin
                     }
                 }
             };
+        }
+
+        protected void ExportEmployeesButton_Click(object sender, EventArgs e)
+        {
+            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
+
+            using (var db = new VisitContext())
+            {
+                employees = db.Employees.ToList();
+            }
+
+            string header = @"""Last name"",""First name"",""Email address"",""Cell phone number"",""ID""";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(header);
+
+            foreach (var i in employees)
+            {
+                sb.AppendLine(string.Join(",",
+                    string.Format(@"""{0}""", i.Employee.LastName),
+                    string.Format(@"""{0}""", i.Employee.FirstName),
+                    string.Format(@"""{0}""", i.Employee.EmailAddress),
+                    string.Format(@"""{0}""", i.Employee.CellPhoneNumber),
+                    string.Format(@"""{0}""", i.Id)));
+            }
+
+            // Download Here
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(sb.ToString());
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=EmployeeData.csv");
+            context.Response.End();
+        }
+
+        protected void ExportVisitorsButton_Click(object sender, EventArgs e)
+        {
+            List<VisitorWrapper> visitors = new List<VisitorWrapper>();
+
+            using (var db = new VisitContext())
+            {
+                visitors = db.Visitors.ToList();
+            }
+
+            string header = @"""Last name"",""First name"",""Company name"",""Email address"",""Phone number"",""Host ID"",""ID""";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(header);
+            foreach (var i in visitors)
+            {
+                sb.AppendLine(string.Join(",",
+                    string.Format(@"""{0}""", i.Visitor.LastName),
+                    string.Format(@"""{0}""", i.Visitor.FirstName),
+                    string.Format(@"""{0}""", i.Visitor.CompanyName),
+                    string.Format(@"""{0}""", i.Visitor.EmailAddress),
+                    string.Format(@"""{0}""", i.Visitor.PhoneNumber),
+                    string.Format(@"""{0}""", i.Visitor.HostId),
+                    string.Format(@"""{0}""", i.Id)));
+            }
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(sb.ToString());
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitorData.csv");
+            context.Response.End();
+        }
+
+        protected void ExportVisitsButton_Click(object sender, EventArgs e)
+        {
+            List<Visit> visits = new List<Visit>();
+
+            using (var db = new VisitContext())
+            {
+                visits = db.Visits.ToList();
+            }
+
+            string header = @"""Employee last name"",""Employee first name"",""Employee email address"",""Employee cell phone number"""
+                + @",""Visitor last name"",""Visitor First name"",""Visitor company name"",""Visitor email address"",""Visitor phone number"",""Visitor host ID"""
+                + @", ""Time"",""ID""";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(header);
+            foreach (var i in visits)
+            {
+                sb.AppendLine(string.Join(",",
+                    string.Format(@"""{0}""", i.Employee.LastName),
+                    string.Format(@"""{0}""", i.Employee.FirstName),
+                    string.Format(@"""{0}""", i.Employee.EmailAddress),
+                    string.Format(@"""{0}""", i.Employee.CellPhoneNumber),
+                    string.Format(@"""{0}""", i.Visitor.LastName),
+                    string.Format(@"""{0}""", i.Visitor.FirstName),
+                    string.Format(@"""{0}""", i.Visitor.CompanyName),
+                    string.Format(@"""{0}""", i.Visitor.EmailAddress),
+                    string.Format(@"""{0}""", i.Visitor.PhoneNumber),
+                    string.Format(@"""{0}""", i.Visitor.HostId),
+                    string.Format(@"""{0}""", i.Time),
+                    string.Format(@"""{0}""", i.Id)));
+            }
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(sb.ToString());
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitData.csv");
+            context.Response.End();
+        }
+
+        protected void ImportEmployeesButton_Click(object sender, EventArgs e)
+        {
+            if (ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv" || ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            {
+                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "employees" + ".csv");
+                try
+                {
+                    ImportEmployeesFileUploadControl.PostedFile.SaveAs(fileName);
+
+                    string[] Lines = File.ReadAllLines(fileName);
+                    string[] Fields;
+
+                    //Remove Header line
+                    Lines = Lines.Skip(1).ToArray();
+                    List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
+                    foreach (var line in Lines)
+                    {
+                        Fields = line.Split(new char[] { ',' });
+                        if (Fields.Count() != EmployeeNumOfFields)
+                        {
+                            throw new System.InvalidOperationException("Invalid number of fields");
+                        }
+                        employees.Add(
+                            new EmployeeWrapper
+                            {
+                                Employee = new Employee
+                                {
+                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
+                                    FirstName = Fields[1].Replace("\"", ""),
+                                    EmailAddress = Fields[2].Replace("\"", ""),
+                                    CellPhoneNumber = Fields[3].Replace("\"", "")
+                                },
+                                Id = Fields[4].Replace("\"", "")
+                            });
+                    }
+
+                    // Update database data
+                    using (var dc = new VisitContext())
+                    {
+                        foreach (var i in employees)
+                        {
+                            var v = dc.Employees.Where(a => a.Id == i.Id).FirstOrDefault();
+                            if (v == null)
+                            {
+                                dc.Employees.Add(i);
+                            }
+                        }
+                        dc.SaveChanges();
+                    }
+                    UpdateEmployeeList();
+                    UpdateEmployeeDropDownList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        protected void ImportVisitorsButton_Click(object sender, EventArgs e)
+        {
+            if (ImportVisitorsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            {
+                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visitors" + ".csv");
+                try
+                {
+                    ImportVisitorsFileUploadControl.PostedFile.SaveAs(fileName);
+
+                    string[] Lines = File.ReadAllLines(fileName);
+                    string[] Fields;
+
+                    //Remove Header line
+                    Lines = Lines.Skip(1).ToArray();
+                    List<VisitorWrapper> visitors = new List<VisitorWrapper>();
+                    foreach (var line in Lines)
+                    {
+                        Fields = line.Split(new char[] { ',' });
+                        if (Fields.Count() != VisitorNumOfFields)
+                        {
+                            throw new System.InvalidOperationException("Invalid number of fields");
+                        }
+                        visitors.Add(
+                            new VisitorWrapper
+                            {
+                                Visitor = new Visitor
+                                {
+                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
+                                    FirstName = Fields[1].Replace("\"", ""),
+                                    CompanyName = Fields[2].Replace("\"", ""),
+                                    EmailAddress = Fields[3].Replace("\"", ""),
+                                    PhoneNumber = Fields[4].Replace("\"", ""),
+                                    HostId = Fields[5].Replace("\"", "")
+                                },
+                                Id = Fields[6].Replace("\"", "")
+                            });
+                    }
+
+                    // Update database data
+                    using (var dc = new VisitContext())
+                    {
+                        foreach (var i in visitors)
+                        {
+                            var v = dc.Visitors.Where(a => a.Id == i.Id).FirstOrDefault();
+                            if (v == null)
+                            {
+                                dc.Visitors.Add(i);
+                            }
+                        }
+                        dc.SaveChanges();
+                    }
+                    UpdateVisitorList();
+                    UpdateVisitorDropDownList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        protected void ImportVisitsButton_Click(object sender, EventArgs e)
+        {
+            if (ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            {
+                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visits" + ".csv");
+                try
+                {
+                    ImportVisitsFileUploadControl.PostedFile.SaveAs(fileName);
+
+                    string[] Lines = File.ReadAllLines(fileName);
+                    string[] Fields;
+
+                    //Remove Header line
+                    Lines = Lines.Skip(1).ToArray();
+                    List<Visit> visits = new List<Visit>();
+                    foreach (var line in Lines)
+                    {
+                        Fields = line.Split(new char[] { ',' });
+                        if (Fields.Count() != VisitNumOfFields)
+                        {
+                            throw new System.InvalidOperationException("Invalid number of fields");
+                        }
+                        visits.Add(
+                            new Visit
+                            {
+                                Employee = new Employee
+                                {
+                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
+                                    FirstName = Fields[1].Replace("\"", ""), // removed "" 
+                                    EmailAddress = Fields[2].Replace("\"", ""), // removed "" 
+                                    CellPhoneNumber = Fields[3].Replace("\"", ""), // removed "" 
+                                },
+                                Visitor = new Visitor
+                                {
+                                    LastName = Fields[4].Replace("\"", ""),
+                                    FirstName = Fields[5].Replace("\"", ""),
+                                    CompanyName = Fields[6].Replace("\"", ""),
+                                    EmailAddress = Fields[7].Replace("\"", ""),
+                                    PhoneNumber = Fields[8].Replace("\"", ""),
+                                    HostId = Fields[9].Replace("\"", "")
+                                },
+                                Time = Fields[10].Replace("\"", ""),
+                                Id = Fields[11].Replace("\"", "")
+                            });
+                    }
+
+                    // Update database data
+                    using (var dc = new VisitContext())
+                    {
+                        foreach (var i in visits)
+                        {
+                            var v = dc.Visits.Where(a => a.Id == i.Id).FirstOrDefault();
+                            if (v == null)
+                            {
+                                dc.Visits.Add(i);
+                            }
+                        }
+                        dc.SaveChanges();
+                    }
+                    UpdateVisitList();
+                    UpdateVisitDropDownList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         private void UpdateEmployeeList()
@@ -173,6 +470,17 @@ namespace LobbyLogin
                 (cellPhoneNumber.Text == ""))
             {
                 addEmployeeErrorMessage.Text = "All required fields need to be filled";
+                return false;
+            }
+            else if ((firstName.Text.Contains(","))
+                ||
+                (lastName.Text.Contains(","))
+                ||
+                (emailAddress.Text.Contains(","))
+                ||
+                (cellPhoneNumber.Text.Contains(",")))
+            {
+                addEmployeeErrorMessage.Text = "no comma allowed";
                 return false;
             }
             else if (!IsValidEmail(emailAddress.Text))

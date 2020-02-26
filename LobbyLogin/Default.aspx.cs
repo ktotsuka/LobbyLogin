@@ -110,7 +110,7 @@ namespace LobbyLogin
             if (VerifyInputs())
             {
                 Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
-                DateTime time = DateTime.Now;
+                string time = DateTime.Now.ToString();
 
                 Visitor visitor = new Visitor
                 {
@@ -129,7 +129,8 @@ namespace LobbyLogin
                     Visitor = visitor,
                     Employee = employee,
                     Time = time,
-                    Id = $"{visitor}" + $"{employee}" + $"{time}"
+                    Id = $"{visitor.LastName}" + $"{visitor.FirstName}" + $"{visitor.CompanyName}"
+                        + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time}"
                 };
                 AddVisitToDatabase(new_visit);
 
@@ -148,6 +149,7 @@ namespace LobbyLogin
 
         protected void LastNameOnTextChanged(object sender, EventArgs e)
         {
+            AutoFill();
         }
 
         protected void AutoFill()
@@ -224,6 +226,20 @@ namespace LobbyLogin
             {
                 submitMessage.ForeColor = System.Drawing.Color.Red;
                 submitMessage.Text = "All required fields need to be filled";
+                return false;
+            }
+            else if ((firstName.Text.Contains(","))
+                ||
+                (lastName.Text.Contains(","))
+                ||
+                (companyName.Text.Contains(","))
+                ||
+                (emailAddress.Text.Contains(","))
+                ||
+                (phoneNumber.Text.Contains(",")))
+            {
+                submitMessage.ForeColor = System.Drawing.Color.Red;
+                submitMessage.Text = "No comma allowed";
                 return false;
             }
             else

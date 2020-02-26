@@ -48,7 +48,7 @@
                         Employee_LastName = c.String(),
                         Employee_EmailAddress = c.String(),
                         Employee_CellPhoneNumber = c.String(),
-                        Time = c.DateTime(nullable: false),
+                        Time = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
