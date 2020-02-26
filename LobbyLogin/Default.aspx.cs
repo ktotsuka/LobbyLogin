@@ -164,7 +164,7 @@ namespace LobbyLogin
         {
             string employees_string = AdminTool.GetEmployeesString();
 
-            string fileName = Path.Combine(Server.MapPath("~/Backup"), "employees" + ".csv");
+            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "employees" + ".csv");
             File.WriteAllText(fileName, employees_string);
         }
 
@@ -172,7 +172,7 @@ namespace LobbyLogin
         {
             string visitors_string = AdminTool.GetVisitorsString();
 
-            string fileName = Path.Combine(Server.MapPath("~/Backup"), "visitors" + ".csv");
+            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "visitors" + ".csv");
             File.WriteAllText(fileName, visitors_string);
         }
 
@@ -180,7 +180,7 @@ namespace LobbyLogin
         {
             string visits_string = AdminTool.GetVisitsString();           
 
-            string fileName = Path.Combine(Server.MapPath("~/Backup"), "visits" + ".csv");
+            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "visits" + ".csv");
             File.WriteAllText(fileName, visits_string);
         }
 
