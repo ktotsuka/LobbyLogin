@@ -92,6 +92,19 @@ namespace LobbyLogin
 
         protected void ExportEmployeesButton_Click(object sender, EventArgs e)
         {
+            string employees_string = GetEmployeesString();
+
+            // Download Here
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(employees_string);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=EmployeeData.csv");
+            context.Response.End();
+        }
+
+        public static string GetEmployeesString()
+        {
             List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
 
             using (var db = new VisitContext())
@@ -112,17 +125,21 @@ namespace LobbyLogin
                     string.Format(@"""{0}""", i.Employee.CellPhoneNumber),
                     string.Format(@"""{0}""", i.Id)));
             }
-
-            // Download Here
-
-            HttpContext context = HttpContext.Current;
-            context.Response.Write(sb.ToString());
-            context.Response.ContentType = "text/csv";
-            context.Response.AddHeader("Content-Disposition", "attachment; filename=EmployeeData.csv");
-            context.Response.End();
+            return sb.ToString();
         }
 
         protected void ExportVisitorsButton_Click(object sender, EventArgs e)
+        {
+            string visitors_string = GetVisitorsString();
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(visitors_string);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitorData.csv");
+            context.Response.End();
+        }
+
+        public static string GetVisitorsString()
         {
             List<VisitorWrapper> visitors = new List<VisitorWrapper>();
 
@@ -145,15 +162,21 @@ namespace LobbyLogin
                     string.Format(@"""{0}""", i.Visitor.HostId),
                     string.Format(@"""{0}""", i.Id)));
             }
-
-            HttpContext context = HttpContext.Current;
-            context.Response.Write(sb.ToString());
-            context.Response.ContentType = "text/csv";
-            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitorData.csv");
-            context.Response.End();
+            return sb.ToString();
         }
 
         protected void ExportVisitsButton_Click(object sender, EventArgs e)
+        {
+            string visits_string = GetVisitsString();
+
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(visits_string);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitData.csv");
+            context.Response.End();
+        }
+
+        public static string GetVisitsString()
         {
             List<Visit> visits = new List<Visit>();
 
@@ -183,12 +206,7 @@ namespace LobbyLogin
                     string.Format(@"""{0}""", i.Time),
                     string.Format(@"""{0}""", i.Id)));
             }
-
-            HttpContext context = HttpContext.Current;
-            context.Response.Write(sb.ToString());
-            context.Response.ContentType = "text/csv";
-            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitData.csv");
-            context.Response.End();
+            return sb.ToString();
         }
 
         protected void ImportEmployeesButton_Click(object sender, EventArgs e)

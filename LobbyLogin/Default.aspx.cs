@@ -9,6 +9,8 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Text;
+using System.IO;
 
 namespace LobbyLogin
 {
@@ -16,6 +18,7 @@ namespace LobbyLogin
     {
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -143,8 +146,42 @@ namespace LobbyLogin
                 //Mail.SendEmail(addresses, message);
                 //Mail.SendText(numeric_phone_number, message);
 
+                HandleBackup();
+
                 Response.Redirect("ThankYou.aspx");
+
             }
+        }
+
+        protected void HandleBackup()
+        {
+            BackupEmployees();
+            BackupVisitors();
+            BackupVisits();
+        }
+
+        protected void BackupEmployees()
+        {
+            string employees_string = AdminTool.GetEmployeesString();
+
+            string fileName = Path.Combine(Server.MapPath("~/Backup"), "employees" + ".csv");
+            File.WriteAllText(fileName, employees_string);
+        }
+
+        protected void BackupVisitors()
+        {
+            string visitors_string = AdminTool.GetVisitorsString();
+
+            string fileName = Path.Combine(Server.MapPath("~/Backup"), "visitors" + ".csv");
+            File.WriteAllText(fileName, visitors_string);
+        }
+
+        protected void BackupVisits()
+        {
+            string visits_string = AdminTool.GetVisitsString();           
+
+            string fileName = Path.Combine(Server.MapPath("~/Backup"), "visits" + ".csv");
+            File.WriteAllText(fileName, visits_string);
         }
 
         protected void LastNameOnTextChanged(object sender, EventArgs e)
