@@ -13,7 +13,7 @@ namespace LobbyLogin.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202002261435092_Initial"; }
+            get { return "202003021622008_Initial"; }
         }
         
         string IMigrationMetadata.Source
