@@ -26,7 +26,7 @@ namespace LobbyLogin
             get { return carriers; }
         }
 
-        public static void SendText(string phone_number, string message)
+        public static List<string> GetPhoneEmailAddresses(string phone_number)
         {
             List<string> addresses = new List<string>();
 
@@ -34,7 +34,7 @@ namespace LobbyLogin
             {
                 addresses.Add(phone_number + "@" + carrier);
             }
-            SendEmail(addresses, message);
+            return addresses;
         }
 
         public static void SendEmail(List<string> email_addresses, string message)

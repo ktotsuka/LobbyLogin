@@ -137,17 +137,18 @@ namespace LobbyLogin
                 };
                 AddVisitToDatabase(new_visit);
 
-                //string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
-                //string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-                //List<string> addresses = new List<string>
-                //{
-                //    employee.EmailAddress
-                //};
+                string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                List<string> addresses = Mail.GetPhoneEmailAddresses(numeric_phone_number);
+                addresses.Add(employee.EmailAddress);
+
+                string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
+
+                /////////////
                 //Mail.SendEmail(addresses, message);
-                //Mail.SendText(numeric_phone_number, message);
+                Thread.Sleep(3000);
+                //////////////////
 
                 HandleBackup();
-                Thread.Sleep(3000);
 
                 Response.Redirect("ThankYou.aspx");
 
