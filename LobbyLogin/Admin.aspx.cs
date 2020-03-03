@@ -211,7 +211,7 @@ namespace LobbyLogin
 
         protected void ImportEmployeesButton_Click(object sender, EventArgs e)
         {
-            if (ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv" || ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            if (ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv" || ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/octet-stream")
             {
                 string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "employees" + ".csv");
                 try
@@ -434,7 +434,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Visits
-                            orderby b.Employee.LastName, b.Employee.FirstName, b.Visitor.FirstName, b.Visitor.LastName, b.Visitor.CompanyName
+                            orderby b.Time, b.Employee.LastName, b.Employee.FirstName, b.Visitor.FirstName, b.Visitor.LastName, b.Visitor.CompanyName
                             select b;
                 foreach (var b in query)
                 {
