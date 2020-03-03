@@ -18,7 +18,7 @@ namespace LobbyLogin
     {
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
-
+        const string BackUpLocation = @"C:\Users\bavge\OneDrive\Documents\DatabaseBackup\";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -147,6 +147,7 @@ namespace LobbyLogin
                 //Mail.SendText(numeric_phone_number, message);
 
                 HandleBackup();
+                Thread.Sleep(3000);
 
                 Response.Redirect("ThankYou.aspx");
 
@@ -164,7 +165,7 @@ namespace LobbyLogin
         {
             string employees_string = AdminTool.GetEmployeesString();
 
-            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "employees" + ".csv");
+            string fileName = BackUpLocation + "employees" + ".csv";
             File.WriteAllText(fileName, employees_string);
         }
 
@@ -172,7 +173,7 @@ namespace LobbyLogin
         {
             string visitors_string = AdminTool.GetVisitorsString();
 
-            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "visitors" + ".csv");
+            string fileName = BackUpLocation + "visitors" + ".csv";
             File.WriteAllText(fileName, visitors_string);
         }
 
@@ -180,7 +181,7 @@ namespace LobbyLogin
         {
             string visits_string = AdminTool.GetVisitsString();           
 
-            string fileName = Path.Combine(Server.MapPath("~/DataBaseBackup"), "visits" + ".csv");
+            string fileName = BackUpLocation + "visits" + ".csv";
             File.WriteAllText(fileName, visits_string);
         }
 
