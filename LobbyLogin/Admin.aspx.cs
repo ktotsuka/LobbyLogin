@@ -434,7 +434,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Visits
-                            orderby b.Time, b.Employee.LastName, b.Employee.FirstName, b.Visitor.FirstName, b.Visitor.LastName, b.Visitor.CompanyName
+                            orderby b.Time descending, b.Employee.LastName, b.Employee.FirstName, b.Visitor.FirstName, b.Visitor.LastName, b.Visitor.CompanyName
                             select b;
                 foreach (var b in query)
                 {

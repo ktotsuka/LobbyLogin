@@ -83,12 +83,6 @@ namespace LobbyLogin
             int selected = VisitorsDropDownList.SelectedIndex;
 
             VisitorsDropDownList.Items.Clear();
-            foreach (var visitor in Visitors)
-            {
-                Visitor vis = visitor.Visitor;
-                string visitor_info = $"{vis.FirstName} {vis.LastName} from {vis.CompanyName}";
-                VisitorsDropDownList.Items.Add(visitor_info);
-            }
 
             if (Visitors.Count == 0)
             {
@@ -101,8 +95,19 @@ namespace LobbyLogin
                     VisitorsDropDownList.Items.Add("No record found");
                 }
             }
+            else if (Visitors.Count > 1)
+            {
+                VisitorsDropDownList.Items.Add("Select a visitor");
+            }
 
-            if (selected >= 0 && (VisitorsDropDownList.Items.Count > selected))
+            foreach (var visitor in Visitors)
+            {
+                Visitor vis = visitor.Visitor;
+                string visitor_info = $"{vis.FirstName} {vis.LastName} from {vis.CompanyName}";
+                VisitorsDropDownList.Items.Add(visitor_info);
+            }
+
+            if (selected >= 1 && (VisitorsDropDownList.Items.Count > selected))
             {
                 VisitorsDropDownList.SelectedIndex = selected;
             }
@@ -211,11 +216,14 @@ namespace LobbyLogin
         
         protected void VisitorsOnSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (VisitorsDropDownList.SelectedIndex == 0)
+                return;
+
             Visitor visitor;
 
             try
             {
-                visitor = Visitors[VisitorsDropDownList.SelectedIndex].Visitor;
+                visitor = Visitors[VisitorsDropDownList.SelectedIndex - 1].Visitor;
             }
             catch
             {
@@ -233,9 +241,6 @@ namespace LobbyLogin
 
             int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
             EmployeesDropDownList.SelectedIndex = index_employee;
-
-            int index_visitor = Visitors.FindIndex(b => b.Id == (visitor.FirstName + visitor.LastName + visitor.CompanyName));
-            VisitorsDropDownList.SelectedIndex = index_visitor;
         }
 
         private void AddVisitorToDatabase(Visitor visitor)
