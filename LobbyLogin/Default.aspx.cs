@@ -187,10 +187,28 @@ namespace LobbyLogin
 
         protected void LastNameOnTextChanged(object sender, EventArgs e)
         {
-            AutoFill();
-        }
+            if (Visitors.Count == 1)
+            {
+                Visitor visitor = Visitors.First().Visitor;
 
-        protected void AutoFill()
+                lastName.Text = visitor.LastName;
+                firstName.Text = visitor.FirstName;
+                companyName.Text = visitor.CompanyName;
+                emailAddress.Text = visitor.EmailAddress;
+                phoneNumber.Text = visitor.PhoneNumber;
+
+                UpdateVisitorList();
+                UpdateVisitorDropDownList();
+
+                int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
+                EmployeesDropDownList.SelectedIndex = index_employee;
+
+                int index_visitor = Visitors.FindIndex(b => b.Id == (visitor.FirstName + visitor.LastName + visitor.CompanyName));
+                VisitorsDropDownList.SelectedIndex = index_visitor;
+            }
+        }
+        
+        protected void VisitorsOnSelectedIndexChanged(object sender, EventArgs e)
         {
             Visitor visitor;
 
@@ -217,11 +235,6 @@ namespace LobbyLogin
 
             int index_visitor = Visitors.FindIndex(b => b.Id == (visitor.FirstName + visitor.LastName + visitor.CompanyName));
             VisitorsDropDownList.SelectedIndex = index_visitor;
-        }
-
-        protected void VisitorsOnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            AutoFill();
         }
 
         private void AddVisitorToDatabase(Visitor visitor)
