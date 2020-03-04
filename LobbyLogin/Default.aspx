@@ -67,4 +67,17 @@
         </asp:TableRow>
     </asp:Table>
     <br />
+    <hr />
+    <asp:Table ID="RemoveWaitingVisitTable" runat="server" >
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:DropDownList ID="WaitingVisitDropDownList" runat="server" ></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="removeWaitingVisitButton" runat="server" Text="Remove a waiting visitor" OnClick="RemoveWaitingVisitButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+    </asp:Table>
 </asp:Content>

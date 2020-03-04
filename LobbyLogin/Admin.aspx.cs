@@ -170,7 +170,14 @@ namespace LobbyLogin
 
         protected void ExportVisitsButton_Click(object sender, EventArgs e)
         {
-            string visits_string = GetVisitsString();
+            List<Visit> visits = new List<Visit>();
+
+            using (var db = new VisitContext())
+            {
+                visits = db.Visits.ToList();
+            }
+
+            string visits_string = GetVisitsString(visits);
 
             HttpContext context = HttpContext.Current;
             context.Response.Write(visits_string);
@@ -179,15 +186,8 @@ namespace LobbyLogin
             context.Response.End();
         }
 
-        public static string GetVisitsString()
+        public static string GetVisitsString(List<Visit> visits)
         {
-            List<Visit> visits = new List<Visit>();
-
-            using (var db = new VisitContext())
-            {
-                visits = db.Visits.ToList();
-            }
-
             string header = @"""Employee last name"",""Employee first name"",""Employee email address"",""Employee cell phone number"""
                 + @",""Visitor last name"",""Visitor First name"",""Visitor company name"",""Visitor email address"",""Visitor phone number"",""Visitor host ID"""
                 + @", ""Time"",""ID""";
@@ -336,47 +336,12 @@ namespace LobbyLogin
         {
             if (ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
             {
-                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visits" + ".csv");
                 try
                 {
+                    string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visits" + ".csv");
+
                     ImportVisitsFileUploadControl.PostedFile.SaveAs(fileName);
-
-                    string[] Lines = File.ReadAllLines(fileName);
-                    string[] Fields;
-
-                    //Remove Header line
-                    Lines = Lines.Skip(1).ToArray();
-                    List<Visit> visits = new List<Visit>();
-                    foreach (var line in Lines)
-                    {
-                        Fields = line.Split(new char[] { ',' });
-                        if (Fields.Count() != VisitNumOfFields)
-                        {
-                            throw new System.InvalidOperationException("Invalid number of fields");
-                        }
-                        visits.Add(
-                            new Visit
-                            {
-                                Employee = new Employee
-                                {
-                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
-                                    FirstName = Fields[1].Replace("\"", ""), // removed "" 
-                                    EmailAddress = Fields[2].Replace("\"", ""), // removed "" 
-                                    CellPhoneNumber = Fields[3].Replace("\"", ""), // removed "" 
-                                },
-                                Visitor = new Visitor
-                                {
-                                    LastName = Fields[4].Replace("\"", ""),
-                                    FirstName = Fields[5].Replace("\"", ""),
-                                    CompanyName = Fields[6].Replace("\"", ""),
-                                    EmailAddress = Fields[7].Replace("\"", ""),
-                                    PhoneNumber = Fields[8].Replace("\"", ""),
-                                    HostId = Fields[9].Replace("\"", "")
-                                },
-                                Time = Fields[10].Replace("\"", ""),
-                                Id = Fields[11].Replace("\"", "")
-                            });
-                    }
+                    List<Visit> visits = GetVisitFromFile(fileName);                    
 
                     // Update database data
                     using (var dc = new VisitContext())
@@ -399,6 +364,47 @@ namespace LobbyLogin
                     throw;
                 }
             }
+        }
+
+        public static List<Visit> GetVisitFromFile(string fileName)
+        {
+            string[] Lines = File.ReadAllLines(fileName);
+            string[] Fields;
+
+            //Remove Header line
+            Lines = Lines.Skip(1).ToArray();
+            List<Visit> visits = new List<Visit>();
+            foreach (var line in Lines)
+            {
+                Fields = line.Split(new char[] { ',' });
+                if (Fields.Count() != VisitNumOfFields)
+                {
+                    return visits;
+                }
+                visits.Add(
+                    new Visit
+                    {
+                        Employee = new Employee
+                        {
+                            LastName = Fields[0].Replace("\"", ""), // removed "" 
+                                    FirstName = Fields[1].Replace("\"", ""), // removed "" 
+                                    EmailAddress = Fields[2].Replace("\"", ""), // removed "" 
+                                    CellPhoneNumber = Fields[3].Replace("\"", ""), // removed "" 
+                                },
+                        Visitor = new Visitor
+                        {
+                            LastName = Fields[4].Replace("\"", ""),
+                            FirstName = Fields[5].Replace("\"", ""),
+                            CompanyName = Fields[6].Replace("\"", ""),
+                            EmailAddress = Fields[7].Replace("\"", ""),
+                            PhoneNumber = Fields[8].Replace("\"", ""),
+                            HostId = Fields[9].Replace("\"", "")
+                        },
+                        Time = Fields[10].Replace("\"", ""),
+                        Id = Fields[11].Replace("\"", "")
+                    });
+            }
+            return visits;
         }
 
         private void UpdateEmployeeList()

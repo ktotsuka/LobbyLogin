@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LobbyLogin {
-    
-    
-    public partial class _Default {
-        
+namespace LobbyLogin
+{
+
+
+    public partial class _Default
+    {
+
         /// <summary>
         /// lastName control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox lastName;
-        
+
         /// <summary>
         /// VisitorsDropDownList control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList VisitorsDropDownList;
-        
+
         /// <summary>
         /// firstName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox firstName;
-        
+
         /// <summary>
         /// companyName control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox companyName;
-        
+
         /// <summary>
         /// emailAddress control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox emailAddress;
-        
+
         /// <summary>
         /// phoneNumber control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox phoneNumber;
-        
+
         /// <summary>
         /// EmployeesDropDownList control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList EmployeesDropDownList;
-        
+
         /// <summary>
         /// submitButton control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitButton;
-        
+
         /// <summary>
         /// submitMessage control.
         /// </summary>
@@ -92,5 +94,32 @@ namespace LobbyLogin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableHeaderCell submitMessage;
+
+        /// <summary>
+        /// RemoveWaitingVisitTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table RemoveWaitingVisitTable;
+
+        /// <summary>
+        /// WaitingVisitDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList WaitingVisitDropDownList;
+
+        /// <summary>
+        /// removeWaitingVisitButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button removeWaitingVisitButton;
     }
 }

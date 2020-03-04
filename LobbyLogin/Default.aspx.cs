@@ -18,16 +18,21 @@ namespace LobbyLogin
     {
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
+        public List<Visit> WaitingVisits { get; set; }
         const string BackUpLocation = @"C:\Users\bavge\OneDrive\Documents\DatabaseBackup\";
+        const string WaitListFileLocation = @"C:\Temp\visit_waiting_list.txt";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Employees = new List<EmployeeWrapper>();
             Visitors = new List<VisitorWrapper>();
+            WaitingVisits = new List<Visit>();
             UpdateEmployeeList();
             UpdateVisitorList();
+            UpdateWaitingVisitList();
             UpdateEmployeeDropDownList();
             UpdateVisitorDropDownList();
+            UpdateWaitingVisitDropDownList();
         }
 
         private void UpdateEmployeeList()
@@ -58,6 +63,18 @@ namespace LobbyLogin
                 {
                     Visitors.Add(b);
                 }
+            }
+        }
+
+        private void UpdateWaitingVisitList()
+        {
+            WaitingVisits.Clear();
+
+            List<Visit> visits = AdminTool.GetVisitFromFile(WaitListFileLocation);
+
+            foreach (var i in visits)
+            {
+                WaitingVisits.Add(i);
             }
         }
 
@@ -113,6 +130,46 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateWaitingVisitDropDownList()
+        {
+            int selected = WaitingVisitDropDownList.SelectedIndex;
+
+            WaitingVisitDropDownList.Items.Clear();
+
+            if (WaitingVisits.Count == 0)
+            {
+                WaitingVisitDropDownList.Items.Add("No waiting visitor");
+            }
+
+            foreach (var visit in WaitingVisits)
+            {
+                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} "
+                                     + $"visiting {visit.Employee.FirstName} {visit.Employee.LastName} on {visit.Time}";
+                WaitingVisitDropDownList.Items.Add(visitor_info);
+            }
+
+            if (selected >= 1 && (WaitingVisitDropDownList.Items.Count > selected))
+            {
+                WaitingVisitDropDownList.SelectedIndex = selected;
+            }
+        }
+
+        protected void RemoveWaitingVisitButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                WaitingVisits.RemoveAt(WaitingVisitDropDownList.SelectedIndex);
+            }
+            catch
+            {
+                return;
+            }
+            UpdateVisitWaitingList();
+
+            UpdateWaitingVisitList();
+            UpdateWaitingVisitDropDownList();
+        }       
+
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             if (VerifyInputs())
@@ -141,6 +198,8 @@ namespace LobbyLogin
                         + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time}"
                 };
                 AddVisitToDatabase(new_visit);
+                WaitingVisits.Add(new_visit);
+                UpdateVisitWaitingList();
 
                 string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                 List<string> addresses = Mail.GetPhoneEmailAddresses(numeric_phone_number);
@@ -157,6 +216,30 @@ namespace LobbyLogin
 
                 Response.Redirect("ThankYou.aspx");
 
+            }
+        }
+
+        private void UpdateVisitWaitingList()
+        {
+            bool success = false;
+
+            while (success == false)
+            {
+                try
+                {
+                    FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(waitListFile);
+
+                    string visit_str = AdminTool.GetVisitsString(WaitingVisits);
+
+                    sw.WriteLine(visit_str);
+                    sw.Close();
+                    success = true;
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                }
             }
         }
 
@@ -185,7 +268,14 @@ namespace LobbyLogin
 
         protected void BackupVisits()
         {
-            string visits_string = AdminTool.GetVisitsString();           
+            List<Visit> visits = new List<Visit>();
+
+            using (var db = new VisitContext())
+            {
+                visits = db.Visits.ToList();
+            }
+
+            string visits_string = AdminTool.GetVisitsString(visits);           
 
             string fileName = BackUpLocation + "visits" + ".csv";
             File.WriteAllText(fileName, visits_string);
