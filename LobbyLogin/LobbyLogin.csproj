@@ -136,6 +136,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Images\Bastian-Solutions-TAL.eps" />
+    <Content Include="WithAppointment.aspx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Images\Bastian-Solutions-TAL.png" />
@@ -249,6 +250,13 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="WithAppointment.aspx.cs">
+      <DependentUpon>WithAppointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WithAppointment.aspx.designer.cs">
+      <DependentUpon>WithAppointment.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataBaseBackup\" />

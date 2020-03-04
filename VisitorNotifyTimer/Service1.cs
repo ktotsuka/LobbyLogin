@@ -22,16 +22,14 @@ namespace VisitorNotifyTimer
 
         protected override void OnStart(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
-            WriteToFile("Service is started at " + DateTime.Now);
+            //System.Diagnostics.Debugger.Launch();
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-            timer.Interval = 5000; //number in milisecinds  
+            timer.Interval = 10000; //number in milisecinds  
             timer.Enabled = true;
         }
 
         protected override void OnStop()
         {
-            WriteToFile("Service is stopped at " + DateTime.Now);
         }
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
