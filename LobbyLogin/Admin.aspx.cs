@@ -15,7 +15,10 @@ namespace LobbyLogin
         public const int EmployeeNumOfFields = 5;
         public const int VisitorNumOfFields = 7;
         public const int VisitNumOfFields = 12;
-        public const string correctPassword = "Georgetown@4321!";
+        //public const string correctPassword = "Georgetown@4321!";
+
+
+        public const string correctPassword = "A";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
