@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -14,7 +15,8 @@ namespace VisitDataBase
         public const int VisitorNumOfFields = 7;
         public const int VisitNumOfFields = 12;
         public const string WaitListFileLocation = @"C:\Temp\visit_waiting_list.txt";
-        public static object waitingVisitFileLock = new Object();
+        public const string WaitListMutexName = "WaitListMutex";        
+        public static Mutex waitingVisitFileMutex = new Mutex();
 
         public static string GetVisitsString(List<Visit> visits)
         {
@@ -81,6 +83,21 @@ namespace VisitDataBase
                     });
             }
             return visits;
+        }
+
+        public static void UpdateWaitListFile(List<Visit> visits)
+        {
+            using (var mutex = new Mutex(false, WaitListMutexName))
+            {
+                mutex.WaitOne();
+                FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
+                StreamWriter sw = new StreamWriter(waitListFile);
+
+                string visit_str = GetVisitsString(visits);
+
+                sw.WriteLine(visit_str);
+                sw.Close();
+            }
         }
     }
 }

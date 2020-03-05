@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.IO;
@@ -26,7 +27,7 @@ namespace VisitorNotifyTimer
 
     public partial class Service1 : ServiceBase
     {
-        readonly Timer timer = new Timer();
+        readonly System.Timers.Timer timer = new System.Timers.Timer();
         public List<Visit> WaitingVisits { get; set; }
         public List<VisitWrapper> WaitingVisitsWrap { get; set; }
 
@@ -76,16 +77,18 @@ namespace VisitorNotifyTimer
 
         private void ReadVisitsFromFile()
         {
-            lock (waitingVisitFileLock)
+            using (var mutex = new Mutex(false, WaitListMutexName))
             {
+                mutex.WaitOne();
                 WaitingVisits = GetVisitFromFile(WaitListFileLocation);
             }
         }
 
         private void WriteVisitsToFile()
         {
-            lock (waitingVisitFileLock)
+            using (var mutex = new Mutex(false, WaitListMutexName))
             {
+                mutex.WaitOne();
                 FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
                 StreamWriter sw = new StreamWriter(waitListFile);
 

@@ -21,20 +21,16 @@ namespace LobbyLogin
     {
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
-        public List<Visit> WaitingVisits { get; set; }
         const string BackUpLocation = @"C:\Users\bavge\OneDrive\Documents\DatabaseBackup\";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Employees = new List<EmployeeWrapper>();
             Visitors = new List<VisitorWrapper>();
-            WaitingVisits = new List<Visit>();
             UpdateEmployeeList();
             UpdateVisitorList();
-            UpdateWaitingVisitList();
             UpdateEmployeeDropDownList();
             UpdateVisitorDropDownList();
-            UpdateWaitingVisitDropDownList();
         }
 
         private void UpdateEmployeeList()
@@ -66,23 +62,7 @@ namespace LobbyLogin
                     Visitors.Add(b);
                 }
             }
-        }
-
-        private void UpdateWaitingVisitList()
-        {
-            WaitingVisits.Clear();
-
-            List<Visit> visits;
-            lock (waitingVisitFileLock)
-            {
-                visits = GetVisitFromFile(WaitListFileLocation);
-            }
-
-            foreach (var i in visits)
-            {
-                WaitingVisits.Add(i);
-            }
-        }
+        }        
 
         private void UpdateEmployeeDropDownList()
         {
@@ -134,47 +114,7 @@ namespace LobbyLogin
             {
                 VisitorsDropDownList.SelectedIndex = selected;
             }
-        }
-
-        private void UpdateWaitingVisitDropDownList()
-        {
-            int selected = WaitingVisitDropDownList.SelectedIndex;
-
-            WaitingVisitDropDownList.Items.Clear();
-
-            if (WaitingVisits.Count == 0)
-            {
-                WaitingVisitDropDownList.Items.Add("No waiting visitor");
-            }
-
-            foreach (var visit in WaitingVisits)
-            {
-                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} "
-                                     + $"visiting {visit.Employee.FirstName} {visit.Employee.LastName} on {visit.Time}";
-                WaitingVisitDropDownList.Items.Add(visitor_info);
-            }
-
-            if (selected >= 1 && (WaitingVisitDropDownList.Items.Count > selected))
-            {
-                WaitingVisitDropDownList.SelectedIndex = selected;
-            }
-        }
-
-        protected void RemoveWaitingVisitButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                WaitingVisits.RemoveAt(WaitingVisitDropDownList.SelectedIndex);
-            }
-            catch
-            {
-                return;
-            }
-            UpdateVisitWaitingList();
-
-            UpdateWaitingVisitList();
-            UpdateWaitingVisitDropDownList();
-        }
+        }        
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
@@ -204,8 +144,7 @@ namespace LobbyLogin
                         + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time}"
                 };
                 AddVisitToDatabase(new_visit);
-                WaitingVisits.Add(new_visit);
-                UpdateVisitWaitingList();
+                AddVisitToWaitingList(new_visit);
 
                 string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                 List<string> addresses = Mail.GetPhoneEmailAddresses(numeric_phone_number);
@@ -225,18 +164,16 @@ namespace LobbyLogin
             }
         }
 
-        private void UpdateVisitWaitingList()
+        private void AddVisitToWaitingList(Visit visit)
         {
-            lock (waitingVisitFileLock)
+            using (var mutex = new Mutex(false, WaitListMutexName))
             {
-                FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
-                StreamWriter sw = new StreamWriter(waitListFile);
-
-                string visit_str = GetVisitsString(WaitingVisits);
-
-                sw.WriteLine(visit_str);
-                sw.Close();
+                mutex.WaitOne();
+                List<Visit> visits = GetVisitFromFile(WaitListFileLocation);
+                visits.Add(visit);
+                UpdateWaitListFile(visits);
             }
+
         }
 
         protected void HandleBackup()
