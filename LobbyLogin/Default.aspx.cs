@@ -30,8 +30,24 @@ namespace LobbyLogin
 
         protected void NoButton_Click(object sender, EventArgs e)
         {
+            using (var dc = new VisitContext())
+            {
+                foreach (string employee_emal in Mail.GeneralEmployeeEmails)
+                {
+                    var employee_w = dc.Employees.Where(a => a.Employee.EmailAddress == employee_emal).FirstOrDefault();
+                    if (employee_w != null)
+                    {
+                        Employee employee = employee_w.Employee;
+                        string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                        List<string> addresses = Mail.GetPhoneEmailAddresses(numeric_phone_number);
+                        addresses.Add(employee.EmailAddress);
 
+                        string message = $"A person with no appointment has arrived";
+                        Mail.SendEmail(addresses, message);
+                    }
+                }
+            }
+            Response.Redirect("ThankYou.aspx");
         }
-
     }
 }

@@ -9,6 +9,17 @@ namespace LobbyLogin
 {
     public class Mail
     {
+        private static readonly ReadOnlyCollection<string> generalEmployeeEmails = new ReadOnlyCollection<string>(new[]
+{
+            "jclark@toyotaagv.com",
+            "jsparks@toyotaagv.com"
+        });
+
+        public static ReadOnlyCollection<string> GeneralEmployeeEmails
+        {
+            get { return generalEmployeeEmails; }
+        }
+
         private static readonly ReadOnlyCollection<string> carriers = new ReadOnlyCollection<string>(new[]
         {
             "vtext.com",
@@ -56,7 +67,7 @@ namespace LobbyLogin
                 SmtpServer.Credentials = new System.Net.NetworkCredential("bav.georgetown", "Georgetown@4321!");
                 SmtpServer.EnableSsl = true;
 
-                SmtpServer.Send(mail);
+                //SmtpServer.Send(mail);
             }
             catch
             {
