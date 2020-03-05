@@ -12,6 +12,8 @@ using System.Threading;
 using System.Text;
 using System.IO;
 using VisitDataBase;
+using SignInMail;
+using static VisitDataBase.DataAccess;
 
 namespace LobbyLogin
 {
@@ -21,7 +23,6 @@ namespace LobbyLogin
         public List<VisitorWrapper> Visitors { get; set; }
         public List<Visit> WaitingVisits { get; set; }
         const string BackUpLocation = @"C:\Users\bavge\OneDrive\Documents\DatabaseBackup\";
-        const string WaitListFileLocation = @"C:\Temp\visit_waiting_list.txt";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -71,7 +72,11 @@ namespace LobbyLogin
         {
             WaitingVisits.Clear();
 
-            List<Visit> visits = AdminTool.GetVisitFromFile(WaitListFileLocation);
+            List<Visit> visits;
+            lock (waitingVisitFileLock)
+            {
+                visits = GetVisitFromFile(WaitListFileLocation);
+            }
 
             foreach (var i in visits)
             {
@@ -222,25 +227,15 @@ namespace LobbyLogin
 
         private void UpdateVisitWaitingList()
         {
-            bool success = false;
-
-            while (success == false)
+            lock (waitingVisitFileLock)
             {
-                try
-                {
-                    FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
-                    StreamWriter sw = new StreamWriter(waitListFile);
+                FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
+                StreamWriter sw = new StreamWriter(waitListFile);
 
-                    string visit_str = AdminTool.GetVisitsString(WaitingVisits);
+                string visit_str = GetVisitsString(WaitingVisits);
 
-                    sw.WriteLine(visit_str);
-                    sw.Close();
-                    success = true;
-                }
-                catch
-                {
-                    Thread.Sleep(500);
-                }
+                sw.WriteLine(visit_str);
+                sw.Close();
             }
         }
 
@@ -276,7 +271,7 @@ namespace LobbyLogin
                 visits = db.Visits.ToList();
             }
 
-            string visits_string = AdminTool.GetVisitsString(visits);
+            string visits_string = GetVisitsString(visits);
 
             string fileName = BackUpLocation + "visits" + ".csv";
             File.WriteAllText(fileName, visits_string);

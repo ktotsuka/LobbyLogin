@@ -62,9 +62,7 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service1.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Service1.cs" />
     <Compile Include="Service1.Designer.cs">
       <DependentUpon>Service1.cs</DependentUpon>
     </Compile>
@@ -79,6 +77,16 @@
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mail\SignInMail.csproj">
+      <Project>{6d70d14c-f319-4722-abad-bd682e3fc54b}</Project>
+      <Name>SignInMail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VisitDataBase\VisitDataBase.csproj">
+      <Project>{24c6ae58-21c6-4e13-9dfe-42836426d6e4}</Project>
+      <Name>VisitDataBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorNotifyTimer", "Visit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitDataBase", "VisitDataBase\VisitDataBase.csproj", "{24C6AE58-21C6-4E13-9DFE-42836426D6E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignInMail", "Mail\SignInMail.csproj", "{6D70D14C-F319-4722-ABAD-BD682E3FC54B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D70D14C-F319-4722-ABAD-BD682E3FC54B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D70D14C-F319-4722-ABAD-BD682E3FC54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D70D14C-F319-4722-ABAD-BD682E3FC54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D70D14C-F319-4722-ABAD-BD682E3FC54B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
