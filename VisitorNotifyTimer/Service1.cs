@@ -14,7 +14,8 @@ namespace VisitorNotifyTimer
 {
     public partial class Service1 : ServiceBase
     {
-        Timer timer = new Timer();
+        readonly Timer timer = new Timer();
+
         public Service1()
         {
             InitializeComponent();
@@ -33,8 +34,27 @@ namespace VisitorNotifyTimer
         }
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
-            WriteToFile("Service is repeated again at " + DateTime.Now);
+            ReadVisitsFromFile();
+            SendReminder();
+            RemoveOutdatedVisits();
         }
+
+        private void ReadVisitsFromFile()
+        {
+
+
+        }
+
+        private void SendReminder()
+        {
+
+        }
+
+        private void RemoveOutdatedVisits()
+        {
+
+        }
+
         public void WriteToFile(string Message)
         {
             try

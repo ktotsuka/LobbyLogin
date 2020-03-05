@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyLogin", "LobbyLogin\Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorNotifyTimer", "VisitorNotifyTimer\VisitorNotifyTimer.csproj", "{148B0B68-D290-4468-8376-86B15B3FB9C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitDataBase", "VisitDataBase\VisitDataBase.csproj", "{24C6AE58-21C6-4E13-9DFE-42836426D6E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{148B0B68-D290-4468-8376-86B15B3FB9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{148B0B68-D290-4468-8376-86B15B3FB9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{148B0B68-D290-4468-8376-86B15B3FB9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C6AE58-21C6-4E13-9DFE-42836426D6E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

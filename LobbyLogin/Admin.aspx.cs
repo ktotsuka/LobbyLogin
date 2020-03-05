@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Text;
 using System.IO;
+using VisitDataBase;
 
 namespace LobbyLogin
 {
