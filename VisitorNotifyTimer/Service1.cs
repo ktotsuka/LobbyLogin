@@ -33,9 +33,12 @@ namespace VisitorNotifyTimer
 
         private static readonly ReadOnlyCollection<double> reminderMinutes = new ReadOnlyCollection<double>(new[]
         {
-            5.0,
-            8.0,
-            11.0
+            //5.0,
+            //10.0,
+            //15.0
+            1.0,
+            2.0,
+            3.0
         });
 
         public static ReadOnlyCollection<double> ReminderMinutes
@@ -71,6 +74,8 @@ namespace VisitorNotifyTimer
 
             using (var mutex = new Mutex(false, WaitListMutexName))
             {
+                mutex.WaitOne();
+
                 ReadVisitsFromFile();
                 RemoveOutdatedVisits();
                 AddNewWaitingVisits();
@@ -145,6 +150,7 @@ namespace VisitorNotifyTimer
                 {
                     SendReminder(visitW);
                     visitW.ReminderCount++;
+                    WriteToLogFile($"Sending reminder for {visitW.Visit.Visitor.FirstName} {visitW.Visit.Visitor.LastName}");
                 }
             }
         }
@@ -153,7 +159,8 @@ namespace VisitorNotifyTimer
         {
             Visitor visitor = visit.Visit.Visitor;
             Employee employee = visit.Visit.Employee;
-            string message = $"Reminder: {visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} is still waiting";
+            string message = $"Reminder: {visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} "
+                           + $"is still waiting for {employee.FirstName} {employee.LastName}";
 
             List<Employee> employees_to_be_notified = new List<Employee>();
 
@@ -161,7 +168,8 @@ namespace VisitorNotifyTimer
             {
                 employees_to_be_notified.Add(generalEmployee);
             }
-            if (employees_to_be_notified.Contains(employee) == false)
+
+            if (ContainsEmployee(employees_to_be_notified, employee) == false)
             {
                 employees_to_be_notified.Add(employee);
             }
@@ -170,9 +178,24 @@ namespace VisitorNotifyTimer
             {
                 string numeric_phone_number = new String(e.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                 List<string> addresses = GetPhoneEmailAddresses(numeric_phone_number);
-                addresses.Add(employee.EmailAddress);
+                addresses.Add(e.EmailAddress);
+
+                WriteToLogFile(message);
+
                 Mail.SendEmail(addresses, message);
             }
+        }
+
+        private bool ContainsEmployee(List<Employee> employees, Employee employee)
+        {
+            foreach (Employee e in employees)
+            {
+                if (e.EmailAddress == employee.EmailAddress)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool TimeToSendReminderr(VisitWrapper visit, DateTime currentTime)
@@ -201,7 +224,7 @@ namespace VisitorNotifyTimer
             }
         }        
 
-        public void WriteToFile(string Message)
+        public void WriteToLogFile(string Message)
         {
             try
             {

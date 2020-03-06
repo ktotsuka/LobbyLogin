@@ -169,6 +169,7 @@ namespace LobbyLogin
             using (var mutex = new Mutex(false, WaitListMutexName))
             {
                 mutex.WaitOne();
+
                 List<Visit> visits = GetVisitFromFile(WaitListFileLocation);
                 visits.Add(visit);
                 UpdateWaitListFile(visits);

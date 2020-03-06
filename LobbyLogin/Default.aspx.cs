@@ -21,7 +21,6 @@ namespace LobbyLogin
     {
         public List<Visit> WaitingVisits { get; set; }
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             WaitingVisits = new List<Visit>();
@@ -110,6 +109,8 @@ namespace LobbyLogin
 
             using (var mutex = new Mutex(false, WaitListMutexName))
             {
+                mutex.WaitOne();
+
                 UpdateWaitListFile(WaitingVisits);
 
                 mutex.ReleaseMutex();
