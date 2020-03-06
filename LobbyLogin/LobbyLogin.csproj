@@ -117,9 +117,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="App_Data\VisitDataBase.VisitContext.mdf" />
-    <Content Include="App_Data\VisitDataBase.VisitContext_log.ldf">
-      <DependentUpon>VisitDataBase.VisitContext.mdf</DependentUpon>
-    </Content>
+    <Content Include="App_Data\VisitDataBase.VisitContext_log.ldf" />
     <Content Include="ConfidentialityAgreement.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />

@@ -121,7 +121,7 @@ namespace LobbyLogin
             if (VerifyInputs())
             {
                 Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
-                string time = DateTime.Now.ToString();
+                DateTime time = DateTime.Now;
 
                 Visitor visitor = new Visitor
                 {
@@ -141,7 +141,7 @@ namespace LobbyLogin
                     Employee = employee,
                     Time = time,
                     Id = $"{visitor.LastName}" + $"{visitor.FirstName}" + $"{visitor.CompanyName}"
-                        + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time}"
+                        + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time.ToString()}"
                 };
                 AddVisitToDatabase(new_visit);
                 AddVisitToWaitingList(new_visit);

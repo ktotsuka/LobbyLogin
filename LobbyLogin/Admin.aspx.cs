@@ -413,7 +413,7 @@ namespace LobbyLogin
             {
                 Employee emp = visit.Employee;
                 Visitor vis = visit.Visitor;
-                string visit_info = $"{emp.FirstName} {emp.LastName} ({emp.EmailAddress},{emp.CellPhoneNumber}) was visited by {vis.FirstName} {vis.LastName} ({vis.EmailAddress},{vis.PhoneNumber}) from {vis.CompanyName} on {visit.Time}";
+                string visit_info = $"{emp.FirstName} {emp.LastName}: {vis.FirstName} {vis.LastName} from {vis.CompanyName} on {visit.Time}";
                 VisitsDropDownList.Items.Add(visit_info);
             }
         }

@@ -90,7 +90,7 @@ namespace VisitDataBase
                             PhoneNumber = Fields[8].Replace("\"", ""),
                             HostId = Fields[9].Replace("\"", "")
                         },
-                        Time = Fields[10].Replace("\"", ""),
+                        Time = DateTime.Parse(Fields[10].Replace("\"", "")),
                         Id = Fields[11].Replace("\"", "")
                     });
             }

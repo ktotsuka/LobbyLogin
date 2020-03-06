@@ -13,7 +13,7 @@ namespace VisitDataBase
     {
         public Visitor Visitor { get; set; }
         public Employee Employee { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
         [Key] public string Id { get; set; }
     }
 
