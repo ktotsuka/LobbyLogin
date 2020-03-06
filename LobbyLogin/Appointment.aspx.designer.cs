@@ -11,7 +11,7 @@ namespace LobbyLogin
 {
 
 
-    public partial class _Default
+    public partial class Appointment
     {
 
         /// <summary>

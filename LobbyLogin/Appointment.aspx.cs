@@ -17,7 +17,7 @@ using static VisitDataBase.DataAccess;
 
 namespace LobbyLogin
 {
-    public partial class _Default : Page
+    public partial class Appointment : Page
     {
         public List<Visit> WaitingVisits { get; set; }
 
