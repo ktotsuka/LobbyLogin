@@ -8,74 +8,19 @@ using System.Diagnostics;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Text;
 using System.IO;
 using VisitDataBase;
 using SignInMail;
-using static VisitDataBase.DataAccess;
 
 namespace LobbyLogin
 {
     public partial class Appointment : Page
     {
-        public List<Visit> WaitingVisits { get; set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            WaitingVisits = new List<Visit>();
-            UpdateWaitingVisitList();
-            UpdateWaitingVisitDropDownList();
-        }
 
-        private void UpdateWaitingVisitList()
-        {
-            WaitingVisits.Clear();
-
-            List<Visit> visits;
-
-            while (true)
-            {
-                try
-                {
-                    visits = GetVisitFromFile(WaitListFileLocation);
-                    break;
-                }
-                catch
-                {
-                    Thread.Sleep(FileAccessRetryWait);
-                }
-            }
-
-            foreach (var i in visits)
-            {
-                WaitingVisits.Add(i);
-            }
-        }
-
-        private void UpdateWaitingVisitDropDownList()
-        {
-            int selected = WaitingVisitDropDownList.SelectedIndex;
-
-            WaitingVisitDropDownList.Items.Clear();
-
-            if (WaitingVisits.Count == 0)
-            {
-                WaitingVisitDropDownList.Items.Add("No visitor is waiting");
-            }
-
-            foreach (var visit in WaitingVisits)
-            {
-                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} "
-                                     + $"visiting {visit.Employee.FirstName} {visit.Employee.LastName} on {visit.Time}";
-                WaitingVisitDropDownList.Items.Add(visitor_info);
-            }
-
-            if (selected >= 1 && (WaitingVisitDropDownList.Items.Count > selected))
-            {
-                WaitingVisitDropDownList.SelectedIndex = selected;
-            }
-        }
+        }        
 
         protected void YesButton_Click(object sender, EventArgs e)
         {
@@ -94,30 +39,6 @@ namespace LobbyLogin
                 Mail.SendEmail(addresses, message);
             }
             Response.Redirect("ThankYou.aspx");
-        }
-
-        protected void RemoveWaitingVisitButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                WaitingVisits.RemoveAt(WaitingVisitDropDownList.SelectedIndex);
-            }
-            catch
-            {
-                return;
-            }
-
-            using (var mutex = new Mutex(false, WaitListMutexName))
-            {
-                mutex.WaitOne();
-
-                UpdateWaitListFile(WaitingVisits);
-
-                mutex.ReleaseMutex();
-            }
-            
-            UpdateWaitingVisitList();
-            UpdateWaitingVisitDropDownList();
-        }
+        }        
     }
 }

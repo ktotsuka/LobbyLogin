@@ -141,7 +141,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Images\Bastian-Solutions-TAL.eps" />
     <Content Include="UnableToSignIn.aspx" />
-    <Content Include="WithAppointment.aspx" />
+    <Content Include="Register.aspx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Images\Bastian-Solutions-TAL.png" />
@@ -179,6 +179,7 @@
     <Content Include="Site.Master" />
     <Content Include="ThankYou.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WaitList.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -262,12 +263,19 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="WithAppointment.aspx.cs">
-      <DependentUpon>WithAppointment.aspx</DependentUpon>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WithAppointment.aspx.designer.cs">
-      <DependentUpon>WithAppointment.aspx</DependentUpon>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WaitList.aspx.cs">
+      <DependentUpon>WaitList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WaitList.aspx.designer.cs">
+      <DependentUpon>WaitList.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

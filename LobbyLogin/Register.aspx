@@ -1,18 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="WithAppointment.aspx.cs" Inherits="LobbyLogin.WithAppointment" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Register.aspx.cs" Inherits="LobbyLogin.Register" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <script type="text/javascript">
         function ShowWaitMessage() { setTimeout('document.getElementById("WaitMessage").style.display ="inline";', 500); }
     </script>
-    <p></p>
-    <h1>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-        <asp:Image Height="180" Width="360" runat="server" ImageUrl="Images/Bastian-Solutions-TAL.png" />
-    </h1>
-    <div>
-        <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp BAV Guest Sign-in</h1>
-    </div>
-    <hr>
     <asp:Table runat="server">
         <asp:TableRow >
             <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>

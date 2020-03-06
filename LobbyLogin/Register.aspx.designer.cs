@@ -11,7 +11,7 @@ namespace LobbyLogin
 {
 
 
-    public partial class WithAppointment
+    public partial class Register
     {
 
         /// <summary>
