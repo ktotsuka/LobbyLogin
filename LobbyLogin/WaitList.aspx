@@ -4,7 +4,7 @@
     <meta http-equiv="Refresh" content="30;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server" >
         <asp:TableRow >
-            <asp:TableHeaderCell Font-Size="Large">Visitor waiting list </asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Waiting list for registered visitors</asp:TableHeaderCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
@@ -12,7 +12,7 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
-    <p></p>
+    <p>&nbsp</p>
     <asp:Table runat="server" >
         <asp:TableRow>
             <asp:TableCell>

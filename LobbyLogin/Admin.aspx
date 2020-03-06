@@ -115,20 +115,20 @@
     <asp:Table ID="ImportTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:FileUpload id="ImportEmployeesFileUploadControl" runat="server" />
-                <asp:Button ID="ImportEmployeesButton" runat="server" Text="Import employees" OnClick="ImportEmployeesButton_Click" />
+                <asp:FileUpload id="ImportEmployeesFileUploadControl" Font-Size="Large" runat="server" />
+                <asp:Button ID="ImportEmployeesButton" runat="server" Text="Import employees" Font-Size="Large" OnClick="ImportEmployeesButton_Click" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
-                <asp:FileUpload id="ImportVisitorsFileUploadControl" runat="server" />
-                <asp:Button ID="ImportVisitorsButton" runat="server" Text="Import visitors" OnClick="ImportVisitorsButton_Click" />
+                <asp:FileUpload id="ImportVisitorsFileUploadControl" Font-Size="Large" runat="server" />
+                <asp:Button ID="ImportVisitorsButton" runat="server" Text="Import visitors" Font-Size="Large" OnClick="ImportVisitorsButton_Click" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
-                <asp:FileUpload id="ImportVisitsFileUploadControl" runat="server" />
-                <asp:Button ID="ImportVisitsButton" runat="server" Text="Import visits" OnClick="ImportVisitsButton_Click" />
+                <asp:FileUpload id="ImportVisitsFileUploadControl" Font-Size="Large" runat="server" />
+                <asp:Button ID="ImportVisitsButton" runat="server" Text="Import visits" Font-Size="Large" OnClick="ImportVisitsButton_Click" />
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>

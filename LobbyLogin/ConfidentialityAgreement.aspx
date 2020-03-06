@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <div>
-        <h1>In order to sign in, please read and agree to the following confidentiality agreement</h1>
+        <h1>Please read and select agree or disagree</h1>
     </div>
     <hr>
     <div>
