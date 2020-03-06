@@ -4,6 +4,7 @@
     <script type="text/javascript">
         function ShowWaitMessage() { setTimeout('document.getElementById("WaitMessage").style.display ="inline";', 500); }
     </script>
+    <meta http-equiv="Refresh" content="300;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server">
         <asp:TableRow >
             <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>

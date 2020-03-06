@@ -59,8 +59,7 @@ namespace LobbyLogin
 
             foreach (var visit in WaitingVisits)
             {
-                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} "
-                                     + $"visiting {visit.Employee.FirstName} {visit.Employee.LastName} on {visit.Time}";
+                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName}";
                 WaitingVisitDropDownList.Items.Add(visitor_info);
             }
 

@@ -24,7 +24,7 @@ namespace LobbyLogin
 
         protected void YesButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("WithAppointment.aspx");
+            Response.Redirect("Register.aspx");
         }
 
         protected void NoButton_Click(object sender, EventArgs e)
