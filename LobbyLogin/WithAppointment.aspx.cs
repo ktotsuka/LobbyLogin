@@ -172,6 +172,8 @@ namespace LobbyLogin
                 List<Visit> visits = GetVisitFromFile(WaitListFileLocation);
                 visits.Add(visit);
                 UpdateWaitListFile(visits);
+
+                mutex.ReleaseMutex();
             }
 
         }

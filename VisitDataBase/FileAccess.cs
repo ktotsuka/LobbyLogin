@@ -15,8 +15,8 @@ namespace VisitDataBase
         public const int VisitorNumOfFields = 7;
         public const int VisitNumOfFields = 12;
         public const string WaitListFileLocation = @"C:\Temp\visit_waiting_list.txt";
-        public const string WaitListMutexName = "WaitListMutex";        
-        public static Mutex waitingVisitFileMutex = new Mutex();
+        public const string WaitListMutexName = @"Global\WaitListMutex";
+        public const int FileAccessRetryWait = 100;
 
         public static string GetVisitsString(List<Visit> visits)
         {
@@ -46,7 +46,19 @@ namespace VisitDataBase
 
         public static List<Visit> GetVisitFromFile(string fileName)
         {
-            string[] Lines = File.ReadAllLines(fileName);
+            string[] Lines;
+            while (true)
+            {
+                try
+                {
+                    Lines = File.ReadAllLines(fileName);
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(FileAccessRetryWait);
+                }
+            }
             string[] Fields;
 
             //Remove Header line
@@ -87,16 +99,23 @@ namespace VisitDataBase
 
         public static void UpdateWaitListFile(List<Visit> visits)
         {
-            using (var mutex = new Mutex(false, WaitListMutexName))
+            while (true)
             {
-                mutex.WaitOne();
-                FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
-                StreamWriter sw = new StreamWriter(waitListFile);
+                try
+                {
+                    FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(waitListFile);
 
-                string visit_str = GetVisitsString(visits);
+                    string visit_str = GetVisitsString(visits);
 
-                sw.WriteLine(visit_str);
-                sw.Close();
+                    sw.Write(visit_str);
+                    sw.Close();
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(FileAccessRetryWait);
+                }
             }
         }
     }

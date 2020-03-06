@@ -67,41 +67,31 @@ namespace VisitorNotifyTimer
 
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
-            ReadVisitsFromFile();
-            RemoveOutdatedVisits();
-            AddNewWaitingVisits();
-            SendReminders();
-            RemoveRemindedVisits();
-            WriteVisitsToFile();
+            timer.Stop();
+
+            using (var mutex = new Mutex(false, WaitListMutexName))
+            {
+                ReadVisitsFromFile();
+                RemoveOutdatedVisits();
+                AddNewWaitingVisits();
+                SendReminders();
+                RemoveRemindedVisits();
+                UpdateWaitListFile(WaitingVisits);
+
+                mutex.ReleaseMutex();
+            }
+
+            timer.Start();
         }
 
         private void ReadVisitsFromFile()
         {
-            using (var mutex = new Mutex(false, WaitListMutexName))
-            {
-                mutex.WaitOne();
-                WaitingVisits = GetVisitFromFile(WaitListFileLocation);
-            }
-        }
-
-        private void WriteVisitsToFile()
-        {
-            using (var mutex = new Mutex(false, WaitListMutexName))
-            {
-                mutex.WaitOne();
-                FileStream waitListFile = new FileStream(WaitListFileLocation, FileMode.Create);
-                StreamWriter sw = new StreamWriter(waitListFile);
-
-                string visit_str = GetVisitsString(WaitingVisits);
-
-                sw.WriteLine(visit_str);
-                sw.Close();
-            }
+            WaitingVisits = GetVisitFromFile(WaitListFileLocation);
         }
 
         private void RemoveOutdatedVisits()
         {
-            WaitingVisitsWrap.RemoveAll(item => WaitingVisits.Contains(item.Visit) == false);
+            WaitingVisitsWrap.RemoveAll(item => ContainInWaitingVisits(item.Visit.Id) == false);
         }
 
         private void AddNewWaitingVisits()
@@ -119,6 +109,18 @@ namespace VisitorNotifyTimer
                     WaitingVisitsWrap.Add(visitW);
                 }
             }
+        }
+
+        private bool ContainInWaitingVisits(string id)
+        {
+            foreach (Visit visit in WaitingVisits)
+            {
+                if (visit.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool ContainInWaitingVisitsWrapper(string id)

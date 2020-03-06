@@ -34,10 +34,18 @@ namespace LobbyLogin
             WaitingVisits.Clear();
 
             List<Visit> visits;
-            using (var mutex = new Mutex(false, WaitListMutexName))
+
+            while (true)
             {
-                    mutex.WaitOne();
+                try
+                {
                     visits = GetVisitFromFile(WaitListFileLocation);
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(FileAccessRetryWait);
+                }
             }
 
             foreach (var i in visits)
@@ -99,8 +107,14 @@ namespace LobbyLogin
             {
                 return;
             }
-            UpdateWaitListFile(WaitingVisits);
 
+            using (var mutex = new Mutex(false, WaitListMutexName))
+            {
+                UpdateWaitListFile(WaitingVisits);
+
+                mutex.ReleaseMutex();
+            }
+            
             UpdateWaitingVisitList();
             UpdateWaitingVisitDropDownList();
         }
