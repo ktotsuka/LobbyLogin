@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="BAV Lobby Login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="LobbyLogin._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
-    <meta http-equiv="Refresh" content="10" />
     <p></p>
     <h1>
         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
