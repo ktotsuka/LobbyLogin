@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace SignInMail
 {
@@ -57,6 +58,7 @@ namespace SignInMail
                 SmtpServer.EnableSsl = true;
 
                 //SmtpServer.Send(mail);
+                Thread.Sleep(3000);                
             }
             catch
             {

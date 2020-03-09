@@ -28,10 +28,20 @@ namespace LobbyLogin
         {
             Employees = new List<EmployeeWrapper>();
             Visitors = new List<VisitorWrapper>();
+            ProcessInputs();
             UpdateEmployeeList();
             UpdateVisitorList();
             UpdateEmployeeDropDownList();
             UpdateVisitorDropDownList();
+        }
+
+        private void ProcessInputs()
+        {
+            lastName.Text = lastName.Text.Trim();
+            firstName.Text = firstName.Text.Trim();
+            companyName.Text = companyName.Text.Trim();
+            emailAddress.Text = emailAddress.Text.ToLower().Trim();
+            phoneNumber.Text = phoneNumber.Text.Trim();
         }
 
         private void UpdateEmployeeList()
@@ -55,7 +65,7 @@ namespace LobbyLogin
             using (var db = new VisitContext())
             {
                 var query = from b in db.Visitors
-                            where b.Visitor.LastName.StartsWith(lastName.Text.Trim())
+                            where b.Visitor.LastName.StartsWith(lastName.Text)
                             orderby b.Visitor.FirstName, b.Visitor.CompanyName
                             select b;
                 foreach (var b in query)
@@ -127,11 +137,11 @@ namespace LobbyLogin
 
                 Visitor visitor = new Visitor
                 {
-                    FirstName = firstName.Text.Trim(),
-                    LastName = lastName.Text.Trim(),
-                    CompanyName = companyName.Text.Trim(),
-                    EmailAddress = emailAddress.Text.ToLower().Trim(),
-                    PhoneNumber = phoneNumber.Text.Trim(),
+                    FirstName = firstName.Text,
+                    LastName = lastName.Text,
+                    CompanyName = companyName.Text,
+                    EmailAddress = emailAddress.Text,
+                    PhoneNumber = phoneNumber.Text,
                     HostId = employee.FirstName + employee.LastName + employee.EmailAddress
                 };
 
