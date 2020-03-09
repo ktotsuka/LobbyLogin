@@ -152,10 +152,7 @@ namespace LobbyLogin
 
                 string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
 
-                /////////////
-                //Mail.SendEmail(addresses, message);
-                Thread.Sleep(3000);
-                //////////////////
+                Mail.SendEmail(addresses, message);
 
                 HandleBackup();
 

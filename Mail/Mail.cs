@@ -56,7 +56,7 @@ namespace SignInMail
                 SmtpServer.Credentials = new System.Net.NetworkCredential("bav.georgetown", "Georgetown@4321!");
                 SmtpServer.EnableSsl = true;
 
-                //SmtpServer.Send(mail);
+                SmtpServer.Send(mail);
             }
             catch
             {

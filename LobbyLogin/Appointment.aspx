@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <asp:Table runat="server">
         <asp:TableRow >
-            <asp:TableHeaderCell Font-Size="Large">Do you have an appointment? </asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Do you have an appointment with a specific employee? </asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
     <asp:Table runat="server">

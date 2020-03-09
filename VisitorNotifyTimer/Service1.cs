@@ -33,12 +33,12 @@ namespace VisitorNotifyTimer
 
         private static readonly ReadOnlyCollection<double> reminderMinutes = new ReadOnlyCollection<double>(new[]
         {
-            //5.0,
-            //10.0,
-            //15.0
-            1.0,
-            2.0,
-            3.0
+            5.0,
+            10.0,
+            15.0
+            //1.0,
+            //2.0,
+            //3.0
         });
 
         public static ReadOnlyCollection<double> ReminderMinutes
@@ -53,7 +53,8 @@ namespace VisitorNotifyTimer
 
         protected override void OnStart(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
+            // In order to launch in debugger mode, put the following code here
+            // System.Diagnostics.Debugger.Launch();
 
             WaitingVisits = new List<Visit>();
             WaitingVisitsWrap = new List<VisitWrapper>();
