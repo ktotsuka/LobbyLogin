@@ -58,7 +58,7 @@ namespace SignInMail
                 SmtpServer.EnableSsl = true;
 
                 //SmtpServer.Send(mail);
-                Thread.Sleep(3000);                
+                Thread.Sleep(10000);                
             }
             catch
             {

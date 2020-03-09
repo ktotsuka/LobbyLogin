@@ -62,15 +62,19 @@ namespace LobbyLogin
         private void UpdateVisitorList()
         {
             Visitors.Clear();
-            using (var db = new VisitContext())
+
+            if (lastName.Text != "")
             {
-                var query = from b in db.Visitors
-                            where b.Visitor.LastName.StartsWith(lastName.Text)
-                            orderby b.Visitor.FirstName, b.Visitor.CompanyName
-                            select b;
-                foreach (var b in query)
+                using (var db = new VisitContext())
                 {
-                    Visitors.Add(b);
+                    var query = from b in db.Visitors
+                                where b.Visitor.LastName.StartsWith(lastName.Text)
+                                orderby b.Visitor.FirstName, b.Visitor.CompanyName
+                                select b;
+                    foreach (var b in query)
+                    {
+                        Visitors.Add(b);
+                    }
                 }
             }
         }        
