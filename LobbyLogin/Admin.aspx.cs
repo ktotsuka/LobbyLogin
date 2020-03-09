@@ -9,6 +9,7 @@ using System.Text;
 using System.IO;
 using VisitDataBase;
 using static VisitDataBase.DataAccess;
+using static SignInMail.Mail;
 
 namespace LobbyLogin
 {
@@ -451,19 +452,6 @@ namespace LobbyLogin
             {
                 submitErrorMessage.Text = "";
                 return true;
-            }
-        }
-
-        public static bool IsValidEmail(string email_address)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email_address);
-                return addr.Address == email_address;
-            }
-            catch
-            {
-                return false;
             }
         }
 

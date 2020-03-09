@@ -44,7 +44,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">Person you are visiting</asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Employee you are visiting</asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="EmployeesDropDownList" runat="server" Font-Size="Large" Width="400">
                 </asp:DropDownList>
@@ -55,7 +55,7 @@
                 <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" OnClientClick="ShowWaitMessage()"  Font-Size="X-Large"/>
                 <div style="background-color: Red; display: none;" id="WaitMessage"> Please wait...  </div>
             </asp:TableCell>
-            <asp:TableHeaderCell ID="submitMessage" runat="server" HorizontalAlign="Left"></asp:TableHeaderCell>
+            <asp:TableHeaderCell ID="submitMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
 </asp:Content>

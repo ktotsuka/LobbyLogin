@@ -63,5 +63,18 @@ namespace SignInMail
 
             }
         }
+
+        public static bool IsValidEmail(string email_address)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email_address);
+                return addr.Address == email_address;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

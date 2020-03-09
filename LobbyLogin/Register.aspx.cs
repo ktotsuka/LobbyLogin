@@ -14,6 +14,7 @@ using System.IO;
 using VisitDataBase;
 using SignInMail;
 using static VisitDataBase.DataAccess;
+using static SignInMail.Mail;
 
 namespace LobbyLogin
 {
@@ -68,6 +69,7 @@ namespace LobbyLogin
         {
             int selected = EmployeesDropDownList.SelectedIndex;
             EmployeesDropDownList.Items.Clear();
+            EmployeesDropDownList.Items.Add("Please select an employee");
             foreach (var employee in Employees)
             {
                 Employee emp = employee.Employee;
@@ -120,7 +122,7 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
-                Employee employee = Employees[EmployeesDropDownList.SelectedIndex].Employee;
+                Employee employee = Employees[EmployeesDropDownList.SelectedIndex - 1].Employee;
                 DateTime time = DateTime.Now;
 
                 Visitor visitor = new Visitor
@@ -304,7 +306,6 @@ namespace LobbyLogin
                 ||
                 (companyName.Text == ""))
             {
-                submitMessage.ForeColor = System.Drawing.Color.Red;
                 submitMessage.Text = "All required fields need to be filled";
                 return false;
             }
@@ -318,8 +319,19 @@ namespace LobbyLogin
                 ||
                 (phoneNumber.Text.Contains(",")))
             {
-                submitMessage.ForeColor = System.Drawing.Color.Red;
                 submitMessage.Text = "No comma allowed";
+                return false;
+            }
+            else if((emailAddress.Text != "")
+                     &&
+                    (!IsValidEmail(emailAddress.Text)))
+            {
+                submitMessage.Text = "Invalid email addrress";
+                return false;
+            }
+            else if (EmployeesDropDownList.SelectedIndex == 0)
+            {
+                submitMessage.Text = "An employee must be selected";
                 return false;
             }
             else
