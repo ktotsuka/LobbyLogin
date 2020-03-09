@@ -278,8 +278,15 @@ namespace LobbyLogin
             UpdateVisitorList();
             UpdateVisitorDropDownList();
 
-            int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
-            EmployeesDropDownList.SelectedIndex = index_employee;
+            try
+            {
+                int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
+                EmployeesDropDownList.SelectedIndex = index_employee + 1;
+            }
+            catch
+            {
+                EmployeesDropDownList.SelectedIndex = 0;
+            }
         }
 
         private void AddVisitorToDatabase(Visitor visitor)
