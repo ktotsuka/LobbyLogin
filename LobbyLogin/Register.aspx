@@ -3,17 +3,17 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <meta http-equiv="Refresh" content="300;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server">
-        <asp:TableRow >
-            <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
-            <asp:TableCell>
-                <asp:TextBox ID="lastName" runat="server" Font-Size="Large" MaxLength="50" AutoCompleteType="Disabled" OnTextChanged="LastNameOnTextChanged" AutoPostBack="True" Width="400" />
-            </asp:TableCell>
-        </asp:TableRow>
         <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large">Returning visitor?</asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="VisitorsDropDownList" runat="server" Font-Size="Large" OnSelectedIndexChanged="VisitorsOnSelectedIndexChanged" AutoPostBack="True" Width="400">
                 </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow >
+            <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableCell>
+                <asp:TextBox ID="lastName" runat="server" Font-Size="Large" MaxLength="50" AutoCompleteType="Disabled" OnTextChanged="LastNameOnTextChanged" AutoPostBack="True" Width="400" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

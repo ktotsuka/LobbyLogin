@@ -15,15 +15,6 @@ namespace LobbyLogin
     {
 
         /// <summary>
-        /// lastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lastName;
-
-        /// <summary>
         /// VisitorsDropDownList control.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,15 @@ namespace LobbyLogin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList VisitorsDropDownList;
+
+        /// <summary>
+        /// lastName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox lastName;
 
         /// <summary>
         /// firstName control.
