@@ -49,7 +49,7 @@
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
-                <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait'"  Font-Size="X-Large"/>
+                <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait';"  Font-Size="X-Large"/>
             </asp:TableCell>
             <asp:TableHeaderCell ID="submitMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
