@@ -278,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataBaseBackup\" />
-    <Folder Include="Uploaded\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

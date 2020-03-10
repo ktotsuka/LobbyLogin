@@ -18,6 +18,7 @@ namespace LobbyLogin
         //public const string correctPassword = "Georgetown@4321!";
 
         public const string correctPassword = "A";
+        public const string UploadDirectory = @"C:\Temp\Uploaded\";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
@@ -189,7 +190,7 @@ namespace LobbyLogin
         {
             if (ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv" || ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/octet-stream")
             {
-                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "employees" + ".csv");
+                string fileName = UploadDirectory + "employees.csv";
                 try
                 {
                     ImportEmployeesFileUploadControl.PostedFile.SaveAs(fileName);
@@ -246,9 +247,9 @@ namespace LobbyLogin
 
         protected void ImportVisitorsButton_Click(object sender, EventArgs e)
         {
-            if (ImportVisitorsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            if (ImportVisitorsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
             {
-                string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visitors" + ".csv");
+                string fileName = UploadDirectory + "visitors.csv";
                 try
                 {
                     ImportVisitorsFileUploadControl.PostedFile.SaveAs(fileName);
@@ -307,11 +308,11 @@ namespace LobbyLogin
 
         protected void ImportVisitsButton_Click(object sender, EventArgs e)
         {
-            if (ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel")
+            if (ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
             {
                 try
                 {
-                    string fileName = Path.Combine(Server.MapPath("~/Uploaded"), "visits" + ".csv");
+                    string fileName = UploadDirectory + "visits.csv";
 
                     ImportVisitsFileUploadControl.PostedFile.SaveAs(fileName);
                     List<Visit> visits = GetVisitFromFile(fileName);                    
