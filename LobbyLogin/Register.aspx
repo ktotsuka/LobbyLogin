@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Register.aspx.cs" Inherits="LobbyLogin.Register" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
-    <script type="text/javascript">
-        function ShowWaitMessage() { setTimeout('document.getElementById("WaitMessage").style.display ="inline";', 500); }
-    </script>
     <meta http-equiv="Refresh" content="300;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server">
         <asp:TableRow >
@@ -52,8 +49,7 @@
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
-                <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" OnClientClick="ShowWaitMessage()"  Font-Size="X-Large"/>
-                <div style="background-color: Red; display: none;" id="WaitMessage"> Please wait...  </div>
+                <asp:Button ID="submitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait'"  Font-Size="X-Large"/>
             </asp:TableCell>
             <asp:TableHeaderCell ID="submitMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
