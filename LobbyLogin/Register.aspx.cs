@@ -246,7 +246,7 @@ namespace LobbyLogin
                 UpdateVisitorDropDownList();
 
                 int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
-                EmployeesDropDownList.SelectedIndex = index_employee;
+                EmployeesDropDownList.SelectedIndex = index_employee + 1;
 
                 int index_visitor = Visitors.FindIndex(b => b.Id == (visitor.FirstName + visitor.LastName + visitor.CompanyName));
                 VisitorsDropDownList.SelectedIndex = index_visitor;
