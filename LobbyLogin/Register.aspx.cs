@@ -14,6 +14,7 @@ using System.IO;
 using VisitDataBase;
 using SignInMail;
 using static VisitDataBase.DataAccess;
+using static VisitDataBase.GeneralEmployee;
 using static SignInMail.Mail;
 
 namespace LobbyLogin
@@ -143,7 +144,7 @@ namespace LobbyLogin
                 }
                 else
                 {
-                    employee = null;
+                    employee = FakeEmployee;
                 }
                 
                 Visitor visitor = new Visitor
@@ -171,7 +172,7 @@ namespace LobbyLogin
 
                 List<string> addresses;
                 string message;
-                if (employee != null)
+                if (VisitingAnEmployeeDropDownList.SelectedIndex == 1)
                 {
                     string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                     addresses = GetPhoneEmailAddresses(numeric_phone_number);
@@ -295,6 +296,20 @@ namespace LobbyLogin
 
             UpdateVisitorList();
             UpdateVisitorDropDownList();
+        }
+
+        protected void VisitingAnEmployeeOnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (VisitingAnEmployeeDropDownList.SelectedIndex == 1)
+            {
+                EmployeeYouAreVisitingLabel.Visible = true;
+                EmployeesDropDownList.Visible = true;
+            }
+            else
+            {
+                EmployeeYouAreVisitingLabel.Visible = false;
+                EmployeesDropDownList.Visible = false;
+            }
         }
 
         private void AddVisitorToDatabase(Visitor visitor)

@@ -87,6 +87,15 @@ namespace LobbyLogin
         protected global::System.Web.UI.WebControls.DropDownList VisitingAnEmployeeDropDownList;
 
         /// <summary>
+        /// EmployeeYouAreVisitingLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell EmployeeYouAreVisitingLabel;
+
+        /// <summary>
         /// EmployeesDropDownList control.
         /// </summary>
         /// <remarks>

@@ -55,7 +55,7 @@
         <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large">Visiting a specific employee?</asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:DropDownList ID="VisitingAnEmployeeDropDownList" runat="server" Font-Size="Large" Width="400">
+                <asp:DropDownList ID="VisitingAnEmployeeDropDownList" runat="server" Font-Size="Large" Width="400" OnSelectedIndexChanged="VisitingAnEmployeeOnSelectedIndexChanged" AutoPostBack="True">
                     <asp:ListItem>Select an answer</asp:ListItem>
                     <asp:ListItem>Yes</asp:ListItem>
                     <asp:ListItem>No</asp:ListItem>
@@ -63,9 +63,9 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">Employee you are visiting</asp:TableHeaderCell>
+            <asp:TableHeaderCell ID="EmployeeYouAreVisitingLabel" Visible="false" Font-Size="Large">Employee you are visiting</asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Font-Size="Large" Width="400">
+                <asp:DropDownList ID="EmployeesDropDownList" runat="server" Font-Size="Large" Visible="false" Width="400">
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>

@@ -31,6 +31,19 @@ namespace VisitDataBase
         {
             get { return generalEmployees; }
         }
+
+        private static readonly Employee fakeEmployee = new Employee()
+        {
+            LastName = "Doe",
+            FirstName = "John",
+            EmailAddress = "",
+            CellPhoneNumber = ""
+        };
+
+        public static Employee FakeEmployee
+        {
+            get { return fakeEmployee; }
+        }
     }
 
     public class Employee

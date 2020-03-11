@@ -38,8 +38,7 @@ namespace VisitDataBase
                     string.Format(@"""{0}""", i.Visitor.EmailAddress),
                     string.Format(@"""{0}""", i.Visitor.PhoneNumber),
                     string.Format(@"""{0}""", i.Time.ToString()),
-                    string.Format(@"""{0}""", i.Purpose),
-                    string.Format(@"""{0}""", i.Id)));
+                    string.Format(@"""{0}""", i.Purpose)));
             }
             return sb.ToString();
         }
