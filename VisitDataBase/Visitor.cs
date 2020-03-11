@@ -15,7 +15,6 @@ namespace VisitDataBase
         public string CompanyName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
-        public string HostId { get; set; }
     }
 
     public class VisitorWrapper

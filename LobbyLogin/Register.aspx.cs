@@ -136,9 +136,16 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
-                Employee employee = Employees[EmployeesDropDownList.SelectedIndex - 1].Employee;
-                DateTime time = DateTime.Now;
-
+                Employee employee;
+                if (VisitingAnEmployeeDropDownList.SelectedIndex == 1)
+                {
+                    employee = Employees[EmployeesDropDownList.SelectedIndex - 1].Employee;
+                }
+                else
+                {
+                    employee = null;
+                }
+                
                 Visitor visitor = new Visitor
                 {
                     FirstName = firstName.Text,
@@ -146,34 +153,48 @@ namespace LobbyLogin
                     CompanyName = companyName.Text,
                     EmailAddress = emailAddress.Text,
                     PhoneNumber = phoneNumber.Text,
-                    HostId = employee.FirstName + employee.LastName + employee.EmailAddress
                 };
 
                 AddVisitorToDatabase(visitor);
 
+                DateTime time = DateTime.Now;
                 Visit new_visit = new Visit
                 {
                     Visitor = visitor,
                     Employee = employee,
                     Time = time,
-                    Id = $"{visitor.LastName}" + $"{visitor.FirstName}" + $"{visitor.CompanyName}"
-                        + $"{employee.LastName}" + $"{employee.FirstName}" + $"{employee.EmailAddress}" + $"{time.ToString()}"
+                    Purpose = PurposeDropDownList.SelectedValue,
+                    Id = time.ToString()
                 };
                 AddVisitToDatabase(new_visit);
                 AddVisitToWaitingList(new_visit);
 
-                string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
-                List<string> addresses = Mail.GetPhoneEmailAddresses(numeric_phone_number);
-                addresses.Add(employee.EmailAddress);
+                List<string> addresses;
+                string message;
+                if (employee != null)
+                {
+                    string numeric_phone_number = new String(employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                    addresses = GetPhoneEmailAddresses(numeric_phone_number);
+                    addresses.Add(employee.EmailAddress);
+                    message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
+                    SendEmail(addresses, message);
+                }
+                else
+                {
+                    foreach (Employee general_employee in VisitDataBase.GeneralEmployee.GeneralEmployees)
+                    {
+                        string numeric_phone_number = new String(general_employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                        addresses = GetPhoneEmailAddresses(numeric_phone_number);
+                        addresses.Add(general_employee.EmailAddress);
 
-                string message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-
-                Mail.SendEmail(addresses, message);
+                        message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived";
+                        SendEmail(addresses, message);
+                    }                    
+                }
 
                 HandleBackup();
 
                 Response.Redirect("ThankYou.aspx");
-
             }
         }
 
@@ -201,17 +222,31 @@ namespace LobbyLogin
 
         protected void BackupEmployees()
         {
-            string employees_string = AdminTool.GetEmployeesString();
+            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
 
-            string fileName = BackUpLocation + "employees" + ".csv";
+            using (var db = new VisitContext())
+            {
+                employees = db.Employees.ToList();
+            }
+
+            string employees_string = GetEmployeesString(employees);
+
+            string fileName = BackUpLocation + "employees.csv";
             File.WriteAllText(fileName, employees_string);
         }
 
         protected void BackupVisitors()
         {
-            string visitors_string = AdminTool.GetVisitorsString();
+            List<VisitorWrapper> visitors = new List<VisitorWrapper>();
 
-            string fileName = BackUpLocation + "visitors" + ".csv";
+            using (var db = new VisitContext())
+            {
+                visitors = db.Visitors.ToList();
+            }
+
+            string visitors_string = GetVisitorsString(visitors);
+
+            string fileName = BackUpLocation + "visitors.csv";
             File.WriteAllText(fileName, visitors_string);
         }
 
@@ -226,7 +261,7 @@ namespace LobbyLogin
 
             string visits_string = GetVisitsString(visits);
 
-            string fileName = BackUpLocation + "visits" + ".csv";
+            string fileName = BackUpLocation + "visits.csv";
             File.WriteAllText(fileName, visits_string);
         }
 
@@ -260,16 +295,6 @@ namespace LobbyLogin
 
             UpdateVisitorList();
             UpdateVisitorDropDownList();
-
-            try
-            {
-                int index_employee = Employees.FindIndex(b => b.Id == visitor.HostId);
-                EmployeesDropDownList.SelectedIndex = index_employee + 1;
-            }
-            catch
-            {
-                EmployeesDropDownList.SelectedIndex = 0;
-            }
         }
 
         private void AddVisitorToDatabase(Visitor visitor)
@@ -277,7 +302,7 @@ namespace LobbyLogin
             VisitorWrapper visitor_w = new VisitorWrapper
             {
                 Visitor = visitor,
-                Id = visitor.FirstName + visitor.LastName + visitor.CompanyName
+                Id = GetVisitorId(visitor)
             };
 
             using (var db = new VisitContext())
@@ -333,7 +358,17 @@ namespace LobbyLogin
                 submitMessage.Text = "Invalid email addrress";
                 return false;
             }
-            else if (EmployeesDropDownList.SelectedIndex == 0)
+            else if (PurposeDropDownList.SelectedIndex == 0)
+            {
+                submitMessage.Text = "Purpose for visit must be selected";
+                return false;
+            }
+            else if (VisitingAnEmployeeDropDownList.SelectedIndex == 0)
+            {
+                submitMessage.Text = "Please answer if you are visiting a specific employee";
+                return false;
+            }
+            else if ((VisitingAnEmployeeDropDownList.SelectedIndex == 1) && (EmployeesDropDownList.SelectedIndex == 0))
             {
                 submitMessage.Text = "An employee must be selected";
                 return false;

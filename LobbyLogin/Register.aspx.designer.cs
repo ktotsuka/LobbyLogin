@@ -69,6 +69,24 @@ namespace LobbyLogin
         protected global::System.Web.UI.WebControls.TextBox phoneNumber;
 
         /// <summary>
+        /// PurposeDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PurposeDropDownList;
+
+        /// <summary>
+        /// VisitingAnEmployeeDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList VisitingAnEmployeeDropDownList;
+
+        /// <summary>
         /// EmployeesDropDownList control.
         /// </summary>
         /// <remarks>

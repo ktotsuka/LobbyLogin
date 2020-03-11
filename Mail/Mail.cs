@@ -16,9 +16,7 @@ namespace SignInMail
             "txt.att.net",
             "messaging.sprintpcs.com",
             "tmomail.net",
-            "vmobl.com",
             "messaging.nextel.com",
-            "myboostmobile.com",
             "message.alltel.com"
         });
 
@@ -58,7 +56,7 @@ namespace SignInMail
                 SmtpServer.EnableSsl = true;
 
                 //SmtpServer.Send(mail);
-                Thread.Sleep(10000);                
+                Thread.Sleep(5000);                
             }
             catch
             {

@@ -41,6 +41,28 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
+            <asp:TableHeaderCell Font-Size="Large">Purpose of visit <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableCell>
+                <asp:DropDownList ID="PurposeDropDownList" runat="server" Font-Size="Large" Width="400">
+                    <asp:ListItem>Select a purpose</asp:ListItem>
+                    <asp:ListItem>Training</asp:ListItem>
+                    <asp:ListItem>Demonstration</asp:ListItem>
+                    <asp:ListItem>Sales call</asp:ListItem>
+                    <asp:ListItem>Other</asp:ListItem>
+                </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableHeaderCell Font-Size="Large">Visiting a specific employee?</asp:TableHeaderCell>
+            <asp:TableCell>
+                <asp:DropDownList ID="VisitingAnEmployeeDropDownList" runat="server" Font-Size="Large" Width="400">
+                    <asp:ListItem>Select an answer</asp:ListItem>
+                    <asp:ListItem>Yes</asp:ListItem>
+                    <asp:ListItem>No</asp:ListItem>
+                </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large">Employee you are visiting</asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="EmployeesDropDownList" runat="server" Font-Size="Large" Width="400">

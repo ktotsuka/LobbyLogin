@@ -14,6 +14,7 @@ namespace VisitDataBase
         public Visitor Visitor { get; set; }
         public Employee Employee { get; set; }
         public DateTime Time { get; set; }
+        public string Purpose { get; set; }
         [Key] public string Id { get; set; }
     }
 

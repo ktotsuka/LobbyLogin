@@ -16,7 +16,7 @@ namespace LobbyLogin
 
         protected void AgreeButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Appointment.aspx");
+            Response.Redirect("Register.aspx");
         }
 
         protected void DisagreeButton_Click(object sender, EventArgs e)

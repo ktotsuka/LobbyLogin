@@ -2,14 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <div>
-        <h1>Please read and select agree or disagree</h1>
-    </div>
-    <hr>
-    <div>
         <h1>VISITOR CONFIDENTIALITY AGREEMENT</h1>
     </div>
     <div>
-        <h4>Whereas, Visitor desires to visit Bastian Solutions’ facility for legitimate business purposes directly and only related to Visitor’s business purposes and/or proposed business with Bastian Solutions and Bastian Solutions will allow such access, provided Visitor agrees to keep certain information confidential; Accordingly, Visitor hereby agrees as follows:</h4>
+        <h4>Visitor hereby agrees as follows:</h4>
     </div>
     <div>
         <h4>1. I understand, acknowledge and agree that Bastian Solutions Confidential Information is extremely valuable to it and is not generally known by others, including Bastian Solutions’ competitors. Bastian Solutions’ Confidential Information shall mean all information and/or products which are directly or indirectly disclosed to me under or in connection with my visit in whatever form (including verbally and electronically) that is not generally known to the public, and which includes, but is not limited to: information which concerns Bastian Solutions’ business or affairs, programs, software, products, processes, designs, inventions, discoveries, intellectual property and any other similarly legally protectible information. Bastian Solutions Confidential Information shall not include any information which (i) was in the public domain, or known by Visitor, at the time of such disclosure; or (ii) becomes part of the public domain after disclosure to Visitor, through no fault of Visitor.</h4>

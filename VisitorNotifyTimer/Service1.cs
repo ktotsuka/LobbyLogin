@@ -36,9 +36,6 @@ namespace VisitorNotifyTimer
             5.0,
             10.0,
             15.0
-            //1.0,
-            //2.0,
-            //3.0
         });
 
         public static ReadOnlyCollection<double> ReminderMinutes
@@ -60,7 +57,7 @@ namespace VisitorNotifyTimer
             WaitingVisitsWrap = new List<VisitWrapper>();
 
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-            timer.Interval = 10000; //number in milisecinds  
+            timer.Interval = 10000;
             timer.Enabled = true;
         }
 

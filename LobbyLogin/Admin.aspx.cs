@@ -26,12 +26,21 @@ namespace LobbyLogin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ProcessInputs();
             Employees = new List<EmployeeWrapper>();
             Visitors = new List<VisitorWrapper>();
             Visits = new List<Visit>();
             UpdateEmployeeList();
             UpdateVisitorList();
             UpdateVisitList();
+        }
+
+        private void ProcessInputs()
+        {
+            firstName.Text = firstName.Text.Trim();
+            lastName.Text = lastName.Text.Trim();
+            emailAddress.Text = emailAddress.Text.ToLower().Trim();
+            cellPhoneNumber.Text = cellPhoneNumber.Text.Trim();
         }
 
         protected void AdminPasswordSubmitButton_Click(object sender, EventArgs e)
@@ -63,16 +72,18 @@ namespace LobbyLogin
             {
                 using (var db = new VisitContext())
                 {
+                    Employee employee = new Employee
+                    {
+                        FirstName = firstName.Text,
+                        LastName = lastName.Text,
+                        EmailAddress = emailAddress.Text,
+                        CellPhoneNumber = cellPhoneNumber.Text
+                    };
+
                     EmployeeWrapper new_employee = new EmployeeWrapper
                     {
-                        Employee = new Employee
-                        {
-                            FirstName = firstName.Text.Trim(),
-                            LastName = lastName.Text.Trim(),
-                            EmailAddress = emailAddress.Text.ToLower().Trim(),
-                            CellPhoneNumber = cellPhoneNumber.Text.Trim()
-                        },                        
-                        Id = firstName.Text.Trim() + lastName.Text.Trim() + emailAddress.Text.ToLower().Trim()
+                        Employee = employee,                        
+                        Id = GetEmployeeId(employee)
                     };
 
                     try
@@ -95,9 +106,13 @@ namespace LobbyLogin
 
         protected void ExportEmployeesButton_Click(object sender, EventArgs e)
         {
-            string employees_string = GetEmployeesString();
+            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
 
-            // Download Here
+            using (var db = new VisitContext())
+            {
+                employees = db.Employees.ToList();
+            }
+            string employees_string = GetEmployeesString(employees);
 
             HttpContext context = HttpContext.Current;
             context.Response.Write(employees_string);
@@ -106,43 +121,7 @@ namespace LobbyLogin
             context.Response.End();
         }
 
-        public static string GetEmployeesString()
-        {
-            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
-
-            using (var db = new VisitContext())
-            {
-                employees = db.Employees.ToList();
-            }
-
-            string header = @"""Last name"",""First name"",""Email address"",""Cell phone number"",""ID""";
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(header);
-
-            foreach (var i in employees)
-            {
-                sb.AppendLine(string.Join(",",
-                    string.Format(@"""{0}""", i.Employee.LastName),
-                    string.Format(@"""{0}""", i.Employee.FirstName),
-                    string.Format(@"""{0}""", i.Employee.EmailAddress),
-                    string.Format(@"""{0}""", i.Employee.CellPhoneNumber),
-                    string.Format(@"""{0}""", i.Id)));
-            }
-            return sb.ToString();
-        }
-
         protected void ExportVisitorsButton_Click(object sender, EventArgs e)
-        {
-            string visitors_string = GetVisitorsString();
-
-            HttpContext context = HttpContext.Current;
-            context.Response.Write(visitors_string);
-            context.Response.ContentType = "text/csv";
-            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitorData.csv");
-            context.Response.End();
-        }
-
-        public static string GetVisitorsString()
         {
             List<VisitorWrapper> visitors = new List<VisitorWrapper>();
 
@@ -150,22 +129,13 @@ namespace LobbyLogin
             {
                 visitors = db.Visitors.ToList();
             }
+            string visitors_string = GetVisitorsString(visitors);
 
-            string header = @"""Last name"",""First name"",""Company name"",""Email address"",""Phone number"",""Host ID"",""ID""";
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(header);
-            foreach (var i in visitors)
-            {
-                sb.AppendLine(string.Join(",",
-                    string.Format(@"""{0}""", i.Visitor.LastName),
-                    string.Format(@"""{0}""", i.Visitor.FirstName),
-                    string.Format(@"""{0}""", i.Visitor.CompanyName),
-                    string.Format(@"""{0}""", i.Visitor.EmailAddress),
-                    string.Format(@"""{0}""", i.Visitor.PhoneNumber),
-                    string.Format(@"""{0}""", i.Visitor.HostId),
-                    string.Format(@"""{0}""", i.Id)));
-            }
-            return sb.ToString();
+            HttpContext context = HttpContext.Current;
+            context.Response.Write(visitors_string);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("Content-Disposition", "attachment; filename=VisitorData.csv");
+            context.Response.End();
         }
 
         protected void ExportVisitsButton_Click(object sender, EventArgs e)
@@ -208,17 +178,18 @@ namespace LobbyLogin
                         {
                             throw new System.InvalidOperationException("Invalid number of fields");
                         }
+                        Employee employee = new Employee
+                        {
+                            LastName = Fields[0].Replace("\"", ""),
+                            FirstName = Fields[1].Replace("\"", ""),
+                            EmailAddress = Fields[2].Replace("\"", ""),
+                            CellPhoneNumber = Fields[3].Replace("\"", "")
+                        };
                         employees.Add(
                             new EmployeeWrapper
                             {
-                                Employee = new Employee
-                                {
-                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
-                                    FirstName = Fields[1].Replace("\"", ""),
-                                    EmailAddress = Fields[2].Replace("\"", ""),
-                                    CellPhoneNumber = Fields[3].Replace("\"", "")
-                                },
-                                Id = Fields[4].Replace("\"", "")
+                                Employee = employee,
+                                Id = GetEmployeeId(employee)
                             });
                     }
 
@@ -267,19 +238,19 @@ namespace LobbyLogin
                         {
                             throw new System.InvalidOperationException("Invalid number of fields");
                         }
+                        Visitor visitor = new Visitor
+                        {
+                            LastName = Fields[0].Replace("\"", ""),
+                            FirstName = Fields[1].Replace("\"", ""),
+                            CompanyName = Fields[2].Replace("\"", ""),
+                            EmailAddress = Fields[3].Replace("\"", ""),
+                            PhoneNumber = Fields[4].Replace("\"", ""),
+                        };
                         visitors.Add(
                             new VisitorWrapper
                             {
-                                Visitor = new Visitor
-                                {
-                                    LastName = Fields[0].Replace("\"", ""), // removed "" 
-                                    FirstName = Fields[1].Replace("\"", ""),
-                                    CompanyName = Fields[2].Replace("\"", ""),
-                                    EmailAddress = Fields[3].Replace("\"", ""),
-                                    PhoneNumber = Fields[4].Replace("\"", ""),
-                                    HostId = Fields[5].Replace("\"", "")
-                                },
-                                Id = Fields[6].Replace("\"", "")
+                                Visitor = visitor,
+                                Id = GetVisitorId(visitor)
                             });
                     }
 
