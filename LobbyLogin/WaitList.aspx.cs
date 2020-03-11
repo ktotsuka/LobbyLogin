@@ -27,18 +27,7 @@ namespace LobbyLogin
 
             List<Visit> visits;
 
-            while (true)
-            {
-                try
-                {
-                    visits = GetVisitFromFile(WaitListFileLocation);
-                    break;
-                }
-                catch
-                {
-                    Thread.Sleep(FileAccessRetryWait);
-                }
-            }
+            visits = GetVisitFromFile(WaitListFileLocation);
 
             foreach (var i in visits)
             {
