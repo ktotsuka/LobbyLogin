@@ -4,7 +4,7 @@
     <meta http-equiv="Refresh" content="30;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server" >
         <asp:TableRow >
-            <asp:TableHeaderCell Font-Size="Large">Waiting list for registered visitors</asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">List of registered visitors to be acknowledged</asp:TableHeaderCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>

@@ -54,7 +54,7 @@ namespace LobbyLogin
 
             if (WaitingVisits.Count == 0)
             {
-                WaitingVisitDropDownList.Items.Add("No visitor is waiting");
+                WaitingVisitDropDownList.Items.Add("None");
             }
 
             foreach (var visit in WaitingVisits)

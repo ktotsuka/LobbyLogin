@@ -481,6 +481,39 @@ namespace LobbyLogin
             UpdateEmployeeDropDownList();
         }
 
+        protected void RemoveAllEmployeeButton_Click(object sender, EventArgs e)
+        {
+            using (var db = new VisitContext())
+            {
+                db.Employees.RemoveRange(db.Employees);
+                db.SaveChanges();
+            }
+            UpdateEmployeeList();
+            UpdateEmployeeDropDownList();
+        }
+
+        protected void RemoveAllVisitorButton_Click(object sender, EventArgs e)
+        {
+            using (var db = new VisitContext())
+            {
+                db.Visitors.RemoveRange(db.Visitors);
+                db.SaveChanges();
+            }
+            UpdateVisitorList();
+            UpdateVisitorDropDownList();
+        }
+
+        protected void RemoveAllVisitButton_Click(object sender, EventArgs e)
+        {
+            using (var db = new VisitContext())
+            {
+                db.Visits.RemoveRange(db.Visits);
+                db.SaveChanges();
+            }
+            UpdateVisitList();
+            UpdateVisitDropDownList();
+        }
+
         protected void RemoveVisitorButton_Click(object sender, EventArgs e)
         {
             VisitorWrapper selected_visitor;
