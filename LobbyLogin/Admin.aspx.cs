@@ -15,9 +15,7 @@ namespace LobbyLogin
 {
     public partial class AdminTool : System.Web.UI.Page
     {
-        //public const string correctPassword = "Georgetown@4321!";
-
-        public const string correctPassword = "A";
+        public const string correctPassword = "1397";
         public const string UploadDirectory = @"C:\Temp\Uploaded\";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
