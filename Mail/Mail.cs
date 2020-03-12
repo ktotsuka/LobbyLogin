@@ -36,7 +36,7 @@ namespace SignInMail
             return addresses;
         }
 
-        public static void SendEmail(List<string> email_addresses, string message)
+        public static bool SendEmail(List<string> email_addresses, string message)
         {
             try
             {
@@ -55,11 +55,12 @@ namespace SignInMail
                 SmtpServer.Credentials = new System.Net.NetworkCredential("bav.georgetown", "Georgetown@4321!");
                 SmtpServer.EnableSsl = true;
 
-                SmtpServer.Send(mail);              
+                SmtpServer.Send(mail);
+                return true;
             }
             catch
             {
-
+                return false;
             }
         }
 

@@ -137,6 +137,7 @@ namespace LobbyLogin
         {
             if (VerifyInputs())
             {
+                bool notify_success = false;
                 Employee employee;
                 if (VisitingAnEmployeeDropDownList.SelectedIndex == 1)
                 {
@@ -178,7 +179,7 @@ namespace LobbyLogin
                     addresses = GetPhoneEmailAddresses(numeric_phone_number);
                     addresses.Add(employee.EmailAddress);
                     message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived for you";
-                    SendEmail(addresses, message);
+                    notify_success = SendEmail(addresses, message);
                 }
                 else
                 {
@@ -189,13 +190,20 @@ namespace LobbyLogin
                         addresses.Add(general_employee.EmailAddress);
 
                         message = $"{visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} has arrived";
-                        SendEmail(addresses, message);
+                        notify_success = SendEmail(addresses, message);
                     }                    
                 }
 
                 HandleBackup();
 
-                Response.Redirect("ThankYou.aspx");
+                if (notify_success)
+                {
+                    Response.Redirect("ThankYou.aspx");
+                }
+                else
+                {
+                    Response.Redirect("NotifyFail.aspx");
+                }
             }
         }
 
