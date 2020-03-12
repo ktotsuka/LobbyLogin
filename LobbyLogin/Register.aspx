@@ -4,6 +4,9 @@
     <meta http-equiv="Refresh" content="300;url=ConfidentialityAgreement.aspx" />
     <asp:Table runat="server">
         <asp:TableRow>
+            <asp:TableHeaderCell Font-Size="Large"><span style="COLOR: red">* Required fields</span></asp:TableHeaderCell>
+        </asp:TableRow>
+        <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large">Returning visitor?</asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="VisitorsDropDownList" runat="server" Font-Size="Large" OnSelectedIndexChanged="VisitorsOnSelectedIndexChanged" AutoPostBack="True" Width="400">
@@ -11,19 +14,19 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow >
-            <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large" Width="300">Last name <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:TextBox ID="lastName" runat="server" Font-Size="Large" MaxLength="50" AutoCompleteType="Disabled" OnTextChanged="LastNameOnTextChanged" AutoPostBack="True" Width="400" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">First name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">First name <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:TextBox ID="firstName" runat="server" Font-Size="Large" MaxLength="50" AutoCompleteType="Disabled" Width="400"/>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">Company name <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Company name <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:TextBox ID="companyName" runat="server" Font-Size="Large" MaxLength="50" AutoCompleteType="Disabled" Width="400"/>
             </asp:TableCell>
@@ -41,7 +44,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">Purpose of visit <span style="COLOR: red">(required)</span></asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Purpose of visit <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="PurposeDropDownList" runat="server" Font-Size="Large" Width="400">
                     <asp:ListItem>Select a purpose</asp:ListItem>
@@ -53,7 +56,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell Font-Size="Large">Visiting a specific employee?</asp:TableHeaderCell>
+            <asp:TableHeaderCell Font-Size="Large">Visiting a specific employee? <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="VisitingAnEmployeeDropDownList" runat="server" Font-Size="Large" Width="400" OnSelectedIndexChanged="VisitingAnEmployeeOnSelectedIndexChanged" AutoPostBack="True">
                     <asp:ListItem>Select an answer</asp:ListItem>
@@ -63,7 +66,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableHeaderCell ID="EmployeeYouAreVisitingLabel" Visible="false" Font-Size="Large">Employee you are visiting</asp:TableHeaderCell>
+            <asp:TableHeaderCell ID="EmployeeYouAreVisitingLabel" Visible="false" Font-Size="Large">Employee you are visiting <span style="COLOR: red">*</span></asp:TableHeaderCell>
             <asp:TableCell>
                 <asp:DropDownList ID="EmployeesDropDownList" runat="server" Font-Size="Large" Visible="false" Width="400">
                 </asp:DropDownList>
