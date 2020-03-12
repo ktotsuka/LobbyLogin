@@ -13,9 +13,11 @@ namespace LobbyLogin
     public partial class WaitList : System.Web.UI.Page
     {
         public List<Visit> WaitingVisits { get; set; }
+        private string WaitingVisitInfo { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            WaitingVisitInfo = WaitingVisitDropDownList.SelectedValue;
             WaitingVisits = new List<Visit>();
             UpdateWaitingVisitList();
             UpdateWaitingVisitDropDownList();
@@ -48,7 +50,7 @@ namespace LobbyLogin
 
             foreach (var visit in WaitingVisits)
             {
-                string visitor_info = $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName}";
+                string visitor_info = GetWaitingVisitInfo(visit);
                 WaitingVisitDropDownList.Items.Add(visitor_info);
             }
 
@@ -58,16 +60,14 @@ namespace LobbyLogin
             }
         }
 
+        private string GetWaitingVisitInfo(Visit visit)
+        {
+            return $"{visit.Visitor.FirstName} {visit.Visitor.LastName} from {visit.Visitor.CompanyName} on {visit.Time.ToString()}";
+        }
+
         protected void RemoveWaitingVisitButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                WaitingVisits.RemoveAt(WaitingVisitDropDownList.SelectedIndex);
-            }
-            catch
-            {
-                return;
-            }
+            WaitingVisits.RemoveAll(item => GetWaitingVisitInfo(item) == WaitingVisitInfo);
 
             using (var mutex = new Mutex(false, WaitListMutexName))
             {
