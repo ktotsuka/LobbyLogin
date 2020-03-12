@@ -156,7 +156,11 @@ namespace LobbyLogin
 
         protected void ImportEmployeesButton_Click(object sender, EventArgs e)
         {
-            if (ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv" || ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+            if ((ImportEmployeesFileUploadControl.PostedFile.ContentType == "text/csv")
+                || 
+                (ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+                ||
+                (ImportEmployeesFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel"))
             {
                 string fileName = UploadDirectory + "employees.csv";
                 try
@@ -216,7 +220,11 @@ namespace LobbyLogin
 
         protected void ImportVisitorsButton_Click(object sender, EventArgs e)
         {
-            if (ImportVisitorsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+            if ((ImportVisitorsFileUploadControl.PostedFile.ContentType == "text/csv")
+                ||
+                (ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+                ||
+                (ImportVisitorsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel"))
             {
                 string fileName = UploadDirectory + "visitors.csv";
                 try
@@ -277,7 +285,11 @@ namespace LobbyLogin
 
         protected void ImportVisitsButton_Click(object sender, EventArgs e)
         {
-            if (ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv" || ImportVisitsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+            if ((ImportVisitsFileUploadControl.PostedFile.ContentType == "text/csv")
+                ||
+                (ImportVisitsFileUploadControl.PostedFile.ContentType == "application/octet-stream")
+                ||
+                (ImportVisitsFileUploadControl.PostedFile.ContentType == "application/vnd.ms-excel"))
             {
                 try
                 {
