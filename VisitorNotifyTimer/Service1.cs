@@ -14,6 +14,7 @@ using VisitDataBase;
 using System.Collections.ObjectModel;
 using SignInMail;
 using static VisitDataBase.DataAccess;
+using static VisitDataBase.GeneralEmployee;
 using static SignInMail.Mail;
 
 namespace VisitorNotifyTimer
@@ -59,6 +60,7 @@ namespace VisitorNotifyTimer
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
             timer.Interval = 10000;
             timer.Enabled = true;
+            WriteToLogFile("Notify service started");
         }
 
         protected override void OnStop()
@@ -148,7 +150,6 @@ namespace VisitorNotifyTimer
                 {
                     SendReminder(visitW);
                     visitW.ReminderCount++;
-                    WriteToLogFile($"Sending reminder for {visitW.Visit.Visitor.FirstName} {visitW.Visit.Visitor.LastName}");
                 }
             }
         }
@@ -157,8 +158,18 @@ namespace VisitorNotifyTimer
         {
             Visitor visitor = visit.Visit.Visitor;
             Employee employee = visit.Visit.Employee;
-            string message = $"Reminder: {visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} "
-                           + $"is still waiting for {employee.FirstName} {employee.LastName}";
+            string message;
+
+            if (isFakeEmployee(employee))
+            {
+                message = $"Reminder: {visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} "
+               + $"is still waiting";
+            }
+            else
+            {
+                message = $"Reminder: {visitor.FirstName} {visitor.LastName} from {visitor.CompanyName} "
+               + $"is still waiting for {employee.FirstName} {employee.LastName}";
+            }
 
             List<Employee> employees_to_be_notified = new List<Employee>();
 
@@ -167,7 +178,7 @@ namespace VisitorNotifyTimer
                 employees_to_be_notified.Add(generalEmployee);
             }
 
-            if (ContainsEmployee(employees_to_be_notified, employee) == false)
+            if ((ContainsEmployee(employees_to_be_notified, employee) == false) && (isFakeEmployee(employee) == false))
             {
                 employees_to_be_notified.Add(employee);
             }
@@ -177,8 +188,6 @@ namespace VisitorNotifyTimer
                 string numeric_phone_number = new String(e.CellPhoneNumber.Where(Char.IsDigit).ToArray());
                 List<string> addresses = GetPhoneEmailAddresses(numeric_phone_number);
                 addresses.Add(e.EmailAddress);
-
-                WriteToLogFile(message);
 
                 Mail.SendEmail(addresses, message);
             }
@@ -194,6 +203,24 @@ namespace VisitorNotifyTimer
                 }
             }
             return false;
+        }
+
+        private bool isFakeEmployee(Employee employee)
+        {
+            if ((employee.LastName == FakeEmployee.LastName) 
+                && 
+                (employee.FirstName == FakeEmployee.FirstName)
+                &&
+                (employee.EmailAddress == FakeEmployee.EmailAddress)
+                &&
+                (employee.CellPhoneNumber == FakeEmployee.CellPhoneNumber))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool TimeToSendReminderr(VisitWrapper visit, DateTime currentTime)

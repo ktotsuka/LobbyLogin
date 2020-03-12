@@ -3,6 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <meta http-equiv="Refresh" content="600;url=ConfidentialityAgreement.aspx" />
     <hr>
     <asp:Table ID="AdminPasswordTable" runat="server" CellSpacing="10">
         <asp:TableRow>

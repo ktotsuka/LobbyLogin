@@ -22,7 +22,7 @@ namespace VisitDataBase
         {
             string header = @"""Employee last name"",""Employee first name"",""Employee email address"",""Employee cell phone number"""
                 + @",""Visitor last name"",""Visitor First name"",""Visitor company name"",""Visitor email address"",""Visitor phone number"""
-                + @", ""Time"",""Poupose of visit""";
+                + @", ""Time"",""Purpose of visit""";
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(header);
             foreach (var i in visits)
