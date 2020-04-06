@@ -19,11 +19,11 @@
     <asp:Table runat="server">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:Button ID="AgreeButton" runat="server" Text="Agree" Width="150" Height="75" OnClick="AgreeButton_Click" Font-Size="X-Large" />
+                <asp:Button ID="AgreeButton" runat="server" Text="Agree" Width="150" Height="75" OnClick="AgreeButton_Click" Font-Size="X-Large" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait';" />
             </asp:TableCell>
             <asp:TableHeaderCell Font-Size="Large">&nbsp &nbsp</asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:Button ID="DisagreeButton" runat="server" Text="Disagree" Width="150" Height="75" OnClick="DisagreeButton_Click" Font-Size="X-Large" />
+                <asp:Button ID="DisagreeButton" runat="server" Text="Disagree" Width="150" Height="75" OnClick="DisagreeButton_Click" Font-Size="X-Large" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait';"/>
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
