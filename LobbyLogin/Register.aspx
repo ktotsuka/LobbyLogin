@@ -2,6 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <meta http-equiv="Refresh" content="300;url=ConfidentialityAgreement.aspx" />
+    <div>
+        <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp BAV Guest Sign-in</h1>
+    </div>
+    <hr>
     <asp:Table runat="server">
         <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large"><span style="COLOR: red">* Required fields</span></asp:TableHeaderCell>

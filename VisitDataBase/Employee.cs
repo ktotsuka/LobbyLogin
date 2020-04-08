@@ -27,9 +27,36 @@ namespace VisitDataBase
             }
         });
 
+        private static readonly ReadOnlyCollection<Employee> deliveryEmployees = new ReadOnlyCollection<Employee>(new[]
+        {
+            new Employee() {
+                 LastName = "Clark",
+                 FirstName = "Jennifer",
+                 EmailAddress = "jclark@toyotaagv.com",
+                 CellPhoneNumber = "(859)551-1684"
+            },
+            new Employee() {
+                 LastName = "Sparks",
+                 FirstName = "Joel",
+                 EmailAddress = "jsparks@toyotaagv.com",
+                 CellPhoneNumber = "(606)922-7763"
+            },
+            new Employee() {
+                 LastName = "Miller",
+                 FirstName = "Eddie",
+                 EmailAddress = "emiller@toyotaagv.com",
+                 CellPhoneNumber = "(859)967-8287"
+            }
+        });
+
         public static ReadOnlyCollection<Employee> GeneralEmployees
         {
             get { return generalEmployees; }
+        }
+
+        public static ReadOnlyCollection<Employee> DeliveryEmployees
+        {
+            get { return deliveryEmployees; }
         }
 
         private static readonly Employee fakeEmployee = new Employee()

@@ -124,6 +124,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DeliveryMain.aspx" />
+    <Content Include="DeliveryThankYou.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -199,6 +201,20 @@
     </Compile>
     <Compile Include="ConfidentialityAgreement.aspx.designer.cs">
       <DependentUpon>ConfidentialityAgreement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryMain.aspx.cs">
+      <DependentUpon>DeliveryMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeliveryMain.aspx.designer.cs">
+      <DependentUpon>DeliveryMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryThankYou.aspx.cs">
+      <DependentUpon>DeliveryThankYou.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeliveryThankYou.aspx.designer.cs">
+      <DependentUpon>DeliveryThankYou.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

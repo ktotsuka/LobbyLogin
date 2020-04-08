@@ -2,6 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <div>
+        <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp BAV Guest Sign-in</h1>
+    </div>
+    <hr>
+    <div>
         <h1>VISITOR CONFIDENTIALITY AGREEMENT</h1>
     </div>
     <div>

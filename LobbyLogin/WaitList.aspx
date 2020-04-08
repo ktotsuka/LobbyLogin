@@ -2,6 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <meta http-equiv="Refresh" content="30;url=ConfidentialityAgreement.aspx" />
+    <div>
+        <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp BAV Guest Sign-in</h1>
+    </div>
+    <hr>
     <asp:Table runat="server" >
         <asp:TableRow >
             <asp:TableHeaderCell Font-Size="Large">List of visitors to be acknowledged</asp:TableHeaderCell>
