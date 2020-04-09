@@ -123,6 +123,35 @@
         </asp:TableRow>
     </asp:Table>
     <hr />
+    <asp:Table ID="DeliveryNotificationTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableHeaderCell >Delivery notification list</asp:TableHeaderCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:DropDownList ID="AddToDeliveryNotificationListDropDownList" runat="server"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="AddToDeliveryNotificationListButton" runat="server" Text="Add to list" OnClick="AddToDeliveryNotificationListButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableHeaderCell Font-Size="Small">&nbsp &nbsp</asp:TableHeaderCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:DropDownList ID="RemoveFromDeliveryNotificationListDropDownList" runat="server"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:Button ID="RemoveFromDeliveryNotificationListButton" runat="server" Text="Remove from list" OnClick="RemoveFromDeliveryNotificationListButton_Click" />
+            </asp:TableCell>
+        </asp:TableRow>
+    </asp:Table>
+    <hr />
     <asp:Table ID="ExportTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
             <asp:TableCell>

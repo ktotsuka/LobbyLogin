@@ -15,7 +15,8 @@ namespace LobbyLogin
 {
     public partial class AdminTool : System.Web.UI.Page
     {
-        public const string correctPassword = "1397";
+        public const string correctPassword = "13";
+        public const string superSecretPassword = "1397";
         public const string UploadDirectory = @"C:\Temp\Uploaded\";
         public const int MaxTextLength = 50;
         public List<EmployeeWrapper> Employees { get; set; }
@@ -49,12 +50,29 @@ namespace LobbyLogin
                 AdminPasswordTable.Visible = false;
                 AddEmployeeTable.Visible = true;
                 RemoveEmployeeTable.Visible = true;
+                ExportTable.Visible = true;
+                DeliveryNotificationTable.Visible = true;
+                removeAllEmployeeButton.Visible = false;
+
+                UpdateEmployeeDropDownList();
+                UpdateAddToDeliveryNotificationEmployeeDropDownList();
+                UpdateVisitorDropDownList();
+                UpdateVisitDropDownList();
+            }
+            else if (adminPassword.Text == superSecretPassword)
+            {
+                submitErrorMessage.Text = "";
+                AdminPasswordTable.Visible = false;
+                AddEmployeeTable.Visible = true;
+                RemoveEmployeeTable.Visible = true;
                 RemoveVisitorTable.Visible = true;
                 RemoveVisitTable.Visible = true;
                 ExportTable.Visible = true;
+                DeliveryNotificationTable.Visible = true;
                 ImportTable.Visible = true;
 
                 UpdateEmployeeDropDownList();
+                UpdateAddToDeliveryNotificationEmployeeDropDownList();
                 UpdateVisitorDropDownList();
                 UpdateVisitDropDownList();
             }
@@ -93,6 +111,7 @@ namespace LobbyLogin
                             $"{new_employee.Employee.EmailAddress}, {new_employee.Employee.CellPhoneNumber}";
                         UpdateEmployeeList();
                         UpdateEmployeeDropDownList();
+                        UpdateAddToDeliveryNotificationEmployeeDropDownList();
                     }
                     catch
                     {
@@ -210,6 +229,7 @@ namespace LobbyLogin
                     }
                     UpdateEmployeeList();
                     UpdateEmployeeDropDownList();
+                    UpdateAddToDeliveryNotificationEmployeeDropDownList();
                 }
                 catch (Exception)
                 {
@@ -377,6 +397,17 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateAddToDeliveryNotificationEmployeeDropDownList()
+        {
+            AddToDeliveryNotificationListDropDownList.Items.Clear();
+            foreach (var employee in Employees)
+            {
+                Employee emp = employee.Employee;
+                string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                AddToDeliveryNotificationListDropDownList.Items.Add(employee_info);
+            }
+        }
+
         private void UpdateVisitorDropDownList()
         {
             VisitorsDropDownList.Items.Clear();
@@ -460,6 +491,7 @@ namespace LobbyLogin
             }
             UpdateEmployeeList();
             UpdateEmployeeDropDownList();
+            UpdateAddToDeliveryNotificationEmployeeDropDownList();
         }
 
         protected void RemoveAllEmployeeButton_Click(object sender, EventArgs e)
@@ -471,6 +503,7 @@ namespace LobbyLogin
             }
             UpdateEmployeeList();
             UpdateEmployeeDropDownList();
+            UpdateAddToDeliveryNotificationEmployeeDropDownList();
         }
 
         protected void RemoveAllVisitorButton_Click(object sender, EventArgs e)
@@ -493,6 +526,44 @@ namespace LobbyLogin
             }
             UpdateVisitList();
             UpdateVisitDropDownList();
+        }
+
+        protected void AddToDeliveryNotificationListButton_Click(object sender, EventArgs e)
+        {
+            //EmployeeWrapper selected_employee;
+
+            //try
+            //{
+            //    selected_employee = Employees[AddToDeliveryNotificationListDropDownList.SelectedIndex];
+            //}
+            //catch
+            //{
+            //    return;
+            //}
+
+            //while (true)
+            //{
+            //    try
+            //    {
+            //        FileStream list_file = new FileStream(DeliveryNotificationListFileLocation, FileMode.Create);
+            //        StreamWriter sw = new StreamWriter(list_file);
+
+            //        string visit_str = GetVisitsString(visits);
+
+            //        sw.Write(visit_str);
+            //        sw.Close();
+            //        break;
+            //    }
+            //    catch
+            //    {
+            //        Thread.Sleep(FileAccessRetryWait);
+            //    }
+            //}
+        }
+
+        protected void RemoveFromDeliveryNotificationListButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         protected void RemoveVisitorButton_Click(object sender, EventArgs e)

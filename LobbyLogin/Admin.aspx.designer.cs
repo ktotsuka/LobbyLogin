@@ -303,6 +303,51 @@ namespace LobbyLogin
         protected global::System.Web.UI.WebControls.Button removeAllVisitButton;
 
         /// <summary>
+        /// DeliveryNotificationTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table DeliveryNotificationTable;
+
+        /// <summary>
+        /// AddToDeliveryNotificationListDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList AddToDeliveryNotificationListDropDownList;
+
+        /// <summary>
+        /// AddToDeliveryNotificationListButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddToDeliveryNotificationListButton;
+
+        /// <summary>
+        /// RemoveFromDeliveryNotificationListDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList RemoveFromDeliveryNotificationListDropDownList;
+
+        /// <summary>
+        /// RemoveFromDeliveryNotificationListButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RemoveFromDeliveryNotificationListButton;
+
+        /// <summary>
         /// ExportTable control.
         /// </summary>
         /// <remarks>

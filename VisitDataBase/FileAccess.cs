@@ -15,6 +15,7 @@ namespace VisitDataBase
         public const int VisitorNumOfFields = 5;
         public const int VisitNumOfFields = 11;
         public const string WaitListFileLocation = @"C:\Temp\visit_waiting_list.txt";
+        public const string DeliveryNotificationListFileLocation = @"C:\Temp\delivery_notification_list.txt";
         public const string WaitListMutexName = @"Global\WaitListMutex";
         public const int FileAccessRetryWait = 100;
 
