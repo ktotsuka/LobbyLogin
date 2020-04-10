@@ -171,5 +171,17 @@ namespace VisitDataBase
         {
             return employee.FirstName + employee.LastName + employee.EmailAddress;
         }
+
+        public static bool ContainsEmployee(List<EmployeeWrapper> employees, EmployeeWrapper employee)
+        {
+            foreach (EmployeeWrapper e in employees)
+            {
+                if (e.Id == employee.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

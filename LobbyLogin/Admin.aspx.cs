@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Text;
 using System.IO;
+using System.Threading;
 using VisitDataBase;
 using static VisitDataBase.DataAccess;
 using static SignInMail.Mail;
@@ -22,14 +23,17 @@ namespace LobbyLogin
         public List<EmployeeWrapper> Employees { get; set; }
         public List<VisitorWrapper> Visitors { get; set; }
         public List<Visit> Visits { get; set; }
+        public List<EmployeeWrapper> DeliveryNoticeEmployees { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             ProcessInputs();
             Employees = new List<EmployeeWrapper>();
+            DeliveryNoticeEmployees = new List<EmployeeWrapper>();
             Visitors = new List<VisitorWrapper>();
             Visits = new List<Visit>();
             UpdateEmployeeList();
+            UpdateDeliveryNoticeEmployeeList();
             UpdateVisitorList();
             UpdateVisitList();
         }
@@ -56,6 +60,7 @@ namespace LobbyLogin
 
                 UpdateEmployeeDropDownList();
                 UpdateAddToDeliveryNotificationEmployeeDropDownList();
+                UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
                 UpdateVisitorDropDownList();
                 UpdateVisitDropDownList();
             }
@@ -73,6 +78,7 @@ namespace LobbyLogin
 
                 UpdateEmployeeDropDownList();
                 UpdateAddToDeliveryNotificationEmployeeDropDownList();
+                UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
                 UpdateVisitorDropDownList();
                 UpdateVisitDropDownList();
             }
@@ -112,6 +118,7 @@ namespace LobbyLogin
                         UpdateEmployeeList();
                         UpdateEmployeeDropDownList();
                         UpdateAddToDeliveryNotificationEmployeeDropDownList();
+                        UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
                     }
                     catch
                     {
@@ -186,34 +193,8 @@ namespace LobbyLogin
                 {
                     ImportEmployeesFileUploadControl.PostedFile.SaveAs(fileName);
 
-                    string[] Lines = File.ReadAllLines(fileName);
-                    string[] Fields;
-
-                    //Remove Header line
-                    Lines = Lines.Skip(1).ToArray();
-                    List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
-                    foreach (var line in Lines)
-                    {
-                        Fields = line.Split(new char[] { ',' });
-                        if (Fields.Count() != EmployeeNumOfFields)
-                        {
-                            throw new System.InvalidOperationException("Invalid number of fields");
-                        }
-                        Employee employee = new Employee
-                        {
-                            LastName = Fields[0].Replace("\"", ""),
-                            FirstName = Fields[1].Replace("\"", ""),
-                            EmailAddress = Fields[2].Replace("\"", ""),
-                            CellPhoneNumber = Fields[3].Replace("\"", "")
-                        };
-                        employees.Add(
-                            new EmployeeWrapper
-                            {
-                                Employee = employee,
-                                Id = GetEmployeeId(employee)
-                            });
-                    }
-
+                    List<EmployeeWrapper> employees = ReadEmployeesFromFile(fileName);
+                    
                     // Update database data
                     using (var dc = new VisitContext())
                     {
@@ -230,12 +211,45 @@ namespace LobbyLogin
                     UpdateEmployeeList();
                     UpdateEmployeeDropDownList();
                     UpdateAddToDeliveryNotificationEmployeeDropDownList();
+                    UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
                 }
                 catch (Exception)
                 {
                     throw;
                 }
             }
+        }
+
+        private List<EmployeeWrapper> ReadEmployeesFromFile(string file_name)
+        {
+            string[] Lines = File.ReadAllLines(file_name);
+            string[] Fields;
+
+            //Remove Header line
+            Lines = Lines.Skip(1).ToArray();
+            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
+            foreach (var line in Lines)
+            {
+                Fields = line.Split(new char[] { ',' });
+                if (Fields.Count() != EmployeeNumOfFields)
+                {
+                    throw new System.InvalidOperationException("Invalid number of fields");
+                }
+                Employee employee = new Employee
+                {
+                    LastName = Fields[0].Replace("\"", ""),
+                    FirstName = Fields[1].Replace("\"", ""),
+                    EmailAddress = Fields[2].Replace("\"", ""),
+                    CellPhoneNumber = Fields[3].Replace("\"", "")
+                };
+                employees.Add(
+                    new EmployeeWrapper
+                    {
+                        Employee = employee,
+                        Id = GetEmployeeId(employee)
+                    });
+            }
+            return employees;
         }
 
         protected void ImportVisitorsButton_Click(object sender, EventArgs e)
@@ -356,6 +370,18 @@ namespace LobbyLogin
             }
         }
 
+        private void UpdateDeliveryNoticeEmployeeList()
+        {
+            try
+            {
+                DeliveryNoticeEmployees = ReadEmployeesFromFile(DeliveryNotificationListFileLocation);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void UpdateVisitorList()
         {
             Visitors.Clear();
@@ -405,6 +431,17 @@ namespace LobbyLogin
                 Employee emp = employee.Employee;
                 string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
                 AddToDeliveryNotificationListDropDownList.Items.Add(employee_info);
+            }
+        }
+
+        private void UpdateRemoveFromDeliveryNotificationEmployeeDropDownList()
+        {
+            RemoveFromDeliveryNotificationListDropDownList.Items.Clear();
+            foreach (var employee in DeliveryNoticeEmployees)
+            {
+                Employee emp = employee.Employee;
+                string employee_info = $"{emp.FirstName} {emp.LastName}, {emp.EmailAddress}, {emp.CellPhoneNumber}";
+                RemoveFromDeliveryNotificationListDropDownList.Items.Add(employee_info);
             }
         }
 
@@ -492,6 +529,7 @@ namespace LobbyLogin
             UpdateEmployeeList();
             UpdateEmployeeDropDownList();
             UpdateAddToDeliveryNotificationEmployeeDropDownList();
+            UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
         }
 
         protected void RemoveAllEmployeeButton_Click(object sender, EventArgs e)
@@ -504,6 +542,7 @@ namespace LobbyLogin
             UpdateEmployeeList();
             UpdateEmployeeDropDownList();
             UpdateAddToDeliveryNotificationEmployeeDropDownList();
+            UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
         }
 
         protected void RemoveAllVisitorButton_Click(object sender, EventArgs e)
@@ -530,40 +569,65 @@ namespace LobbyLogin
 
         protected void AddToDeliveryNotificationListButton_Click(object sender, EventArgs e)
         {
-            //EmployeeWrapper selected_employee;
+            EmployeeWrapper selected_employee;
 
-            //try
-            //{
-            //    selected_employee = Employees[AddToDeliveryNotificationListDropDownList.SelectedIndex];
-            //}
-            //catch
-            //{
-            //    return;
-            //}
+            try
+            {
+                selected_employee = Employees[AddToDeliveryNotificationListDropDownList.SelectedIndex];
+            }
+            catch
+            {
+                return;
+            }
 
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        FileStream list_file = new FileStream(DeliveryNotificationListFileLocation, FileMode.Create);
-            //        StreamWriter sw = new StreamWriter(list_file);
+            if (!ContainsEmployee(DeliveryNoticeEmployees, selected_employee))
+            {
+                DeliveryNoticeEmployees.Add(selected_employee);
+            }
 
-            //        string visit_str = GetVisitsString(visits);
+            WriteEmployeesToFile(DeliveryNotificationListFileLocation, DeliveryNoticeEmployees);           
 
-            //        sw.Write(visit_str);
-            //        sw.Close();
-            //        break;
-            //    }
-            //    catch
-            //    {
-            //        Thread.Sleep(FileAccessRetryWait);
-            //    }
-            //}
+            UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
+        }
+
+        private void WriteEmployeesToFile(string file_name, List<EmployeeWrapper> employees)
+        {
+            while (true)
+            {
+                try
+                {
+                    FileStream list_file = new FileStream(file_name, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(list_file);
+
+                    string employees_string = GetEmployeesString(employees);
+                    sw.Write(employees_string);
+                    sw.Close();
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(FileAccessRetryWait);
+                }
+            }
         }
 
         protected void RemoveFromDeliveryNotificationListButton_Click(object sender, EventArgs e)
         {
+            EmployeeWrapper selected_employee;
 
+            try
+            {
+                selected_employee = DeliveryNoticeEmployees[RemoveFromDeliveryNotificationListDropDownList.SelectedIndex];
+            }
+            catch
+            {
+                return;
+            }
+
+            DeliveryNoticeEmployees.RemoveAll(item => item.Id == selected_employee.Id);
+            WriteEmployeesToFile(DeliveryNotificationListFileLocation, DeliveryNoticeEmployees);
+
+            UpdateRemoveFromDeliveryNotificationEmployeeDropDownList();
         }
 
         protected void RemoveVisitorButton_Click(object sender, EventArgs e)

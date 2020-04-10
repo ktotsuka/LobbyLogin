@@ -24,6 +24,9 @@
     </asp:Table>
     <asp:Table ID="AddEmployeeTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
+            <asp:TableHeaderCell >Employee list</asp:TableHeaderCell>
+        </asp:TableRow>
+        <asp:TableRow>
             <asp:TableHeaderCell ID="lastNameLabel">Last name <span style="COLOR: red">(required)</span></asp:TableHeaderCell><asp:TableCell>
                 <asp:TextBox ID="lastName" runat="server" MaxLength="50" />
             </asp:TableCell>
@@ -125,7 +128,7 @@
     <hr />
     <asp:Table ID="DeliveryNotificationTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
-            <asp:TableHeaderCell >Delivery notification list</asp:TableHeaderCell>
+            <asp:TableHeaderCell >Delivery notification</asp:TableHeaderCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
@@ -153,6 +156,9 @@
     </asp:Table>
     <hr />
     <asp:Table ID="ExportTable" runat="server" CellSpacing="10" Visible="false">
+        <asp:TableRow>
+            <asp:TableHeaderCell >Export data</asp:TableHeaderCell>
+        </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
                 <asp:Button ID="ExportEmployeeButton" runat="server" Text="Export employees" OnClick="ExportEmployeesButton_Click" />
