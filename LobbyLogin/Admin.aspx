@@ -60,7 +60,7 @@
             </asp:TableCell><asp:TableHeaderCell ID="addEmployeeErrorMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
-    <hr />
+    <br />
     <asp:Table ID="RemoveEmployeeTable" runat="server" CellSpacing="10" Visible="false">
         <asp:TableRow>
             <asp:TableCell>

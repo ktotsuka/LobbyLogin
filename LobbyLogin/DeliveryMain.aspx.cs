@@ -82,7 +82,7 @@ namespace LobbyLogin
                 addresses = GetPhoneEmailAddresses(numeric_phone_number);
                 addresses.Add(e.Employee.EmailAddress);
 
-                //SendEmail(addresses, message);
+                SendEmail(addresses, message);
             }
             Response.Redirect("DeliveryThankYou.aspx");
         }

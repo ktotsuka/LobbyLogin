@@ -22,14 +22,15 @@
     <br>
     <asp:RadioButton ID="ForkLiftNotRequiredRadioButton" runat="server" GroupName="forklift-required" Text="Other" Font-Size="X-Large"  />
     <br>
+    <br>
 
     <asp:Table runat="server">
         <asp:TableRow>
             <asp:TableHeaderCell Font-Size="Large">&nbsp &nbsp &nbsp</asp:TableHeaderCell>
             <asp:TableCell>
-                <asp:Button ID="notifyButton" runat="server" Text="Notify" Width="100" Height="100" OnClick="NotifyButton_Click" Font-Size="XX-Large" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait';" />
+                <asp:Button ID="notifyButton" runat="server" Text="Notify" Width="200" Height="100" OnClick="NotifyButton_Click" Font-Size="XX-Large" UseSubmitBehavior="false" OnClientClick="this.disabled='true'; this.value='please wait';" />
             </asp:TableCell>
-            <asp:TableHeaderCell ID="notifyMessage" runat="server" HorizontalAlign="Left" ForeColor="Red"></asp:TableHeaderCell>
+            <asp:TableHeaderCell ID="notifyMessage" runat="server" HorizontalAlign="Left" ForeColor="Red" Font-Size="Large"></asp:TableHeaderCell>
         </asp:TableRow>
     </asp:Table>
 </asp:Content>
