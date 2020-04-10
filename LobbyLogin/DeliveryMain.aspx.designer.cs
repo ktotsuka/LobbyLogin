@@ -15,6 +15,42 @@ namespace LobbyLogin
     {
 
         /// <summary>
+        /// PickUpRadioButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton PickUpRadioButton;
+
+        /// <summary>
+        /// DropOffRadioButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton DropOffRadioButton;
+
+        /// <summary>
+        /// ForkLiftRequiredRadioButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton ForkLiftRequiredRadioButton;
+
+        /// <summary>
+        /// ForkLiftNotRequiredRadioButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton ForkLiftNotRequiredRadioButton;
+
+        /// <summary>
         /// notifyButton control.
         /// </summary>
         /// <remarks>
@@ -22,5 +58,14 @@ namespace LobbyLogin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button notifyButton;
+
+        /// <summary>
+        /// notifyMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell notifyMessage;
     }
 }

@@ -21,17 +21,68 @@ namespace LobbyLogin
 
         protected void NotifyButton_Click(object sender, EventArgs e)
         {
-            List<string> addresses;
-            string message;
-
-            foreach (Employee delivery_employee in VisitDataBase.GeneralEmployee.DeliveryEmployees)
+            if (InputValid())
             {
-                string numeric_phone_number = new String(delivery_employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
-                addresses = GetPhoneEmailAddresses(numeric_phone_number);
-                addresses.Add(delivery_employee.EmailAddress);
+                string message = CreateNoticeMessage();
+                SendDeliveryNotice(message);
+            }
+            else
+            {
+                notifyMessage.Text = "Please make selections";
+            }
+        }
 
-                message = $"delivery notice at the back";
-                SendEmail(addresses, message);
+        private bool InputValid()
+        {
+            if (!PickUpRadioButton.Checked && !DropOffRadioButton.Checked)
+            {
+                return false;
+            }
+            if (!ForkLiftRequiredRadioButton.Checked && !ForkLiftNotRequiredRadioButton.Checked)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private string CreateNoticeMessage()
+        {
+            string message = "Delivery notic: ";
+
+            if (PickUpRadioButton.Checked)
+            {
+                message += "Pick-up, ";
+            }
+            else
+            {
+                message += "Drop-off, ";
+            }
+
+            if (ForkLiftRequiredRadioButton.Checked)
+            {
+                message += "Forklift required";
+            }
+            else
+            {
+                message += "Forklift not required";
+            }
+
+            return message;
+        }
+
+        private void SendDeliveryNotice(string message)
+        {
+            List<string> addresses;
+            List<EmployeeWrapper> employees = ReadEmployeesFromFile(DeliveryNotificationListFileLocation);
+
+            foreach (EmployeeWrapper e in employees)
+            {
+                string numeric_phone_number = new String(e.Employee.CellPhoneNumber.Where(Char.IsDigit).ToArray());
+                addresses = GetPhoneEmailAddresses(numeric_phone_number);
+                addresses.Add(e.Employee.EmailAddress);
+
+                //SendEmail(addresses, message);
             }
             Response.Redirect("DeliveryThankYou.aspx");
         }

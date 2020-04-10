@@ -218,39 +218,7 @@ namespace LobbyLogin
                     throw;
                 }
             }
-        }
-
-        private List<EmployeeWrapper> ReadEmployeesFromFile(string file_name)
-        {
-            string[] Lines = File.ReadAllLines(file_name);
-            string[] Fields;
-
-            //Remove Header line
-            Lines = Lines.Skip(1).ToArray();
-            List<EmployeeWrapper> employees = new List<EmployeeWrapper>();
-            foreach (var line in Lines)
-            {
-                Fields = line.Split(new char[] { ',' });
-                if (Fields.Count() != EmployeeNumOfFields)
-                {
-                    throw new System.InvalidOperationException("Invalid number of fields");
-                }
-                Employee employee = new Employee
-                {
-                    LastName = Fields[0].Replace("\"", ""),
-                    FirstName = Fields[1].Replace("\"", ""),
-                    EmailAddress = Fields[2].Replace("\"", ""),
-                    CellPhoneNumber = Fields[3].Replace("\"", "")
-                };
-                employees.Add(
-                    new EmployeeWrapper
-                    {
-                        Employee = employee,
-                        Id = GetEmployeeId(employee)
-                    });
-            }
-            return employees;
-        }
+        }        
 
         protected void ImportVisitorsButton_Click(object sender, EventArgs e)
         {
